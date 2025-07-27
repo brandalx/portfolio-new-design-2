@@ -1,17 +1,13 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
-export async function GET(
-  req: Request,
-  {
-    params,
-  }: { params: { category: string; subcategory: string; project: string } }
-) {
+export async function GET(req: Request, context: any) {
+  const { params } = context;
   const { category, subcategory, project } = params;
   const folder = `${category}/${subcategory}/${project}`;
   const { searchParams } = new URL(req.url);
-  const cursor = searchParams.get("cursor") || undefined; // Get next_cursor for pagination
-  const limit = parseInt(searchParams.get("limit") || "50"); // Default to 50 images per request
+  const cursor = searchParams.get("cursor") || undefined;
+  const limit = parseInt(searchParams.get("limit") || "50");
 
   try {
     const result = await axios.post(
@@ -20,7 +16,7 @@ export async function GET(
         expression: `folder=${folder}`,
         sort_by: [{ created_at: "asc" }],
         max_results: limit,
-        next_cursor: cursor, // Support pagination
+        next_cursor: cursor,
         with_field: ["context"],
       },
       {
@@ -33,7 +29,7 @@ export async function GET(
 
     return NextResponse.json({
       resources: result.data.resources,
-      next_cursor: result.data.next_cursor, // Return next_cursor for pagination
+      next_cursor: result.data.next_cursor,
     });
   } catch (err: any) {
     console.error(
