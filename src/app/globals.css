@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Gloria DL v1 AAA Light";
+  src: url("../../public//assets/file2.woff2");
+}
+
+@font-face {
+  font-family: "Gloria DL v1 AAA";
+  src: url("../../public//assets/file.woff2");
+}
+
+.glor-l {
+  font-family: "Gloria DL v1 AAA Light";
+}
+.glor-b {
+  font-family: "Gloria DL v1 AAA";
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -1,10 +1,11 @@
 import Portfolio from "@/components/portfolio/portfolio";
-import Image from "next/image";
+
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
+      <h1 className="glor-b">Portfolio</h1>
       <Portfolio />
       <section id="contact" className="py-12">
         <div className="mx-auto max-w-7xl px-4">

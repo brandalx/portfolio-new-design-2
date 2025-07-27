@@ -222,14 +222,14 @@ const SingleProject = () => {
           </div>
         )}
 
-        {process.env.NODE_ENV === "development" && (
+        {/* {process.env.NODE_ENV === "development" && (
           <div className="mt-8">
             <h3 className="text-xl font-bold">Debug: Project Data</h3>
             <pre className="bg-gray-100 p-4 rounded">
               {JSON.stringify(projectData, null, 2)}
             </pre>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
