@@ -6,7 +6,11 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <h1 className="glor-b">Portfolio</h1>
+      <div className="min-h-[80px]">
+        <h1 className="mt-[80px] lg:text-6xl text-4xl font-bold glor-b capitalize text-center ">
+          Portfolio
+        </h1>
+      </div>
       <div>
         <Available />
       </div>

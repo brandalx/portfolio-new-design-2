@@ -8,6 +8,7 @@ import "yet-another-react-lightbox/styles.css";
 import { v4 as uuidv4 } from "uuid";
 import AOSInit from "@/components/AOSInit";
 import { Skeleton } from "@/components/ui/skeleton";
+import PhotoGallery from "../PhotoGallery";
 
 type ProjectImage = {
   secure_url: string;

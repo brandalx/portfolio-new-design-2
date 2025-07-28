@@ -67,7 +67,7 @@ export default function PhotographyPage() {
               <li
                 key={id}
                 onClick={() => handleCategoryClick(item)}
-                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
+                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black text-white glor-l rounded-full hover:bg-black/80 hover:text-white border hover:border-black transition-all  ${
                   item === category ? "font-semibold underline" : ""
                 }`}
               >

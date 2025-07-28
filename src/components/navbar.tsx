@@ -66,7 +66,7 @@ export default function Navbar() {
                       <NavigationMenuTrigger
                         className={cn(
                           pathname === item.href
-                            ? "text-foreground"
+                            ? "text-foreground "
                             : "text-muted-foreground",
                           "hover:text-foreground"
                         )}
@@ -74,7 +74,7 @@ export default function Navbar() {
                         {item.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="">
-                        <ul className=" gap-4 text-nowrap px-2 py-1 backdrop-blur-lg bg-black">
+                        <ul className=" text-current z-[9999] bg-white dark:bg-black gap-4 text-nowrap  px-2 py-1  ">
                           {item.subItems.map((subItem) => (
                             <li key={subItem.href}>
                               <NavigationMenuLink asChild>

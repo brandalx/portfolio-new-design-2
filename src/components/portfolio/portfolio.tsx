@@ -75,7 +75,9 @@ export default function Portfolio({ className }: { className?: string }) {
     <section id="portfolio" className={`py-12 ${className}`}>
       <div className="mx-auto max-w-7xl-none px-4-none">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold">Works & Projects</h2>
+          <h2 className="lg:text-6xl text-4xl font-bold glor-b capitalize text-center">
+            Works & Projects
+          </h2>
           <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
             Check out some of my design projects, meticulously crafted with love
             and dedication, each one reflecting the passion and soul I poured
@@ -89,7 +91,7 @@ export default function Portfolio({ className }: { className?: string }) {
               <li
                 key={id}
                 onClick={() => handleCategoryClick(item)}
-                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
+                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black text-white glor-l rounded-full hover:bg-black/80 hover:text-white border hover:border-black transition-all ${
                   item === category ? " font-semibold underline" : ""
                 }`}
               >
@@ -107,7 +109,7 @@ export default function Portfolio({ className }: { className?: string }) {
                   <li
                     key={id}
                     onClick={() => handleSubcategoryClick(item)}
-                    className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
+                    className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black text-white glor-l rounded-full hover:bg-black/80 hover:text-white border hover:border-black transition-all  ${
                       item === subcategory ? " font-semibold underline" : ""
                     }`}
                   >
