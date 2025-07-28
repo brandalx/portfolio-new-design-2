@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { RiArrowRightUpLine } from "@remixicon/react";
-
+import AOSInit from "@/components/AOSInit";
 type Project = {
   name: string;
   cover: string;
@@ -116,7 +116,7 @@ export default function Portfolio({ className }: { className?: string }) {
             </ul>
           )}
         </div>
-
+        <AOSInit />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
             <Card
@@ -148,7 +148,7 @@ const Card = ({
   id: number;
 }) => {
   return (
-    <div className="relative">
+    <div className="relative" data-aos="fade-up">
       <div className="overflow-hidden rounded-lg">
         <img
           width={383}

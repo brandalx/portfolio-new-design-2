@@ -3,7 +3,9 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import useScrollDown from "@/hooks/useScrollDown";
-
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css"; // Import lightbox styles
+import AOSInit from "@/components/AOSInit";
 type ProjectImage = {
   secure_url: string;
   public_id: string;
@@ -36,7 +38,17 @@ const SingleProject = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const imagesPerPage = 12;
+
+  // Map images to lightbox slides format
+  const photos = images.map((img) => ({
+    src: `${img.secure_url}?f_auto,q_auto,w_1200,h_1200`,
+    alt: img.public_id,
+    width: 1200,
+    height: 1200,
+  }));
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -106,6 +118,7 @@ const SingleProject = () => {
 
   return (
     <div>
+      <AOSInit />
       <div className="mx-auto max-w-7xl px-4 py-8 text-center">
         <p className="text-sm text-gray-500">{category}</p>
         <h1 className="mt-2 text-4xl font-bold">
@@ -201,9 +214,17 @@ const SingleProject = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-          {images.slice(1).map((img) => (
-            <div key={img.asset_id}>
+          {images.slice(1).map((img, index) => (
+            <div
+              key={img.asset_id}
+              onClick={() => {
+                setSelectedIndex(index + 1); // Adjust for slice(1)
+                setLightboxOpen(true);
+              }}
+              className="cursor-pointer"
+            >
               <img
+                data-aos="fade-up"
                 src={`${img.secure_url}?f_auto,q_auto,w_633,h_679`}
                 alt={img.public_id}
                 width={633}
@@ -216,20 +237,31 @@ const SingleProject = () => {
           ))}
         </div>
 
+        <Lightbox
+          open={lightboxOpen}
+          close={() => setLightboxOpen(false)}
+          slides={photos}
+          index={selectedIndex}
+          render={{
+            slide: ({ slide }) => (
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            ),
+          }}
+        />
+
         {isLoading && (
           <div className="text-center mt-8">
             <p className="text-gray-600">Loading images...</p>
           </div>
         )}
-
-        {/* {process.env.NODE_ENV === "development" && (
-          <div className="mt-8">
-            <h3 className="text-xl font-bold">Debug: Project Data</h3>
-            <pre className="bg-gray-100 p-4 rounded">
-              {JSON.stringify(projectData, null, 2)}
-            </pre>
-          </div>
-        )} */}
       </div>
     </div>
   );

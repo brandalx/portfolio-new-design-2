@@ -1,4 +1,4 @@
-import Portfolio from "@/components/portfolio/portfolio";
+import Portfolio from "../components/portfolio/portfolio";
 
 import Link from "next/link";
 

@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/providers/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle/mode-toggle";
+import { ThemeProvider } from "../providers/theme-provider";
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import Navbar from "@/components/navbar";
+import { Toaster } from "sonner";
+import { FloatingNavDemo } from "@/components/floatingnav";
+import CookieConsenInitilizer from "@/components/cookieconsent";
+import ScrollProgressDemo from "@/components/ScrollProgressDemo";
+import ScrollToTopButton from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,15 +39,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ModeToggle />
-          {children}
-        </ThemeProvider>
+        <div className=" wrapper">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
+            <div>
+              <ScrollProgressDemo /> <ScrollToTopButton />
+            </div>
+            {children} <Toaster position="bottom-right" />
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );

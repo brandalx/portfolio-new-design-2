@@ -43,7 +43,7 @@ export default function PortraitsProjectsPage() {
         {projects.map((project) => (
           <div key={project.name}>
             <Link
-              href={`/photography/architecture/${project.name}`}
+              href={`/design/design3ds/${project.name}`}
               className="no-underline"
             >
               <div className="bg-white rounded-lg shadow-sm overflow-hidden">
