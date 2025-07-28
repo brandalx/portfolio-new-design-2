@@ -5,27 +5,41 @@ const useScrollDown = (
   isLoading: boolean,
   hasMore: boolean
 ) => {
-  const lastCalled = useRef(0);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = useCallback(() => {
-    if (isLoading || !hasMore) return;
-
-    const now = Date.now();
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const bottomPosition = document.documentElement.offsetHeight - 100;
-
-    // 1. Throttle: Only allow callback every 700ms
-    // 2. Trigger only if near bottom
-    if (scrollPosition >= bottomPosition && now - lastCalled.current > 2000) {
-      lastCalled.current = now;
-      callback();
-    }
-  }, [callback, isLoading, hasMore]);
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && !isLoading && hasMore) {
+        callback();
+      }
+    },
+    [callback, isLoading, hasMore]
+  );
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: null, // Use viewport as root
+      rootMargin: "600px", // Trigger when 600px from the sentinel
+      threshold: 0, // Trigger as soon as sentinel is visible
+    });
+
+    if (sentinelRef.current) {
+      observerRef.current.observe(sentinelRef.current);
+    }
+
+    return () => {
+      if (sentinelRef.current && observerRef.current) {
+        observerRef.current.unobserve(sentinelRef.current);
+      }
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [handleObserver]);
+
+  return sentinelRef; // Return ref to attach to the sentinel element
 };
 
 export default useScrollDown;

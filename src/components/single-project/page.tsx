@@ -1,14 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, usePathname } from "next/navigation";
-import useScrollDown from "@/hooks/useScrollDown";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { v4 as uuidv4 } from "uuid";
 import AOSInit from "@/components/AOSInit";
 import { Skeleton } from "@/components/ui/skeleton";
-import PhotoGallery from "../PhotoGallery";
 
 type ProjectImage = {
   secure_url: string;
@@ -34,6 +32,49 @@ type Project = {
   images?: ProjectImage[];
 };
 
+// Updated useScrollDown hook using IntersectionObserver
+const useScrollDown = (
+  callback: () => void,
+  isLoading: boolean,
+  hasMore: boolean
+) => {
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && !isLoading && hasMore) {
+        callback();
+      }
+    },
+    [callback, isLoading, hasMore]
+  );
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: null, // Use viewport as root
+      rootMargin: "600px", // Trigger when 600px from the sentinel
+      threshold: 0, // Trigger as soon as sentinel is visible
+    });
+
+    if (sentinelRef.current) {
+      observerRef.current.observe(sentinelRef.current);
+    }
+
+    return () => {
+      if (sentinelRef.current && observerRef.current) {
+        observerRef.current.unobserve(sentinelRef.current);
+      }
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [handleObserver]);
+
+  return sentinelRef; // Return ref to attach to the sentinel element
+};
+
 const SingleProject = () => {
   const { project } = useParams() as { project: string };
   const pathname = usePathname();
@@ -44,7 +85,7 @@ const SingleProject = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const imagesPerPage = 12;
+  const imagesPerPage = 6;
 
   const photos = images.map((img) => ({
     src: `${img.secure_url}?f_auto,q_auto,w_1200,h_1200`,
@@ -80,8 +121,7 @@ const SingleProject = () => {
         setProjectData(projectInfo);
         setImages(projectInfo.images?.slice(0, imagesPerPage) || []);
       } catch (err) {
-        //@ts-expect-error - no error
-        console.error("Error fetching project:", err.message);
+        console.error("Error fetching project:", (err as Error).message);
         setError("Failed to load project data. Please try again later.");
       } finally {
         setIsLoading(false);
@@ -91,9 +131,9 @@ const SingleProject = () => {
     fetchProject();
   }, [project, pathname]);
 
-  useScrollDown(
+  const sentinelRef = useScrollDown(
     () => {
-      if (projectData && images.length < projectData.images!.length) {
+      if (projectData && images.length < (projectData.images?.length || 0)) {
         const nextImages = projectData.images!.slice(
           images.length,
           images.length + imagesPerPage
@@ -103,7 +143,7 @@ const SingleProject = () => {
       }
     },
     isLoading,
-    projectData ? images.length < projectData.images!.length : false
+    projectData ? images.length < (projectData.images?.length || 0) : false
   );
 
   if (isLoading || error || !projectData) {
@@ -162,7 +202,7 @@ const SingleProject = () => {
         </h1>
       </div>
 
-      {projectData.cover && category != "PHOTOGRAPHY" && (
+      {projectData.cover && category !== "PHOTOGRAPHY" && (
         <div className="mx-auto max-w-7xl-none px-4-none">
           <img
             src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
@@ -290,7 +330,7 @@ const SingleProject = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
           {images.slice(1).map((img, index) => (
             <div
-              key={uuidv4()}
+              key={img.public_id} // Use public_id as key for stability
               onClick={() => {
                 setSelectedIndex(index + 1);
                 setLightboxOpen(true);
@@ -309,6 +349,8 @@ const SingleProject = () => {
             </div>
           ))}
         </div>
+
+        <div ref={sentinelRef} className="h-1" />
 
         <Lightbox
           open={lightboxOpen}
