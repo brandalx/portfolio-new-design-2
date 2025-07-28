@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import useScrollDown from "@/hooks/useScrollDown";
 import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css"; // Import lightbox styles
+import "yet-another-react-lightbox/styles.css";
 import { v4 as uuidv4 } from "uuid";
 import AOSInit from "@/components/AOSInit";
+import { Skeleton } from "@/components/ui/skeleton";
+
 type ProjectImage = {
   secure_url: string;
   public_id: string;
@@ -43,7 +45,6 @@ const SingleProject = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const imagesPerPage = 12;
 
-  // Map images to lightbox slides format
   const photos = images.map((img) => ({
     src: `${img.secure_url}?f_auto,q_auto,w_1200,h_1200`,
     alt: img.public_id,
@@ -104,13 +105,47 @@ const SingleProject = () => {
     projectData ? images.length < projectData.images!.length : false
   );
 
-  if (error || !projectData) {
+  if (isLoading || error || !projectData) {
     return (
-      <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
-        <h1 className="text-3xl font-bold">Project Not Found</h1>
-        <p className="mt-2 text-gray-600">
-          {error || "Please check the URL or try another project."}
-        </p>
+      <div>
+        <AOSInit />
+        <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
+          <Skeleton className="h-6 w-32 mx-auto mb-2" />
+          <Skeleton className="h-10 w-64 mx-auto" />
+        </div>
+
+        <div className="mx-auto max-w-7xl-none px-4-none">
+          <Skeleton className="w-full h-[500px] md:h-[600px] lg:h-[700px]" />
+        </div>
+
+        <div className="mx-auto max-w-7xl-none px-4-none py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1 space-y-6">
+              {[...Array(5)].map((_, index) => (
+                <div key={index}>
+                  <Skeleton className="h-4 w-20 mb-2" />
+                  <Skeleton className="h-6 w-40" />
+                </div>
+              ))}
+            </div>
+
+            <div className="lg:col-span-2">
+              <Skeleton className="h-8 w-48 mb-4" />
+              <Skeleton className="h-4 w-full mb-2" />
+              <Skeleton className="h-4 w-3/4 mb-2" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            {[...Array(6)].map((_, index) => (
+              <Skeleton
+                key={index}
+                className="w-full h-[300px] md:h-[400px] lg:h-[500px]"
+              />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
@@ -119,7 +154,6 @@ const SingleProject = () => {
 
   return (
     <div>
-      <AOSInit />
       <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
         <p className="text-sm text-gray-500">{category}</p>
         <h1 className="mt-2 text-4xl font-bold">
@@ -129,15 +163,10 @@ const SingleProject = () => {
 
       {projectData.cover && (
         <div className="mx-auto max-w-7xl-none px-4-none">
-          <Image
+          <img
             src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
             alt={projectData.name}
-            width={1095}
-            height={1072}
             className="w-full h-auto"
-            sizes="100vw"
-            quality={75}
-            priority
           />
         </div>
       )}
@@ -219,13 +248,12 @@ const SingleProject = () => {
             <div
               key={uuidv4()}
               onClick={() => {
-                setSelectedIndex(index + 1); // Adjust for slice(1)
+                setSelectedIndex(index + 1);
                 setLightboxOpen(true);
               }}
               className="cursor-pointer"
             >
               <img
-                data-aos="fade-up"
                 src={`${img.secure_url}?f_auto,q_auto,w_633,h_679`}
                 alt={img.public_id}
                 width={633}
@@ -260,7 +288,7 @@ const SingleProject = () => {
 
         {isLoading && (
           <div className="text-center mt-8">
-            <p className="text-gray-600">Loading images...</p>
+            <Skeleton className="h-6 w-32 mx-auto" />
           </div>
         )}
       </div>

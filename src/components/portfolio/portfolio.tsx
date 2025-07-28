@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { RiArrowRightUpLine } from "@remixicon/react";
-import AOSInit from "@/components/AOSInit";
+
+import ImageCard from "../ImageCard";
 type Project = {
   name: string;
   cover: string;
@@ -116,7 +117,7 @@ export default function Portfolio({ className }: { className?: string }) {
             </ul>
           )}
         </div>
-        <AOSInit />
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
             <Card
@@ -148,27 +149,11 @@ const Card = ({
   id: number;
 }) => {
   return (
-    <div className="relative" data-aos="fade-up">
-      <div className="overflow-hidden rounded-lg">
-        <img
-          width={383}
-          height={249}
-          sizes="100vw"
-          className="w-full h-auto object-cover"
-          src={src}
-          alt={title}
-        />
-        <Link
-          href={`/${category}/${subcategory}/${title}`}
-          className="absolute top-2 right-2 p-2 bg-white rounded-full shadow hover:bg-gray-100"
-        >
-          <RiArrowRightUpLine className="w-6 h-6" />
-        </Link>
-      </div>
-      <div className="mt-4">
-        <span className="text-sm text-gray-500">{subcategory}</span>
-        <h3 className="text-lg font-semibold">{title}</h3>
-      </div>
-    </div>
+    <ImageCard
+      src={src}
+      title={title}
+      category={category}
+      subcategory={subcategory}
+    />
   );
 };

@@ -16,14 +16,14 @@ export function FloatingNavDemo() {
   const navItems = [
     {
       name: "Photography",
-      link: "/projects",
+      link: "/photography",
       icon: (
         <IconPhoto className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
       ),
     },
     {
       name: "Design",
-      link: "/about",
+      link: "/design",
       icon: (
         <IconColorSwatch className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
       ),

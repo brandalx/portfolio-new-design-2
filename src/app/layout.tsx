@@ -12,6 +12,7 @@ import CookieConsenInitilizer from "@/components/cookieconsent";
 import ScrollProgressDemo from "@/components/ScrollProgressDemo";
 import ScrollToTopButton from "@/components/ScrollToTop";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,7 +54,8 @@ export default function RootLayout({
               <div>
                 <ScrollProgressDemo /> <ScrollToTopButton />
               </div>
-              {children} <Toaster position="bottom-right" />
+              {children}
+              <Footer /> <Toaster position="bottom-right" />
             </ThemeProvider>
           </div>{" "}
         </MaxWidthWrapper>
