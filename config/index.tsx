@@ -36,6 +36,18 @@ export const NAVIGATION = [
     title: "Design",
     href: "/design",
     icon: <IconPalette className="h-5 w-5" />,
+    subItems: [
+      {
+        title: "2D Design",
+        href: "/design/design2d",
+        icon: <IconBrush className="h-5 w-5" />,
+      },
+      {
+        title: "3D Design",
+        href: "/design/design3d",
+        icon: <Icon3dCubeSphere className="h-5 w-5" />,
+      },
+    ],
   },
   {
     special: false,
@@ -57,6 +69,18 @@ export const NAVIGATION = [
     title: "Photography",
     href: "/photography",
     icon: <IconPhoto className="h-5 w-5" />,
+    subItems: [
+      {
+        title: "Architecture",
+        href: "/photography/architecture",
+        icon: <IconBuilding className="h-5 w-5" />,
+      },
+      {
+        title: "Portraits",
+        href: "/photography/portraits",
+        icon: <IconUser className="h-5 w-5" />,
+      },
+    ],
   },
   {
     special: false,
@@ -86,7 +110,6 @@ export const NAVIGATION = [
     href: "/contacts",
     icon: <IconPhoneCall className="h-5 w-5" />,
   },
-  //contact is included in the navigation by contact-form.tsx
 ];
 
 // export const PROJECTS: Project[] = [

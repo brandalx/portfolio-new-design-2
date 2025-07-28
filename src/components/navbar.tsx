@@ -9,28 +9,32 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { Menu, Square } from "lucide-react";
-
+import { Menu } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
-import { NAVIGATION } from "../../config";
 import { cn } from "../lib/utils";
 import { MyCommandDialog } from "./my-command-dialog";
 import Image from "next/image";
 import navbarimg from "../../public/assets/myavatar.webp";
 import ModeToggle from "./Switcher";
 import { TextEffect } from "./text-effect";
+import { NAVIGATION } from "../../config";
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
     <div>
-      {" "}
-      <header
-        className="page-header bg-opacity-0	 top-0 flex h-16 items-center gap-4  mx-auto w-full  
-    z-50 navbarmain "
-      >
-        <nav className="hidden   flex-col  md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
+      <header className="page-header bg-opacity-0 top-0 flex h-16 items-center gap-4 mx-auto w-full z-50 navbarmain">
+        <nav className="hidden flex-col md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Image
               alt="Image"
@@ -40,76 +44,95 @@ export default function Navbar() {
               quality={100}
               src={navbarimg}
             />
-            <div
-              className="ms-2 mt-1 hidden lg:flex lg:flex-col lg:items-start [900px]:block
-  "
-            >
-              <b className=" mt-2 align-self-baseline  glor-b  "> Brandon</b>
-
+            <div className="ms-2 mt-1 hidden lg:flex lg:flex-col lg:items-start [900px]:block">
+              <b className="mt-2 align-self-baseline glor-b">Brandon</b>
               <TextEffect
                 as="p"
                 preset="fade"
                 per="char"
-                className="text-muted-foreground glor-l  text-xs"
+                className="text-muted-foreground glor-l text-xs"
                 delay={0.3}
               >
                 Designer, photographer, editor, developer based in Canada
               </TextEffect>
             </div>
           </Link>
-          <div className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:justify-between md:gap-5 md:text-sm lg:gap-6">
-            {NAVIGATION.map((item) =>
-              item.topbar === true && item.special !== true ? (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "hover:text-foreground flex items-center gap-x-2",
-                    pathname === item.href
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {/* <span> {item.icon}</span>  */}
-                  {item.title}
-                </Link>
-              ) : (
-                item.topbar === true &&
-                item.special === true && (
-                  <Link
-                    target="_blank"
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "hover:text-blue-500  transition-all text-blue-600  flex items-center gap-x-2",
-                      pathname === item.href
-                        ? "text-blue-600 font-bold"
-                        : "text-blue-600"
-                    )}
-                  >
-                    {/* <span> {item.icon}</span>  */}
-                    {item.title}
-                  </Link>
-                )
-              )
-            )}
-            {/* <ContactForm>
-            <p
-              role="button"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Contact
-            </p>
-          </ContactForm> */}
-            <div className="flex gap-1">
-              <ModeToggle />
-              <MyCommandDialog />
-            </div>
-          </div>
+          <NavigationMenu viewport={false}>
+            <NavigationMenuList>
+              {NAVIGATION.map((item) =>
+                item.topbar ? (
+                  item.subItems ? (
+                    <NavigationMenuItem key={item.href}>
+                      <NavigationMenuTrigger
+                        className={cn(
+                          pathname === item.href
+                            ? "text-foreground"
+                            : "text-muted-foreground",
+                          "hover:text-foreground"
+                        )}
+                      >
+                        {item.title}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent className="">
+                        <ul className=" gap-4 text-nowrap px-2 py-1 backdrop-blur-lg bg-black">
+                          {item.subItems.map((subItem) => (
+                            <li key={subItem.href}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={subItem.href}
+                                  className={cn(
+                                    "flex  gap-2",
+                                    pathname === subItem.href
+                                      ? "text-foreground"
+                                      : "text-muted-foreground hover:text-foreground"
+                                  )}
+                                >
+                                  <div className="flex items-center gap-x-2">
+                                    {" "}
+                                    {subItem.icon}
+                                    {subItem.title}
+                                  </div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  ) : (
+                    <NavigationMenuItem key={item.href}>
+                      <NavigationMenuLink
+                        asChild
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          item.special
+                            ? "text-blue-600 hover:text-blue-500"
+                            : "",
+                          pathname === item.href
+                            ? item.special
+                              ? "text-blue-600 font-bold"
+                              : "text-foreground"
+                            : "text-muted-foreground"
+                        )}
+                      >
+                        <Link href={item.href}>{item.title}</Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )
+                ) : null
+              )}
+              <NavigationMenuItem>
+                <div className="flex gap-1">
+                  <ModeToggle />
+                  <MyCommandDialog />
+                </div>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </nav>
         <Sheet>
-          <div className="w-full  md:hidden justify-between flex items-center">
-            <Link href="/" className=" gap-2 font-semibold w-fit ">
+          <div className="w-full md:hidden justify-between flex items-center">
+            <Link href="/" className="gap-2 font-semibold w-fit">
               <Image
                 alt="Image"
                 className="group-hover:scale-105 transition-all"
@@ -148,23 +171,20 @@ export default function Navbar() {
                         : "text-muted-foreground"
                     )}
                   >
-                    {/* <span> {item.icon}</span> */}
+                    {item.icon}
                     {item.title}
                   </Link>
                 </SheetClose>
               ))}
-              {/* <ContactForm>
-              <p
-                role="button"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Contact
-              </p>
-            </ContactForm> */}
             </nav>
           </SheetContent>
         </Sheet>
       </header>
+      <style jsx>{`
+        [data-radix-popper-content-wrapper] {
+          transform-origin: top center !important;
+        }
+      `}</style>
     </div>
   );
 }
