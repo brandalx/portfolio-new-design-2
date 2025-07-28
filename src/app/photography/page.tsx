@@ -4,7 +4,7 @@ import React from "react";
 const Page = () => {
   return (
     <section id="contact" className="py-12">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl-none px-4-none">
         <div className="space-y-4">
           <div>
             <Link

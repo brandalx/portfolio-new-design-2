@@ -3,8 +3,10 @@ import React from "react";
 import { FloatingNav } from "./floating-navbar";
 import {
   IconBriefcase,
+  IconColorSwatch,
   IconHome,
   IconMessage,
+  IconPhoto,
   IconPrinter,
   IconShoppingBag,
   IconTextCaption,
@@ -13,24 +15,24 @@ import {
 export function FloatingNavDemo() {
   const navItems = [
     {
-      name: "Projects",
+      name: "Photography",
       link: "/projects",
       icon: (
-        <IconBriefcase className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
+        <IconPhoto className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
+      ),
+    },
+    {
+      name: "Design",
+      link: "/about",
+      icon: (
+        <IconColorSwatch className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
       ),
     },
     {
       name: "About",
       link: "/about",
       icon: (
-        <IconUser className="h-4 w-4 text-white hover:text-gray-500 transition-all " />
-      ),
-    },
-    {
-      name: "Resume",
-      link: "/resume",
-      icon: (
-        <IconTextCaption className="h-4 w-4 text-white hover:text-gray-500 transition-all" />
+        <IconUser className="h-4 w-4 text-white hover:text-gray-500 transition-all" />
       ),
     },
     // {

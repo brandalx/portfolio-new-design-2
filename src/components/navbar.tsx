@@ -28,7 +28,7 @@ export default function Navbar() {
       {" "}
       <header
         className="page-header bg-opacity-0	 top-0 flex h-16 items-center gap-4  mx-auto w-full  
- max-w-screen-xl px-6 md:px-20 z-50 navbarmain "
+    z-50 navbarmain "
       >
         <nav className="hidden   flex-col  md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
           <Link href="/" className="flex items-center gap-2 font-semibold">
@@ -53,26 +53,46 @@ export default function Navbar() {
                 className="text-muted-foreground glor-l  text-xs"
                 delay={0.3}
               >
-                Full stack Engineer
+                Designer, photographer, editor, developer based in Canada
               </TextEffect>
             </div>
           </Link>
           <div className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:justify-between md:gap-5 md:text-sm lg:gap-6">
-            {NAVIGATION.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "hover:text-foreground flex items-center gap-x-2",
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-                )}
-              >
-                {/* <span> {item.icon}</span>  */}
-                {item.title}
-              </Link>
-            ))}
+            {NAVIGATION.map((item) =>
+              item.topbar === true && item.special !== true ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "hover:text-foreground flex items-center gap-x-2",
+                    pathname === item.href
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {/* <span> {item.icon}</span>  */}
+                  {item.title}
+                </Link>
+              ) : (
+                item.topbar === true &&
+                item.special === true && (
+                  <Link
+                    target="_blank"
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "hover:text-blue-500  transition-all text-blue-600  flex items-center gap-x-2",
+                      pathname === item.href
+                        ? "text-blue-600 font-bold"
+                        : "text-blue-600"
+                    )}
+                  >
+                    {/* <span> {item.icon}</span>  */}
+                    {item.title}
+                  </Link>
+                )
+              )
+            )}
             {/* <ContactForm>
             <p
               role="button"

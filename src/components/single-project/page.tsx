@@ -5,6 +5,7 @@ import { useParams, usePathname } from "next/navigation";
 import useScrollDown from "@/hooks/useScrollDown";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css"; // Import lightbox styles
+import { v4 as uuidv4 } from "uuid";
 import AOSInit from "@/components/AOSInit";
 type ProjectImage = {
   secure_url: string;
@@ -105,7 +106,7 @@ const SingleProject = () => {
 
   if (error || !projectData) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-8 text-center">
+      <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
         <h1 className="text-3xl font-bold">Project Not Found</h1>
         <p className="mt-2 text-gray-600">
           {error || "Please check the URL or try another project."}
@@ -119,7 +120,7 @@ const SingleProject = () => {
   return (
     <div>
       <AOSInit />
-      <div className="mx-auto max-w-7xl px-4 py-8 text-center">
+      <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
         <p className="text-sm text-gray-500">{category}</p>
         <h1 className="mt-2 text-4xl font-bold">
           {projectData.title || projectData.name || "Untitled Project"}
@@ -127,7 +128,7 @@ const SingleProject = () => {
       </div>
 
       {projectData.cover && (
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl-none px-4-none">
           <Image
             src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
             alt={projectData.name}
@@ -141,7 +142,7 @@ const SingleProject = () => {
         </div>
       )}
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mx-auto max-w-7xl-none px-4-none py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="space-y-6">
@@ -216,7 +217,7 @@ const SingleProject = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
           {images.slice(1).map((img, index) => (
             <div
-              key={img.asset_id}
+              key={uuidv4()}
               onClick={() => {
                 setSelectedIndex(index + 1); // Adjust for slice(1)
                 setLightboxOpen(true);

@@ -11,6 +11,7 @@ import { FloatingNavDemo } from "@/components/floatingnav";
 import CookieConsenInitilizer from "@/components/cookieconsent";
 import ScrollProgressDemo from "@/components/ScrollProgressDemo";
 import ScrollToTopButton from "@/components/ScrollToTop";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,21 +40,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className=" wrapper">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
-            <div>
-              <ScrollProgressDemo /> <ScrollToTopButton />
-            </div>
-            {children} <Toaster position="bottom-right" />
-          </ThemeProvider>
-        </div>
+        <MaxWidthWrapper>
+          <div className=" wrapper">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
+              <div>
+                <ScrollProgressDemo /> <ScrollToTopButton />
+              </div>
+              {children} <Toaster position="bottom-right" />
+            </ThemeProvider>
+          </div>{" "}
+        </MaxWidthWrapper>
       </body>
     </html>
   );
