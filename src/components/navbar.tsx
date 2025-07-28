@@ -71,7 +71,7 @@ export default function Navbar() {
                           "hover:text-foreground"
                         )}
                       >
-                        {item.title}
+                        <Link href={item.href}> {item.title}</Link>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="">
                         <ul className=" text-current z-[9999] bg-white dark:bg-black gap-4 text-nowrap  px-2 py-1  ">
@@ -105,7 +105,7 @@ export default function Navbar() {
                         asChild
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          item.special
+                          item.special && item.topbar
                             ? "text-blue-600 hover:text-blue-500"
                             : "",
                           pathname === item.href

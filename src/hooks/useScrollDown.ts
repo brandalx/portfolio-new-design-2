@@ -10,7 +10,7 @@ const useScrollDown = (
 
     // Check if user is neare the bottom of the page
     const scrollPosition = window.innerHeight + window.scrollY;
-    const bottomPosition = document.documentElement.offsetHeight - 3840; // Trigger 100px before bottom
+    const bottomPosition = document.documentElement.offsetHeight - 3000; // Trigger 100px before bottom
 
     if (scrollPosition >= bottomPosition) {
       callback();
