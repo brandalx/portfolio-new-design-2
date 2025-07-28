@@ -1,13 +1,15 @@
 "use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import ImageCard from "@/components/ImageCard"; // Adjust the import path as needed
 
 type Project = {
   name: string;
   cover: string;
+  category: string;
+  subcategory: string;
 };
 
-export default function PortraitsProjectsPage() {
+export default function Design2DProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -16,18 +18,15 @@ export default function PortraitsProjectsPage() {
         const res = await fetch(
           process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json"
         );
-        if (!res.ok) throw new Error("Failed to fetch cached projects");
+        if (!res.ok) throw new Error("Failed to fetch projects");
         const data = await res.json();
-        const portraitProjects = data.filter(
+        const design2DProjects = data.filter(
           (project: Project) =>
-            //@ts-expect-error - no error
-            project.category === "design" &&
-            //@ts-expect-error - no error
-            project.subcategory === "design2d"
+            project.category === "design" && project.subcategory === "design2d"
         );
-        setProjects(portraitProjects);
+        setProjects(design2DProjects);
       } catch (error) {
-        console.error("Error fetching cached projects:", error);
+        console.error("Error fetching projects:", error);
       }
     };
 
@@ -35,33 +34,30 @@ export default function PortraitsProjectsPage() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl-none px-4-none py-8 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">
-        Architecture Photography Projects
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <div key={project.name}>
-            <Link
-              href={`/design/design2d/${project.name}`}
-              className="no-underline"
-            >
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <img
-                  src={project.cover}
-                  alt={project.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h5 className="text-lg font-semibold text-gray-900">
-                    {project.name}
-                  </h5>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+    <section className="py-12 min-h-screen">
+      <div className="mx-auto max-w-7xl-none px-4-none">
+        <div className="text-center mb-8">
+          <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
+            2D Design Projects
+          </h1>
+          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+            Explore my 2D design projects, crafted with creativity and precision
+            to bring ideas to life.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {projects.map((project, index) => (
+            <ImageCard
+              key={index}
+              src={project.cover}
+              title={project.name}
+              category={project.category}
+              subcategory={"2D Design"}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

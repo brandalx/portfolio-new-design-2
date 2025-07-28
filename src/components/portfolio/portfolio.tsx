@@ -89,7 +89,7 @@ export default function Portfolio({ className }: { className?: string }) {
               <li
                 key={id}
                 onClick={() => handleCategoryClick(item)}
-                className={`cursor-pointer px-4 py-2 rounded dark:bg-black dark:hover:bg-white/10 bg-black hover:bg-white border hover:border-black ${
+                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
                   item === category ? " font-semibold underline" : ""
                 }`}
               >
@@ -107,7 +107,7 @@ export default function Portfolio({ className }: { className?: string }) {
                   <li
                     key={id}
                     onClick={() => handleSubcategoryClick(item)}
-                    className={`cursor-pointer px-4 py-2 rounded dark:bg-black dark:hover:bg-white/10 bg-black hover:bg-white border hover:border-black ${
+                    className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
                       item === subcategory ? " font-semibold underline" : ""
                     }`}
                   >

@@ -1,5 +1,5 @@
 "use client";
-import React, { JSX, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -8,10 +8,15 @@ import {
 } from "motion/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { IconBrandTelegram, IconZoom } from "@tabler/icons-react";
+import {
+  IconBrandTelegram,
+  IconChevronUp,
+  IconZoom,
+} from "@tabler/icons-react";
 import { GlowingEffect } from "./glowing";
 import navbarimg from "../../public/assets/myavatar.webp";
 import Image from "next/image";
+import { Button } from "./ui/button";
 export const FloatingNav = ({
   navItems,
   className,
@@ -26,6 +31,14 @@ export const FloatingNav = ({
   const { scrollYProgress } = useScroll();
 
   const [visible, setVisible] = useState(false);
+
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // Handle scroll visibility for the "Back to Top" button
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
@@ -117,6 +130,13 @@ export const FloatingNav = ({
           </span>
           {/* <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" /> */}
         </Link>
+        <Button
+          variant={"ghost"}
+          className="rounded-full p-4"
+          onClick={scrollToTop}
+        >
+          <IconChevronUp className="h-4 w-4 " />
+        </Button>
       </motion.div>
     </AnimatePresence>
   );

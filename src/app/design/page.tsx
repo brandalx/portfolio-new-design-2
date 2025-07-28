@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ImageCard from "@/components/ImageCard";
+import ImageCard from "@/components/ImageCard"; // Adjust the import path as needed
 
 type Project = {
   name: string;
@@ -47,7 +47,7 @@ export default function DesignPage() {
     setCategory(item);
   };
 
-  // Map subcategory values to display names
+  // Map subcategory values to display names for UI
   const getDisplayName = (subcategory: string) => {
     if (subcategory === "All") return "All Designs";
     if (subcategory === "design2d") return "2D Design";
@@ -64,7 +64,9 @@ export default function DesignPage() {
     <section className="py-12 min-h-screen">
       <div className="mx-auto max-w-7xl-none px-4-none">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold">Design Projects</h1>
+          <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
+            Design Projects
+          </h1>
           <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
             Discover my design projects, crafted with creativity and precision
             to bring ideas to life.
@@ -77,7 +79,7 @@ export default function DesignPage() {
               <li
                 key={id}
                 onClick={() => handleCategoryClick(item)}
-                className={`cursor-pointer px-4 py-2 rounded dark:bg-black dark:hover:bg-white/10 bg-black hover:bg-white border hover:border-black ${
+                className={`cursor-pointer px-4 py-2  dark:bg-black dark:hover:bg-white/10 bg-black glor-l rounded-full hover:bg-white border hover:border-black ${
                   item === category ? "font-semibold underline" : ""
                 }`}
               >
@@ -87,14 +89,14 @@ export default function DesignPage() {
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredProjects.map((project, index) => (
             <ImageCard
               key={index}
               src={project.cover}
               title={project.name}
               category={project.category}
-              subcategory={getDisplayName(project.subcategory)}
+              subcategory={project.subcategory}
             />
           ))}
         </div>

@@ -156,50 +156,70 @@ const SingleProject = () => {
     <div>
       <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
         <p className="text-sm text-gray-500">{category}</p>
-        <h1 className="mt-2 text-4xl font-bold">
+        <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
           {projectData.title || projectData.name || "Untitled Project"}
         </h1>
       </div>
 
-      {projectData.cover && (
+      {projectData.cover && category != "PHOTOGRAPHY" && (
         <div className="mx-auto max-w-7xl-none px-4-none">
           <img
             src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
             alt={projectData.name}
-            className="w-full h-auto"
+            className="w-full h-auto rounded-lg"
           />
         </div>
       )}
 
       <div className="mx-auto max-w-7xl-none px-4-none py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-1">
-            <div className="space-y-6">
-              <div>
-                <p className="text-sm text-gray-500">Client</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.client || "Not specified"}
-                </h3>
+        <div className="flex flex-wrap gap-8">
+          {projectData.client && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Client</p>
+                  <h3 className="text-lg font-semibold">
+                    {projectData.client}
+                  </h3>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Date</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.date || "Not specified"}
-                </h3>
+            </div>
+          )}
+          {projectData.date && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Date</p>
+                  <h3 className="text-lg font-semibold">{projectData.date}</h3>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Software</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.software || "Not specified"}
-                </h3>
+            </div>
+          )}
+          {projectData.software && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Software</p>
+                  <h3 className="text-lg font-semibold">
+                    {projectData.software}
+                  </h3>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Type</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.type || "Not specified"}
-                </h3>
+            </div>
+          )}
+          {projectData.type && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Type</p>
+                  <h3 className="text-lg font-semibold">{projectData.type}</h3>
+                </div>
               </div>
-              {projectData.link && (
+            </div>
+          )}
+          {projectData.link && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
                 <div>
                   <p className="text-sm text-gray-500">Link</p>
                   <h3 className="text-lg font-semibold">
@@ -213,34 +233,57 @@ const SingleProject = () => {
                     </a>
                   </h3>
                 </div>
-              )}
-              <div>
-                <p className="text-sm text-gray-500">Detail 1</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.description2 || "Not specified"}
-                </h3>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Detail 2</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.description3 || "Not specified"}
-                </h3>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Detail 3</p>
-                <h3 className="text-lg font-semibold">
-                  {projectData.description4 || "Not specified"}
-                </h3>
               </div>
             </div>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Description</h2>
-            <p className="text-gray-700">
-              {projectData.description || "No description available."}
-            </p>
-          </div>
+          )}
+          {projectData.description2 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 1</p>
+                  <h3 className="text-lg font-semibold">
+                    {projectData.description2}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description3 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 2</p>
+                  <h3 className="text-lg font-semibold">
+                    {projectData.description3}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description4 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 3</p>
+                  <h3 className="text-lg font-semibold">
+                    {projectData.description4}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Description</h2>
+                  <p className="text-gray-700">
+                    {projectData.description || "No description available."}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
@@ -258,7 +301,7 @@ const SingleProject = () => {
                 alt={img.public_id}
                 width={633}
                 height={679}
-                className="w-full h-auto"
+                className="w-full h-auto rounded-lg"
                 sizes="(max-width: 992px) 100vw, 50vw"
                 loading="lazy"
               />
