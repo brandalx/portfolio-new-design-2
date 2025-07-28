@@ -16,10 +16,22 @@ const ImageCard: FC<ImageCardProps> = ({
   category,
   subcategory,
 }) => {
+  // Remove all spaces from subcategory and title for URL
+  const cleanSubcategoryRaw = subcategory.replace(/\s+/g, "").toLowerCase();
+
+  let mappedSubcategory = cleanSubcategoryRaw;
+  if (cleanSubcategoryRaw === "3ddesign") {
+    mappedSubcategory = "design3d";
+  } else if (cleanSubcategoryRaw === "2ddesign") {
+    mappedSubcategory = "design2d";
+  }
+
+  const cleanTitle = title.replace(/\s+/g, "");
+
   return (
     <AspectRatio ratio={9 / 12}>
       <Link
-        href={`/${category}/${subcategory}/${title}`}
+        href={`/${category}/${mappedSubcategory}/${cleanTitle}`}
         className="group max-h-[700px]  h-full flex flex-col"
         data-aos="fade-up"
       >
@@ -39,7 +51,7 @@ const ImageCard: FC<ImageCardProps> = ({
           <span className="text-sm text-gray-500 glor-l">{subcategory}</span>
           <h3 className="text-2xl font-semibold glor-b">{title}</h3>
         </div>
-      </Link>{" "}
+      </Link>
     </AspectRatio>
   );
 };
