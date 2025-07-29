@@ -113,19 +113,16 @@ export function ContactForm({ children }: { children: React.ReactNode }) {
       <DrawerTrigger role="button" asChild>
         {children}
       </DrawerTrigger>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader className="px-4 md:px-0">
+      <DrawerContent className="overflow-x-hidden">
+        <div className="mx-auto w-full max-w-sm px-4">
+          <DrawerHeader>
             <DrawerTitle>Contact me</DrawerTitle>
             <DrawerDescription>
               If you have any questions, please feel free to contact me.
             </DrawerDescription>
           </DrawerHeader>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 px-4 md:px-0"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="email"
@@ -176,11 +173,11 @@ export function ContactForm({ children }: { children: React.ReactNode }) {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-between gap-6">
-                <DrawerClose asChild className="w-full">
+              <div className="flex justify-between gap-4">
+                <DrawerClose asChild className="w-1/2">
                   <Button variant="outline">Cancel</Button>
                 </DrawerClose>
-                <Button disabled={loading} type="submit" className="w-full">
+                <Button disabled={loading} type="submit" className="w-1/2">
                   {loading ? (
                     <>
                       <Loader2 className="h-4 mr-1 w-4 animate-spin" />
