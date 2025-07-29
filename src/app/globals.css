@@ -401,7 +401,7 @@ body {
 
 /* Hero marquee animation (left to right) */
 .marquee-hero {
-  animation: hero 60s linear infinite;
+  animation: hero 5s linear infinite;
 }
 
 .marquee-reverse .marquee-hero {

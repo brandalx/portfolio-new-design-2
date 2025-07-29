@@ -1,10 +1,10 @@
 import React from "react";
 
 import MaskedDiv from "./ui/masked-div";
-import { v4 as uuidv4 } from "uuid";
+
 const MaksedDivDemo = () => {
   return (
-    <div className="items-between m-auto  flex max-w-5xl flex-wrap justify-between gap-5">
+    <div className="items-between m-auto marquee-hero  mb-10 flex max-w-5xl flex-wrap justify-between gap-5">
       <MaskedDiv maskType={"type-1"} size={0.45} className="my-4">
         <video
           className="cursor-pointer transition-all duration-300 hover:scale-105"
