@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ImageCard from "@/components/ImageCard";
+import ImageTrail from "@/components/imageTrail";
 
 type Project = {
   name: string;
@@ -49,9 +50,26 @@ export default function PhotographyPage() {
   });
 
   return (
-    <section className="py-12 min-h-screen">
-      <div className="mx-auto max-w-7xl-none px-4-none">
-        <div className="text-center mb-8">
+    <section className="py-12 min-h-screen mt-20">
+      {/* Hero Section Container */}
+      <div className="relative w-full min-h-[50vh] bg-transparent">
+        {/* ImageTrail Component */}
+        <ImageTrail
+          items={[
+            "https://picsum.photos/id/287/300/300",
+            "https://picsum.photos/id/1001/300/300",
+            "https://picsum.photos/id/1025/300/300",
+            "https://picsum.photos/id/1026/300/300",
+            "https://picsum.photos/id/1027/300/300",
+            "https://picsum.photos/id/1028/300/300",
+            "https://picsum.photos/id/1029/300/300",
+            "https://picsum.photos/id/1030/300/300",
+          ]}
+          variant={1}
+        />
+
+        {/* Hero Text */}
+        <div className="mx-auto max-w-7xl px-4 text-center mb-8 relative z-[50]">
           <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
             Photography Projects
           </h1>

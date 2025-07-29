@@ -7,6 +7,7 @@ import Available from "./available";
 export function HeroNew() {
   return (
     <div className="grid mt-5 grid-cols-1 md:grid-cols-2    min-h-[600px] md:h-screen mb-10   text-5xl md:text-5xl lg:text-7xl  ">
+      {" "}
       <div className="md:flex md:items-center md:justify-center ">
         <div>
           <div>
@@ -23,7 +24,6 @@ export function HeroNew() {
           </div>
         </div>
       </div>
-
       <div className=" z-[-1] relative overflow-auto md:overflow-visible min-h-[500px] md:min-h-auto">
         <div className=" absolute">
           <MaksedDivDemo />

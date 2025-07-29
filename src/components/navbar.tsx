@@ -33,7 +33,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <header className="page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-50 navbarmain">
+      <header className="page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-[200] navbarmain">
         <nav className="hidden flex-col md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Image
@@ -74,7 +74,7 @@ export default function Navbar() {
                         <Link href={item.href}> {item.title}</Link>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="">
-                        <ul className=" text-current z-[9999] bg-white dark:bg-black gap-4 text-nowrap  px-2 py-1  ">
+                        <ul className=" text-current z-[200] bg-white dark:bg-black gap-4 text-nowrap  px-2 py-1  ">
                           {item.subItems.map((subItem) => (
                             <li key={subItem.href}>
                               <NavigationMenuLink asChild>

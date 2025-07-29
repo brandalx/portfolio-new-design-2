@@ -1243,7 +1243,7 @@ export default function ImageTrail({
 
   return (
     <div
-      className="w-full h-full relative z-[100] rounded-lg bg-transparent overflow-visible"
+      className="w-full h-full absolute top-0 left-0 z-[100] bg-transparent overflow-visible"
       ref={containerRef}
     >
       {items.map((url, i) => (
