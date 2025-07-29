@@ -21,7 +21,7 @@ const useScrollDown = (
   useEffect(() => {
     observerRef.current = new IntersectionObserver(handleObserver, {
       root: null, // Use viewport as root
-      rootMargin: "600px", // Trigger when 600px from the sentinel
+      rootMargin: "1000px", // Trigger when 600px from the sentinel
       threshold: 0, // Trigger as soon as sentinel is visible
     });
 

@@ -132,7 +132,7 @@ export const FloatingNav = ({
         </Link>
         <Button
           variant={"ghost"}
-          className="rounded-full p-4"
+          className="rounded-full p-4 cursor-pointer"
           onClick={scrollToTop}
         >
           <IconChevronUp className="h-4 w-4 " />

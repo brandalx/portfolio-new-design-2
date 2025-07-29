@@ -1,11 +1,12 @@
 "use client";
-import Image from "next/image";
+
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, usePathname } from "next/navigation";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { v4 as uuidv4 } from "uuid";
-import AOSInit from "@/components/AOSInit";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Share from "yet-another-react-lightbox/plugins/share";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
 type ProjectImage = {
@@ -85,13 +86,13 @@ const SingleProject = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const imagesPerPage = 6;
+  const imagesPerPage = 8;
 
   const photos = images.map((img) => ({
-    src: `${img.secure_url}?f_auto,q_auto,w_1200,h_1200`,
+    src: `${img.secure_url}?f_auto,q_auto,w_720,h_720`,
     alt: img.public_id,
-    width: 1200,
-    height: 1200,
+    width: 720,
+    height: 720,
   }));
 
   useEffect(() => {
@@ -149,7 +150,6 @@ const SingleProject = () => {
   if (isLoading || error || !projectData) {
     return (
       <div>
-        <AOSInit />
         <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
           <Skeleton className="h-6 w-32 mx-auto mb-2" />
           <Skeleton className="h-10 w-64 mx-auto" />
@@ -353,15 +353,25 @@ const SingleProject = () => {
         <div ref={sentinelRef} className="h-1" />
 
         <Lightbox
+          plugins={[Zoom, Share]}
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           slides={photos}
           index={selectedIndex}
+          zoom={{
+            maxZoomPixelRatio: 3, // Limit maximum zoom level
+            zoomInMultiplier: 2, // Zoom increment
+            doubleTapDelay: 300, // Delay for double-tap zoom
+            doubleClickDelay: 300, // Delay for double-click zoom
+            doubleClickMaxStops: 2, // Max zoom stops for double-click
+          }}
           render={{
             slide: ({ slide }) => (
               <img
                 src={slide.src}
                 alt={slide.alt}
+                width={slide.width}
+                height={slide.height}
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",

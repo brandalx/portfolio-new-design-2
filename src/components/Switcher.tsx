@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from "@react-spring/web"; // Use @react-spring/web for clarity
 import { Button } from "@/components/ui/button";
 
 interface SwitcherProps {
@@ -86,21 +86,22 @@ function Switcher({ isDark, toggleTheme }: SwitcherProps) {
     >
       <mask id="myMask2">
         <rect x="0" y="0" width="100%" height="100%" fill="white" />
-
         <animated.circle
-          //@ts-expect-error - no error
-          style={maskedCircleProps}
+          cx={cx}
+          cy={cy}
           r="9"
           fill="black"
+          //@ts-expect-error. - no error
+          style={maskedCircleProps}
         />
       </mask>
       <animated.circle
         cx="12"
         cy="12"
-        //@ts-expect-error - no error
-        style={centerCircleProps}
+        r={r}
         fill="none"
-        mask="url(#myMask2)"
+        mask="url(#myMask2)" //@ts-expect-error. - no error
+        style={centerCircleProps}
       />
       <animated.g style={linesProps}>
         {properties[isDark ? "dark" : "light"].icon}
@@ -111,7 +112,7 @@ function Switcher({ isDark, toggleTheme }: SwitcherProps) {
 
 function ModeToggle() {
   const [mounted, setMounted] = React.useState(false);
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme(); // Use resolvedTheme instead of theme
 
   React.useEffect(() => {
     setMounted(true);
@@ -122,7 +123,7 @@ function ModeToggle() {
   }
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -131,11 +132,13 @@ function ModeToggle() {
       size="icon"
       className="rounded-full"
       aria-label={
-        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
+        resolvedTheme === "dark"
+          ? "Switch to light theme"
+          : "Switch to dark theme"
       }
       onClick={toggleTheme}
     >
-      <Switcher isDark={theme === "dark"} toggleTheme={toggleTheme} />
+      <Switcher isDark={resolvedTheme === "dark"} toggleTheme={toggleTheme} />
     </Button>
   );
 }
