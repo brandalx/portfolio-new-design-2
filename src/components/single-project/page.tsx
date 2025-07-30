@@ -218,7 +218,6 @@ const SingleProject = () => {
             fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
             italic={true}
             fontFamily="Unbounded"
-            textColor="#ffffff"
             strokeColor="#ff0000"
             minFontSize={36}
           />

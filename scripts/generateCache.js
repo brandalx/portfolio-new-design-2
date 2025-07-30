@@ -1,6 +1,8 @@
 const axios = require("axios");
 const { put } = require("@vercel/blob");
 
+require("dotenv").config(); // only needed if running locally
+
 async function generateCache() {
   try {
     const folderPaths = [
@@ -44,8 +46,9 @@ async function generateCache() {
           const parts = img.asset_folder?.split("/") || [];
           if (parts.length === 3) {
             const projectName = parts[2];
+            const context = img.context?.custom || {};
+
             if (!projectsMap[projectName]) {
-              const context = img.context?.custom || img.context || {};
               projectsMap[projectName] = {
                 name: projectName,
                 cover: img.secure_url,
@@ -64,6 +67,7 @@ async function generateCache() {
                 images: [],
               };
             }
+
             projectsMap[projectName].images.push({
               secure_url: img.secure_url,
               public_id: img.public_id,
@@ -89,18 +93,12 @@ async function generateCache() {
       }
     );
 
-    console.log(
-      "Cache generated successfully at",
-      blob.url,
-      "with",
-      totalApiCalls,
-      "API calls"
-    );
+    console.log("✅ Cache generated successfully at:");
+    console.log(blob.url);
+    console.log(`🧾 Total API calls: ${totalApiCalls}`);
   } catch (error) {
-    console.error(
-      "Error generating cache:",
-      error.response?.data || error.message
-    );
+    console.error("❌ Error generating cache:");
+    console.error(error.response?.data || error.message);
     process.exit(1);
   }
 }

@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 
 interface TextPressureProps {
@@ -36,6 +37,9 @@ const TextPressure: React.FC<TextPressureProps> = ({
   className = "",
   minFontSize = 24,
 }) => {
+  const { theme } = useTheme();
+  const [textColorRes, setTextColorRes] = useState("#ffffff"); // Default to white
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
@@ -46,7 +50,10 @@ const TextPressure: React.FC<TextPressureProps> = ({
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
-
+  useEffect(() => {
+    // Update text color based on the theme
+    setTextColorRes(theme === "light" ? "#000000" : "#ffffff");
+  }, [theme]);
   const chars = text.split("");
 
   const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
@@ -175,7 +182,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
         }
         .stroke span {
           position: relative;
-          color: ${textColor};
+          color: ${textColorRes};
         }
         .stroke span::after {
           content: attr(data-char);
@@ -202,7 +209,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
           transformOrigin: "center top",
           margin: 0,
           fontWeight: 100,
-          color: stroke ? undefined : textColor,
+          color: stroke ? undefined : textColorRes,
         }}
       >
         {chars.map((char, i) => (
