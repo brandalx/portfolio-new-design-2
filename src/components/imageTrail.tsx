@@ -1242,7 +1242,7 @@ export default function ImageTrail({
     const Cls = variantMap[variant] || variantMap[1];
     new Cls(containerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, items]);
+  }, [variant, items, isMobile]);
   if (isMobile) return <></>;
   return (
     <div
