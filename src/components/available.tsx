@@ -3,7 +3,7 @@ import { ContactForm } from "./contact-form";
 
 export default function Available() {
   return (
-    <div>
+    <div className="relative z-[150]">
       <ContactForm>
         <div className="flex items-center justify-center border w-fit p-2 rounded-full  px-3 hover:bg-black/5 dark:hover:bg-white/10 gap-x-2 my-2 cursor-pointer ">
           {" "}

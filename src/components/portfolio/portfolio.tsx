@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import unbounded from "@/lib/fonts";
 import ImageCard from "../ImageCard";
+import { cn } from "@/lib/utils";
 type Project = {
   name: string;
   cover: string;
@@ -70,10 +71,15 @@ export default function Portfolio({ className }: { className?: string }) {
   });
 
   return (
-    <section id="portfolio" className={`py-12 ${className}`}>
+    <section id="portfolio" className={`py-[120px] ${className}`}>
       <div className="mx-auto max-w-7xl-none px-4-none">
         <div className="text-center mb-8">
-          <h2 className="lg:text-6xl text-4xl font-bold glor-b capitalize text-center">
+          <h2
+            className={cn(
+              unbounded.className,
+              "lg:text-6xl text-4xl font-bold glor-b capitalize text-center uppercase"
+            )}
+          >
             Works & Projects
           </h2>
           <p className="mt-2 text-gray-600 max-w-2xl mx-auto">

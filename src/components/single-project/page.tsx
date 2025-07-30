@@ -6,8 +6,10 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Share from "yet-another-react-lightbox/plugins/share";
-
+import unbounded from "@/lib/fonts";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import TextPressure from "../textPressure";
 
 type ProjectImage = {
   secure_url: string;
@@ -193,12 +195,33 @@ const SingleProject = () => {
 
   const category = pathname?.split("/")[1]?.toUpperCase() || "CATEGORY";
 
+  console.log(projectData);
+
   return (
     <div>
       <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
         <p className="text-sm text-gray-500">{category}</p>
-        <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
-          {projectData.title || projectData.name || "Untitled Project"}
+        <h1
+          className={cn(
+            unbounded.className,
+            "mt-2 lg:text-6xl text-4xl font-bold uppercase w-fit mx-auto cursor-pointer"
+          )}
+        >
+          <TextPressure
+            className="text-4xl w-fit md:text-5xl lg:text-[120px]"
+            text={projectData.title || projectData.name || "Untitled Project"}
+            flex={true}
+            alpha={false}
+            stroke={false}
+            width={true}
+            weight={true}
+            fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
+            italic={true}
+            fontFamily="Unbounded"
+            textColor="#ffffff"
+            strokeColor="#ff0000"
+            minFontSize={36}
+          />
         </h1>
       </div>
 

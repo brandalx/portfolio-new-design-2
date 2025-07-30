@@ -155,7 +155,7 @@ const ImageCard: FC<ImageCardProps> = ({
           <div
             ref={viewTextRef}
             className={cn(
-              "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange",
+              "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
               unbounded.className
             )}
           >
@@ -167,7 +167,9 @@ const ImageCard: FC<ImageCardProps> = ({
           <span className="text-sm text-gray-500 glor-l">
             {makesubcategoryAsName}
           </span>
-          <h3 className="text-2xl font-semibold glor-b">{makeTtitleAsTitle}</h3>
+          <h3 className={cn("text-2xl font-semibold ", unbounded.className)}>
+            {makeTtitleAsTitle}
+          </h3>
         </div>
       </Link>
     </AspectRatio>
