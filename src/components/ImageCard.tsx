@@ -144,6 +144,7 @@ const ImageCard: FC<ImageCardProps> = ({
         <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
           <AspectRatio ratio={9 / 16}>
             <img
+              loading="lazy"
               sizes="100vw"
               className="w-full h-auto object-cover transition-transform duration-300 ease-out group-hover:scale-105 h-full object-cover"
               src={src}

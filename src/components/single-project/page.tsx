@@ -205,6 +205,7 @@ const SingleProject = () => {
       {projectData.cover && category !== "PHOTOGRAPHY" && (
         <div className="mx-auto max-w-7xl-none px-4-none">
           <img
+            loading="eager"
             src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
             alt={projectData.name}
             className="w-full h-auto rounded-lg"
