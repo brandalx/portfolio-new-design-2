@@ -534,3 +534,13 @@ body {
     transform: translateY(-50%);
   }
 }
+.video.no-controls::-webkit-media-controls {
+  display: none !important;
+}
+.video.no-controls::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+}
+.video.no-controls {
+  -webkit-appearance: none;
+  pointer-events: none !important;
+}
