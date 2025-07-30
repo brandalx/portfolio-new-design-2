@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { put } from "@vercel/blob";
@@ -20,7 +21,14 @@ type Project = {
   images?: { secure_url: string; public_id: string; asset_id: string }[];
 };
 
-export async function POST() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const token = searchParams.get("token");
+
+  if (token !== process.env.CACHE_GEN_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const folderPaths = [
       "photography/portraits",
@@ -35,13 +43,12 @@ export async function POST() {
     for (const folderPath of folderPaths) {
       const [category, subcategory] = folderPath.split("/");
       const projectsMap: Record<
-        string, //@ts-expect-error - no error
-        { project: Project; metadataImage? }
+        string,
+        { project: Project; metadataImage?: any }
       > = {};
       let nextCursor: string | null = null;
 
       do {
-        //@ts-expect-error - no error
         const result = await axios.post(
           `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search`,
           {
@@ -73,7 +80,7 @@ export async function POST() {
               projectsMap[projectName] = {
                 project: {
                   name: projectName,
-                  cover: img.secure_url, // Default to first image
+                  cover: img.secure_url,
                   category,
                   subcategory,
                   title: undefined,
@@ -92,7 +99,6 @@ export async function POST() {
               };
             }
 
-            // Store image with metadata for later use
             if (Object.keys(context).length > 0) {
               projectsMap[projectName].metadataImage = { img, context };
             }
@@ -110,24 +116,21 @@ export async function POST() {
         }
       } while (nextCursor);
 
-      // Finalize projects by applying metadata from the image with context
       for (const projectName in projectsMap) {
         const { project, metadataImage } = projectsMap[projectName];
         if (metadataImage) {
-          project.cover = metadataImage.img.secure_url; // Set cover to image with metadata
-          project.title = metadataImage.context.title || undefined;
-          project.description = metadataImage.context.description || undefined;
-          project.link = metadataImage.context.link || undefined;
-          project.description2 =
-            metadataImage.context.description2 || undefined;
-          project.description3 =
-            metadataImage.context.description3 || undefined;
-          project.description4 =
-            metadataImage.context.description4 || undefined;
-          project.client = metadataImage.context.client || undefined;
-          project.date = metadataImage.context.date || undefined;
-          project.software = metadataImage.context.software || undefined;
-          project.type = metadataImage.context.type || undefined;
+          const context = metadataImage.context;
+          project.cover = metadataImage.img.secure_url;
+          project.title = context.title || undefined;
+          project.description = context.description || undefined;
+          project.link = context.link || undefined;
+          project.description2 = context.description2 || undefined;
+          project.description3 = context.description3 || undefined;
+          project.description4 = context.description4 || undefined;
+          project.client = context.client || undefined;
+          project.date = context.date || undefined;
+          project.software = context.software || undefined;
+          project.type = context.type || undefined;
         }
         allProjects.push(project);
       }
@@ -141,20 +144,19 @@ export async function POST() {
         allowOverwrite: true,
       }
     );
+
     return NextResponse.json({
       message: "Cache generated successfully",
       url: blob.url,
       totalApiCalls,
       totalProjects: allProjects.length,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       "Error generating cache:",
-      //@ts-expect-error - no error
       error.response?.data || error.message
     );
     return NextResponse.json(
-      //@ts-expect-error - no error
       { error: "Failed to generate cache", details: error.message },
       { status: 500 }
     );
