@@ -196,7 +196,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
         } ${stroke ? "stroke" : ""} uppercase text-center`}
         style={{
           fontFamily,
-          fontSize: fontSize,
+
           lineHeight,
           transform: `scale(1, ${scaleY})`,
           transformOrigin: "center top",

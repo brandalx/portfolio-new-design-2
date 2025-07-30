@@ -3,6 +3,7 @@ import { IconPhoneCall } from "@tabler/icons-react";
 import Link from "next/link";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { Separator } from "./ui/separator";
+import TextPressure from "./textPressure";
 
 export default function Footer() {
   const getYear = () => {
@@ -11,6 +12,26 @@ export default function Footer() {
   return (
     <footer className="page-footer bg-transparent mx-auto w-full    z-50 ">
       <Separator className="w-full" />
+
+      <div className="w-fit text-center mx-auto my-5">
+        <Link href="/contacts">
+          <TextPressure
+            className="text-4xl md:text-5xl lg:text-[120px]"
+            text="Get In Touch!"
+            flex={true}
+            alpha={false}
+            stroke={false}
+            width={true}
+            weight={true}
+            fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
+            italic={true}
+            fontFamily="Unbounded"
+            textColor="#ffffff"
+            strokeColor="#ff0000"
+            minFontSize={36}
+          />
+        </Link>
+      </div>
       <div className=" w-full py-6 ">
         <div className="grid grid-cols-3 glor-l text-sm w-full">
           <div className="flex flex-col gap-4 w-fit ">
@@ -68,15 +89,7 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <div>
-          <Link href="/contacts">
-            <p className="text-3xl text-center mt-[50px] glor-b transition-all hover:scale-105   w-fit mx-auto">
-              Available <br />
-              For <br />
-              Work
-            </p>
-          </Link>
-        </div>
+
         <div className="">
           <div className="mt-[50px]">
             <p className="  text-xs text-gray-400  w-fit mx-auto">
