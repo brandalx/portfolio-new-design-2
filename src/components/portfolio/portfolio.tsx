@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { RiArrowRightUpLine } from "@remixicon/react";
 
 import ImageCard from "../ImageCard";
 type Project = {

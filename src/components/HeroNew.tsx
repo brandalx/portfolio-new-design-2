@@ -4,15 +4,17 @@ import NewTypewriter from "./NewTypewriter";
 import ImageTrail from "./imageTrail";
 import unbounded from "@/lib/fonts";
 import Available from "./available";
+
 export function HeroNew() {
   return (
     <div className="relative mt-20">
-      <div className="grid mt-5 grid-cols-1    md:grid-cols-2    min-h-[600px] md:h-[85vh] mb-10   text-5xl md:text-5xl lg:text-7xl  ">
+      <div className="grid mt-5 grid-cols-1    md:grid-cols-2    min-h-[600px] md:h-[85vh] gap-y-10  mb-10   text-5xl md:text-5xl lg:text-7xl  ">
         <div className="md:flex md:items-center md:justify-center ">
           <div>
-            <div>
+            <div className="z-[9999]">
               <Available />
             </div>
+
             <div
               className={cn(
                 " font-extrabold    uppercase",
@@ -27,7 +29,7 @@ export function HeroNew() {
             </div>
           </div>
         </div>
-        <div className=" z-[-1] relative overflow-auto md:overflow-visible min-h-[500px] md:min-h-auto">
+        <div className=" z-[-1] relative overflow-auto md:overflow-visible min-h-[500px] md:min-h-auto rpunded-lg">
           <div className=" absolute willchange">
             <MaksedDivDemo />
           </div>

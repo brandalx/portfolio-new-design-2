@@ -42,26 +42,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SmoothScroll>
-          <MaxWidthWrapper>
-            <div className=" wrapper">
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <Navbar />
-                <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
-                <div>
-                  <ScrollProgressDemo /> <ScrollToTopButton />
-                </div>
-                {children}
-                <Footer /> <Toaster position="bottom-right" />
-              </ThemeProvider>
-            </div>{" "}
-          </MaxWidthWrapper>{" "}
-        </SmoothScroll>
+        <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
+        <div>
+          <ScrollProgressDemo /> <ScrollToTopButton />
+        </div>
+        {/* <SmoothScroll> */}
+        <MaxWidthWrapper>
+          <div className=" wrapper">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              {children}
+              <Footer /> <Toaster position="bottom-right" />
+            </ThemeProvider>
+          </div>
+        </MaxWidthWrapper>
+        {/* </SmoothScroll> */}
       </body>
     </html>
   );

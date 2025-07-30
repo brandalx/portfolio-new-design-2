@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect, JSX } from "react";
 import { gsap } from "gsap";
+import { useMedia } from "react-use";
 
 function lerp(a: number, b: number, n: number): number {
   return (1 - n) * a + n * b;
@@ -1232,6 +1233,8 @@ export default function ImageTrail({
   items = [],
   variant = 1,
 }: ImageTrailProps): JSX.Element {
+  const isMobile = useMedia("(max-width: 768px)", false);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -1240,7 +1243,7 @@ export default function ImageTrail({
     new Cls(containerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant, items]);
-
+  if (isMobile) return <></>;
   return (
     <div
       className="willchange w-full  h-full hidden md:block absolute top-0 left-0 z-[100] bg-transparent overflow-visible"
