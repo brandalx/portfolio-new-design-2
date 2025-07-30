@@ -4,7 +4,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 const NewTypewriter = () => {
   return (
-    <span className="text-transparent  bg-clip-text bg-gradient-to-r customFont from-rose-600 to-pink-500">
+    <span className="text-transparent willchange  bg-clip-text bg-gradient-to-r customFont from-rose-600 to-pink-500">
       <Typewriter
         words={[
           "Graphic Designer",

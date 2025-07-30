@@ -465,3 +465,16 @@ body {
     }
   }
 }
+
+.footer-up-button {
+  mix-blend-mode: difference;
+
+  cursor: pointer;
+
+  background-attachment: scroll;
+  padding-left: 42px;
+  padding-right: 42px;
+}
+.willchange {
+  will-change: transform;
+}

@@ -50,33 +50,35 @@ export default function PhotographyPage() {
   });
 
   return (
-    <section className="py-12 min-h-screen mt-20">
+    <section className="py-12  mt-5 md:mt-10">
       {/* Hero Section Container */}
-      <div className="relative w-full min-h-[50vh] bg-transparent">
+      <div className=" w-full h- bg-transparent">
         {/* ImageTrail Component */}
-        <ImageTrail
-          items={[
-            "https://picsum.photos/id/287/300/300",
-            "https://picsum.photos/id/1001/300/300",
-            "https://picsum.photos/id/1025/300/300",
-            "https://picsum.photos/id/1026/300/300",
-            "https://picsum.photos/id/1027/300/300",
-            "https://picsum.photos/id/1028/300/300",
-            "https://picsum.photos/id/1029/300/300",
-            "https://picsum.photos/id/1030/300/300",
-          ]}
-          variant={1}
-        />
+        <div className="relative   md:h-[300px]">
+          <ImageTrail
+            items={[
+              "https://picsum.photos/id/287/300/300",
+              "https://picsum.photos/id/1001/300/300",
+              "https://picsum.photos/id/1025/300/300",
+              "https://picsum.photos/id/1026/300/300",
+              "https://picsum.photos/id/1027/300/300",
+              "https://picsum.photos/id/1028/300/300",
+              "https://picsum.photos/id/1029/300/300",
+              "https://picsum.photos/id/1030/300/300",
+            ]}
+            variant={1}
+          />
 
-        {/* Hero Text */}
-        <div className="mx-auto max-w-7xl px-4 text-center mb-8 relative z-[50]">
-          <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
-            Photography Projects
-          </h1>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
-            Explore my photography projects, capturing the essence of
-            architecture and portraits with passion and precision.
-          </p>
+          {/* Hero Text */}
+          <div className="mx-auto max-w-7xl px-4 text-center mb-8 relative z-[50]">
+            <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
+              Photography Projects
+            </h1>
+            <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+              Explore my photography projects, capturing the essence of
+              architecture and portraits with passion and precision.
+            </p>
+          </div>
         </div>
 
         <div>

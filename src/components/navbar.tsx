@@ -33,7 +33,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <header className="page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-[200] navbarmain">
+      <header className="page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-[200] navbarmain willchange">
         <nav className="hidden flex-col md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Image

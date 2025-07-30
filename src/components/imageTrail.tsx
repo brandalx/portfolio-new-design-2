@@ -1243,12 +1243,12 @@ export default function ImageTrail({
 
   return (
     <div
-      className="w-full h-full absolute top-0 left-0 z-[100] bg-transparent overflow-visible"
+      className="willchange w-full  h-full hidden md:block absolute top-0 left-0 z-[100] bg-transparent overflow-visible"
       ref={containerRef}
     >
       {items.map((url, i) => (
         <div
-          className="content__img w-[190px] aspect-[1.1] rounded-[15px] absolute top-0 left-0 opacity-0 overflow-hidden [will-change:transform,filter]"
+          className="content__img w-[190px] aspect-[16/10] rounded-[15px] absolute top-0 left-0 opacity-0 overflow-hidden [will-change:transform,filter]"
           key={i}
         >
           <div
