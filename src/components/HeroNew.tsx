@@ -25,7 +25,7 @@ export function HeroNew() {
               <br /> <div className="z-[999]"></div>
               <NewTypewriter />
               <br />
-              <p className="  ">creating design.</p>
+              <p className="  ">creating stunning visuals.</p>
             </div>
           </div>
         </div>
