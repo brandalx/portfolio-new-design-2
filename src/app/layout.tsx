@@ -63,11 +63,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <CookieConsenInitilizer />
             <MaxWidthWrapper>
               <Navbar />
             </MaxWidthWrapper>
-            {children}
+            <div className="page-body">
+              <CookieConsenInitilizer />
+              {children}{" "}
+            </div>
             <Footer /> <Toaster position="bottom-right" />
           </ThemeProvider>
         </div>

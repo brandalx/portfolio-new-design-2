@@ -187,11 +187,11 @@ const SingleProject = () => {
               </div>
             </div>
 
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
               {[...Array(6)].map((_, index) => (
                 <Skeleton
                   key={index}
-                  className="w-full h-[300px] md:h-[400px] lg:h-[500px] mb-6 break-inside-avoid"
+                  className="w-full h-[300px] md:h-[400px] lg:h-[500px]"
                 />
               ))}
             </div>
@@ -362,21 +362,21 @@ const SingleProject = () => {
           </div>
 
           {/* Masonry Layout for Images */}
-          <div className="mt-8 columns-1 md:columns-2  gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
             {images.slice(1).map((img, index) => (
               <div
-                key={uuidv4()}
+                key={uuidv4()} // Use public_id as key for stability
                 onClick={() => {
                   setSelectedIndex(index + 1);
                   setLightboxOpen(true);
                 }}
-                className="cursor-pointer break-inside-avoid mb-6"
+                className="cursor-pointer"
               >
                 <img
-                  src={img.secure_url}
+                  src={img.secure_url} // Use raw URL without transformations
                   alt={img.public_id}
-                  className="w-full h-auto rounded-lg object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="w-full h-auto rounded-lg"
+                  sizes="(max-width: 992px) 100vw, 50vw"
                   loading="lazy"
                 />
               </div>
