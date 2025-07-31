@@ -150,7 +150,7 @@ export default function Navbar() {
           </NavigationMenu>
         </nav>
         <Sheet>
-          <div className="w-full md:hidden justify-between flex items-center">
+          <div className="w-full md:hidden justify-between flex items-center ">
             <Link href="/" className="gap-2 font-semibold w-fit">
               <Image
                 alt="Image"
@@ -176,7 +176,7 @@ export default function Navbar() {
               </SheetTrigger>
             </div>
           </div>
-          <SheetContent side="right">
+          <SheetContent className="z-[160]" side="right">
             <SheetTitle></SheetTitle>
             <nav className="grid gap-3 text-lg glor-b font-medium">
               {NAVIGATION.map((item) => (
