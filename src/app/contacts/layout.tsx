@@ -1,3 +1,4 @@
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Metadata } from "next";
 import React from "react";
 export const metadata: Metadata = {
@@ -55,5 +56,9 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <MaxWidthWrapper>
+      <div>{children}</div>{" "}
+    </MaxWidthWrapper>
+  );
 }

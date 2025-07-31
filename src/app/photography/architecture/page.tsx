@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ImageCard from "@/components/ImageCard"; // Adjust the import path as needed
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 type Project = {
   name: string;
@@ -35,30 +36,32 @@ export default function ArchitectureProjectsPage() {
   }, []);
 
   return (
-    <section className="py-12 min-h-screen">
-      <div className="mx-auto max-w-7xl-none px-4-none">
-        <div className="text-center mb-8">
-          <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
-            Architecture Photography Projects
-          </h1>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
-            Explore my architecture photography projects, capturing the essence
-            of structures with passion and precision.
-          </p>
-        </div>
+    <MaxWidthWrapper>
+      <section className="py-12 min-h-screen">
+        <div className="mx-auto max-w-7xl-none px-4-none">
+          <div className="text-center mb-8">
+            <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
+              Architecture Photography Projects
+            </h1>
+            <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+              Explore my architecture photography projects, capturing the
+              essence of structures with passion and precision.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
-            <ImageCard
-              key={index}
-              src={project.cover}
-              title={project.name}
-              category={project.category}
-              subcategory={project.subcategory}
-            />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {projects.map((project, index) => (
+              <ImageCard
+                key={index}
+                src={project.cover}
+                title={project.name}
+                category={project.category}
+                subcategory={project.subcategory}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>{" "}
+    </MaxWidthWrapper>
   );
 }

@@ -1,73 +1,87 @@
 "use client";
+
 import { v4 as uuidv4 } from "uuid";
 import React, { useState, useEffect } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import PhotoAlbum from "react-photo-album";
-import "yet-another-react-lightbox/styles.css";
 import { Button } from "./ui/button";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { IconChevronDown } from "@tabler/icons-react";
-//@ts-expect-error - no error
-const transformUrlsToSlides = (urls) => {
-  return urls.map(
-    //@ts-expect-error - no error
-    (url) =>
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Share from "yet-another-react-lightbox/plugins/share";
+interface Photo {
+  src: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+interface PhotoGalleryProps {
+  photos: Photo[];
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  initialVisibleCount?: number;
+}
+
+const transformUrlsToSlides = (photos: Photo[]): Promise<Photo>[] => {
+  return photos.map(
+    (photo) =>
       new Promise((resolve) => {
         const img = new Image();
         img.onload = () =>
           resolve({
-            src: url,
+            src: photo.src,
+            alt: photo.alt,
             width: img.naturalWidth,
             height: img.naturalHeight,
           });
-        img.src = url;
+        img.src = photo.src;
       })
   );
 };
-//@ts-expect-error - no error
-export default function PhotoGallery({ PORTFOLIO, title, ar }) {
-  const [slides, setSlides] = useState([]);
+
+export default function PhotoGallery({
+  photos,
+  onLoadMore,
+  hasMore = false,
+  initialVisibleCount = 40,
+}: PhotoGalleryProps) {
+  const [slides, setSlides] = useState<Photo[]>([]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [visiblePhotosCount, setVisiblePhotosCount] = useState(40);
-
-  // Use ar.uiimg if provided, otherwise use PORTFOLIO
-  const source = ar && ar.uiimg ? ar.uiimg : PORTFOLIO || [];
+  const [visiblePhotosCount, setVisiblePhotosCount] =
+    useState(initialVisibleCount);
 
   useEffect(() => {
-    if (source && source.length > 0) {
-      Promise.all(transformUrlsToSlides(source)).then((formattedSlides) => {
-        //@ts-expect-error - no error
+    if (photos && photos.length > 0) {
+      Promise.all(transformUrlsToSlides(photos)).then((formattedSlides) => {
         setSlides(formattedSlides);
       });
     }
-  }, [source]);
+  }, [photos]);
 
-  // Convert slides to photos array for PhotoAlbum
-  const photos = slides.map((photo) => ({
-    key: uuidv4(),
-    //@ts-expect-error - no error
-    src: photo.src,
-    //@ts-expect-error - no error
-    width: photo.width || 1280,
-    //@ts-expect-error - no error
-    height: photo.height || 480,
-    alt: `${title || "Image"}-${uuidv4()}`,
-  }));
+  const photosToShow = slides.slice(0, visiblePhotosCount);
 
-  const photosToShow = photos.slice(0, visiblePhotosCount);
-  const hasMorePhotos = visiblePhotosCount < photos.length;
-
-  //@ts-expect-error - no error
-  const handleImageClick = ({ index }) => {
+  const handleImageClick = ({ index }: { index: number }) => {
     setSelectedIndex(index);
     setLightboxOpen(true);
   };
 
   const handleLoadMore = () => {
     setVisiblePhotosCount((prevCount) => prevCount + 50);
+    if (onLoadMore) {
+      onLoadMore();
+    }
   };
+
+  const albumPhotos = photosToShow.map((photo) => ({
+    key: uuidv4(),
+    src: photo.src,
+    width: photo.width || 1280,
+    height: photo.height || 480,
+    alt: photo.alt || `Image-${uuidv4()}`,
+  }));
 
   return (
     <div>
@@ -79,12 +93,12 @@ export default function PhotoGallery({ PORTFOLIO, title, ar }) {
             if (containerWidth < 768) return 2;
             return 3;
           }}
-          photos={photosToShow}
+          photos={albumPhotos}
           onClick={handleImageClick}
         />
       </div>
 
-      {hasMorePhotos && (
+      {hasMore && (
         <div style={{ textAlign: "center", margin: "20px 0" }}>
           <Button
             onClick={handleLoadMore}
@@ -101,20 +115,15 @@ export default function PhotoGallery({ PORTFOLIO, title, ar }) {
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
-        slides={photos}
+        slides={slides}
+        plugins={[Zoom, Share]}
         index={selectedIndex}
-        render={{
-          slide: ({ slide }) => (
-            <img
-              src={slide.src}
-              alt={slide.alt}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "contain",
-              }}
-            />
-          ),
+        zoom={{
+          maxZoomPixelRatio: 3, // Limit maximum zoom level
+          zoomInMultiplier: 2, // Zoom increment
+          doubleTapDelay: 300, // Delay for double-tap zoom
+          doubleClickDelay: 300, // Delay for double-click zoom
+          doubleClickMaxStops: 2, // Max zoom stops for double-click
         }}
       />
     </div>

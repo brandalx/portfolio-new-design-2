@@ -10,100 +10,102 @@ export default function Footer() {
     return new Date().getFullYear();
   };
   return (
-    <footer className="page-footer bg-transparent mx-auto w-full    z-50 ">
-      <Separator className="w-full" />
+    <MaxWidthWrapper>
+      <footer className="page-footer bg-transparent mx-auto w-full    z-50 ">
+        <Separator className="w-full" />
 
-      <div className="w-fit text-center mx-auto my-5">
-        <Link href="/contacts">
-          <TextPressure
-            className="text-4xl md:text-5xl lg:text-[120px]"
-            text="Get In Touch!"
-            flex={true}
-            alpha={false}
-            stroke={false}
-            width={true}
-            weight={true}
-            fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
-            italic={true}
-            fontFamily="Unbounded"
-            strokeColor="#ff0000"
-            minFontSize={36}
-          />
-        </Link>
-      </div>
-      <div className=" w-full py-6 ">
-        <div className="grid grid-cols-3 glor-l text-sm w-full">
-          <div className="flex flex-col gap-4 w-fit ">
-            {NAVIGATION.map((page) => (
+        <div className="w-fit text-center mx-auto my-5">
+          <Link href="/contacts">
+            <TextPressure
+              className="text-4xl md:text-5xl lg:text-[120px]"
+              text="Get In Touch!"
+              flex={true}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
+              italic={true}
+              fontFamily="Unbounded"
+              strokeColor="#ff0000"
+              minFontSize={36}
+            />
+          </Link>
+        </div>
+        <div className=" w-full py-6 ">
+          <div className="grid grid-cols-3 glor-l text-sm w-full">
+            <div className="flex flex-col gap-4 w-fit ">
+              {NAVIGATION.map((page) => (
+                <Link
+                  key={page.href}
+                  href={page.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {page.title}
+                </Link>
+              ))}{" "}
               <Link
-                key={page.href}
-                href={page.href}
+                href={"       https://old.brandnolandev.com/"}
+                target="_blank"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                {page.title}
+                Legacy
               </Link>
-            ))}{" "}
-            <Link
-              href={"       https://old.brandnolandev.com/"}
-              target="_blank"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Legacy
-            </Link>
-            <Link
-              href={"https://newusandor.wixsite.com/design"}
-              target="_blank"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Design
-            </Link>
-            <Link
-              target="_blank"
-              href={"       https://old.brandnolandev.com/"}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Site Map
-            </Link>
+              <Link
+                href={"https://newusandor.wixsite.com/design"}
+                target="_blank"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Design
+              </Link>
+              <Link
+                target="_blank"
+                href={"       https://old.brandnolandev.com/"}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Site Map
+              </Link>
+            </div>
+            <div className="flex flex-col gap-4 w-fit">
+              {SOCIALS.map((social) => (
+                <Link
+                  key={social.href}
+                  href={social.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {social.title}
+                </Link>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4 w-fit">
+              {OTHERS.map((social) => (
+                <Link
+                  key={social.href}
+                  href={social.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {social.title}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-col gap-4 w-fit">
-            {SOCIALS.map((social) => (
-              <Link
-                key={social.href}
-                href={social.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {social.title}
-              </Link>
-            ))}
-          </div>
-          <div className="flex flex-col gap-4 w-fit">
-            {OTHERS.map((social) => (
-              <Link
-                key={social.href}
-                href={social.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {social.title}
-              </Link>
-            ))}
+
+          <div className="">
+            <div className="mt-[50px]">
+              <p className="  text-xs text-gray-400  w-fit mx-auto">
+                © 2020 - {getYear()} Brandon Nolan. All Rights Reserved.
+              </p>
+            </div>
+            <div className="flex mt-5 items-center cursor-pointer w-fit mx-auto underline hover:text-gray-300 text-sm">
+              <IconPhoneCall className="h-4 w-4 mr-2" />
+              <Link href="tel:14374393888">+1(437)-439-3888</Link>
+            </div>
+            <div className=" mt-5 text-xs text-gray-400 mx-auto w-fit">
+              Canada | Global
+            </div>
           </div>
         </div>
-
-        <div className="">
-          <div className="mt-[50px]">
-            <p className="  text-xs text-gray-400  w-fit mx-auto">
-              © 2020 - {getYear()} Brandon Nolan. All Rights Reserved.
-            </p>
-          </div>
-          <div className="flex mt-5 items-center cursor-pointer w-fit mx-auto underline hover:text-gray-300 text-sm">
-            <IconPhoneCall className="h-4 w-4 mr-2" />
-            <Link href="tel:14374393888">+1(437)-439-3888</Link>
-          </div>
-          <div className=" mt-5 text-xs text-gray-400 mx-auto w-fit">
-            Canada | Global
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>{" "}
+    </MaxWidthWrapper>
   );
 }

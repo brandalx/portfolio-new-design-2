@@ -84,7 +84,7 @@ export default function Navbar() {
                                     "flex  gap-2",
                                     pathname === subItem.href
                                       ? "text-foreground"
-                                      : "text-muted-foreground hover:text-foreground"
+                                      : "text-muted-foreground hover:text-foreground z-[99]"
                                   )}
                                 >
                                   <div className="flex items-center gap-x-2">

@@ -1,3 +1,4 @@
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Portfolio from "../components/portfolio/portfolio";
 
 import { HeroNew } from "@/components/HeroNew";
@@ -6,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <div
-        className="min-h-screen opacity-75 absolute w-full z-[-1] pointer-events-none"
+        className="min-h-screen opacity-75 absolute w-full z-[-100] pointer-events-none "
         style={{
           backgroundColor: "var(--bg-base)",
           WebkitMaskImage: `
@@ -45,14 +46,15 @@ export default function Home() {
           }}
         />
       </div>
-
-      <div className=" ">
-        <HeroNew />
-      </div>
-      <div>{/* <WorkList /> */}</div>
-      <div className="z-[2]  bg-background">
-        <Portfolio />
-      </div>
+      <MaxWidthWrapper>
+        <div className=" ">
+          <HeroNew />
+        </div>
+        <div>{/* <WorkList /> */}</div>
+        <div className="z-[2]  bg-background">
+          <Portfolio />
+        </div>
+      </MaxWidthWrapper>
     </div>
   );
 }
