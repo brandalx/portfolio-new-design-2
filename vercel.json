@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/generate-cache?token=6822ww14-6682-403e-91be-dc0663f3b604",
-      "schedule": "0 0 * * *"
+      "schedule": "0 0 * * 1"
     }
   ]
 }
