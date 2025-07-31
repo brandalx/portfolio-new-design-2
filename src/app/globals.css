@@ -764,3 +764,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+.my-masonry-grid {
+  display: flex;
+  width: auto;
+  margin-left: -1.5rem; /* Offset for gap */
+}
+.my-masonry-grid_column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Matches gap-6 */
+  width: 100%; /* Ensure columns take equal width */
+}
+.my-masonry-grid_column > div {
+  width: 100%;
+  break-inside: avoid; /* Prevent image splitting */
+}
