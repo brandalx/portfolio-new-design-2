@@ -37,7 +37,6 @@ type Project = {
   images?: ProjectImage[];
 };
 
-// Updated useScrollDown hook using IntersectionObserver
 const useScrollDown = (
   callback: () => void,
   isLoading: boolean,
@@ -45,11 +44,28 @@ const useScrollDown = (
 ) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const hasScrolled = useRef(false);
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
-      if (entry.isIntersecting && !isLoading && hasMore) {
+      console.log(
+        "Observer triggered: isIntersecting=",
+        entry.isIntersecting,
+        "isLoading=",
+        isLoading,
+        "hasMore=",
+        hasMore,
+        "hasScrolled=",
+        hasScrolled.current
+      );
+      if (
+        entry.isIntersecting &&
+        !isLoading &&
+        hasMore &&
+        hasScrolled.current
+      ) {
+        console.log("Sentinel intersected, loading more images...");
         callback();
       }
     },
@@ -57,17 +73,46 @@ const useScrollDown = (
   );
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(handleObserver, {
-      root: null, // Use viewport as root
-      rootMargin: "600px", // Trigger when 600px from the sentinel
-      threshold: 0, // Trigger as soon as sentinel is visible
-    });
+    // Detect scroll to enable observer
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        // Reduced threshold for faster enabling
+        hasScrolled.current = true;
+        console.log("User scrolled, enabling observer");
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
 
-    if (sentinelRef.current) {
-      observerRef.current.observe(sentinelRef.current);
-    }
+    window.addEventListener("scroll", handleScroll);
+
+    // Set up observer with delay
+    const timeoutId = setTimeout(() => {
+      observerRef.current = new IntersectionObserver(handleObserver, {
+        root: null,
+        rootMargin: "800px", // Reduced from 1600px for reliable triggering
+        threshold: 0,
+      });
+
+      if (sentinelRef.current) {
+        observerRef.current.observe(sentinelRef.current);
+        // Check if sentinel is already in view
+        const rect = sentinelRef.current.getBoundingClientRect();
+        console.log(
+          "Sentinel position: top=",
+          rect.top,
+          "viewport height=",
+          window.innerHeight
+        );
+        if (rect.top <= window.innerHeight + 800 && !isLoading && hasMore) {
+          console.log("Sentinel in view on mount, triggering callback");
+          callback();
+        }
+      }
+    }, 500);
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
       if (sentinelRef.current && observerRef.current) {
         observerRef.current.unobserve(sentinelRef.current);
       }
@@ -75,9 +120,9 @@ const useScrollDown = (
         observerRef.current.disconnect();
       }
     };
-  }, [handleObserver]);
+  }, [handleObserver, isLoading, hasMore, callback]);
 
-  return sentinelRef; // Return ref to attach to the sentinel element
+  return sentinelRef;
 };
 
 const SingleProject = () => {
@@ -92,14 +137,20 @@ const SingleProject = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const imagesPerPage = 8;
+  const imagesPerPage = 4; // Reduced to ensure page is long enough
 
   const photos = images.map((img) => ({
-    src: img.secure_url, // Use raw URL without transformations
+    src: img.secure_url,
     alt: img.public_id,
   }));
 
   useEffect(() => {
+    // Reset state on navigation
+    setImages([]);
+    setCurrentPage(1);
+    setError(null);
+    setIsLoading(true);
+
     const fetchProject = async () => {
       if (!project || !pathname) {
         setError("Missing project or pathname");
@@ -108,7 +159,6 @@ const SingleProject = () => {
       }
 
       try {
-        setIsLoading(true);
         const res = await fetch(
           process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json",
           { cache: "no-store" }
@@ -138,11 +188,12 @@ const SingleProject = () => {
     };
 
     fetchProject();
-  }, [project, pathname]);
+  }, [project, pathname, router]);
 
   const sentinelRef = useScrollDown(
     () => {
       if (projectData && images.length < (projectData.images?.length || 0)) {
+        console.log(`Loading page ${currentPage + 1}...`);
         const nextImages = projectData.images!.slice(
           images.length,
           images.length + imagesPerPage
@@ -361,11 +412,10 @@ const SingleProject = () => {
             )}
           </div>
 
-          {/* Masonry Layout for Images */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
             {images.slice(1).map((img, index) => (
               <div
-                key={uuidv4()} // Use public_id as key for stability
+                key={uuidv4()}
                 onClick={() => {
                   setSelectedIndex(index + 1);
                   setLightboxOpen(true);
@@ -373,7 +423,7 @@ const SingleProject = () => {
                 className="cursor-pointer"
               >
                 <img
-                  src={img.secure_url} // Use raw URL without transformations
+                  src={img.secure_url}
                   alt={img.public_id}
                   className="w-full h-auto rounded-lg"
                   sizes="(max-width: 992px) 100vw, 50vw"
@@ -383,7 +433,7 @@ const SingleProject = () => {
             ))}
           </div>
 
-          <div ref={sentinelRef} className="h-1" />
+          <div ref={sentinelRef} className="h-1 mt-16" />
 
           <Lightbox
             plugins={[Zoom, Share]}
