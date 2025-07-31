@@ -767,7 +767,6 @@ body {
 .my-masonry-grid {
   display: flex;
   width: auto;
-  margin-left: -1.5rem; /* Offset for gap */
 }
 .my-masonry-grid_column {
   display: flex;

@@ -412,38 +412,39 @@ const SingleProject = () => {
               </div>
             )}
           </div>
-
-          <Masonry
-            breakpointCols={{
-              default: 2,
-              768: 1,
-              1024: 2,
-            }}
-            className="my-masonry-grid gap-6 mt-8"
-            columnClassName="my-masonry-grid_column gap-6"
-          >
-            {images.slice(1).map((img, index) => (
-              <div
-                key={uuidv4()}
-                onClick={() => {
-                  setSelectedIndex(index + 1);
-                  setLightboxOpen(true);
-                }}
-                className="cursor-pointer relative"
-                // style={{ aspectRatio: "4 / 3", minHeight: "200px" }} // Example aspect ratio
-              >
-                <img
-                  loading="lazy"
-                  src={img.secure_url}
-                  alt={img.public_id}
-                  className="w-full h-full object-cover rounded-lg"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  width={400} // Example width
-                  height={300} // Example height
-                />
-              </div>
-            ))}
-          </Masonry>
+          <div className="mx-auto w-full">
+            <Masonry
+              breakpointCols={{
+                default: 2,
+                768: 1,
+                1024: 2,
+              }}
+              className="my-masonry-grid gap-6 mt-8"
+              columnClassName="my-masonry-grid_column gap-6"
+            >
+              {images.slice(1).map((img, index) => (
+                <div
+                  key={uuidv4()}
+                  onClick={() => {
+                    setSelectedIndex(index + 1);
+                    setLightboxOpen(true);
+                  }}
+                  className="cursor-pointer relative"
+                  // style={{ aspectRatio: "4 / 3", minHeight: "200px" }} // Example aspect ratio
+                >
+                  <img
+                    loading="lazy"
+                    src={img.secure_url}
+                    alt={img.public_id}
+                    className="w-full h-full object-cover rounded-lg"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    width={400} // Example width
+                    height={300} // Example height
+                  />
+                </div>
+              ))}
+            </Masonry>{" "}
+          </div>
           <div ref={sentinelRef} className="h-1 mt-16" />
 
           <Lightbox
