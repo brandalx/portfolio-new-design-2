@@ -35,6 +35,13 @@ export function FloatingNavDemo() {
         <IconUser className="h-4 w-4 text-white hover:text-gray-500 transition-all" />
       ),
     },
+    {
+      name: "Code",
+      link: "https://brandnolandev.com",
+      icon: (
+        <IconUser className="h-4 w-4 text-white hover:text-gray-500 transition-all" />
+      ),
+    },
     // {
     //   name: "Goodies",
     //   link: "/goodies",
