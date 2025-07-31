@@ -50,7 +50,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MaxWidthWrapper>
-          <FloatingNavDemo /> <CookieConsenInitilizer />{" "}
+          <FloatingNavDemo />
           <div>
             <ScrollProgressDemo /> <ScrollToTopButton />
           </div>
@@ -63,8 +63,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <CookieConsenInitilizer />
             <MaxWidthWrapper>
-              {" "}
               <Navbar />
             </MaxWidthWrapper>
             {children}

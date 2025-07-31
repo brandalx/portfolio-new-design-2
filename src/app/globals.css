@@ -544,3 +544,207 @@ body {
   -webkit-appearance: none;
   pointer-events: none !important;
 }
+
+.pm__section-services {
+  color: white !important;
+}
+.pm__title {
+  color: white !important;
+}
+.pm__btn {
+  border-radius: 100px !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.pm__b:hover {
+  background-color: #cecece !important;
+  transition: all !important;
+}
+
+.pm__btn:hover {
+  background-color: #cecece !important;
+  transition: all !important;
+}
+.cm__link-group > a:hover {
+  color: #c7c7c7 !important;
+}
+.cm__btn:hover {
+  background-color: #cecece !important;
+  transition: all !important;
+}
+.pm__service-title {
+  color: rgb(183, 183, 183) !important;
+}
+.pm__service-title:hover {
+  background-color: black !important;
+}
+
+.pm__table-tr:hover {
+  background-color: black !important;
+}
+
+.pm__table-body:hover {
+  background-color: black !important;
+}
+.pm__table-td:hover {
+  background-color: black !important;
+}
+.pm__service:hover {
+  background-color: black !important;
+}
+.pm__section-table,
+.pm__table-caption,
+.pm__table-th {
+  color: white !important;
+}
+
+.pm__table-td {
+  color: rgb(183, 183, 183) !important;
+}
+.cm__btn {
+  background-color: white !important;
+  color: black !important;
+  border-radius: 100px !important;
+}
+.pm__section:hover {
+  background-color: black !important;
+}
+.section__toggle {
+  color: black !important;
+}
+.pm__section-title:hover,
+.pm__section-title-wrapper:hover {
+  background-color: black !important;
+}
+
+.pm__section-title {
+  background-color: #111 !important;
+  color: white !important;
+}
+.pm__section-title:hover {
+  background-color: #1e1e1e !important;
+  transition: all !important;
+}
+.pm__body,
+.pm__section-desc {
+  color: white !important;
+}
+.cm__title {
+  color: white !important;
+  width: fit-content !important;
+}
+.cm__desc {
+  color: white !important;
+}
+.cm.cm--bar.cm--bottom {
+  border: white 1px solid !important;
+}
+#cc-main {
+  --cc-font-family: "Arial", sans-serif;
+
+  --cc-bg: black;
+  --cc-text: white;
+
+  --cc-btn-primary-bg: #000000;
+  --cc-btn-primary-border-color: #000000;
+  --cc-btn-primary-hover-bg: black;
+  --cc-btn-primary-hover-border-color: black;
+
+  --cc-btn-border-radius: 10px;
+  --cc-modal-border-radius: 12px;
+
+  --cc-toggle-on-bg: #000000;
+}
+
+.cc--elegant-black {
+  color-scheme: dark;
+
+  --cc-bg: #000;
+  --cc-primary-color: rgb(239, 244, 246);
+  --cc-secondary-color: white;
+
+  --cc-btn-primary-bg: #ffffff;
+  --cc-btn-primary-color: #000;
+  --cc-btn-primary-hover-bg: black;
+  --cc-btn-primary-hover-color: #000;
+
+  --cc-btn-secondary-bg: rgba(255, 255, 255, 0.039);
+  --cc-btn-secondary-color: var(--cc-primary-color);
+  --cc-btn-secondary-border-color: black;
+  --cc-btn-secondary-hover-bg: black;
+  --cc-btn-secondary-hover-color: #fff;
+  --cc-btn-secondary-hover-border-color: black;
+
+  --cc-cookie-category-block-bg: black;
+  --cc-cookie-category-block-border: black;
+  --cc-cookie-category-block-hover-bg: black;
+  --cc-cookie-category-block-hover-border: black;
+  --cc-cookie-category-expanded-block-hover-bg: black;
+  --cc-cookie-category-expanded-block-bg: black;
+  --cc-toggle-readonly-bg: black;
+  --cc-overlay-bg: rgba(0, 0, 0, 0.9) !important;
+
+  --cc-toggle-on-knob-bg: var(--cc-bg);
+  --cc-toggle-readonly-knob-bg: var(--cc-cookie-category-block-bg);
+
+  --cc-separator-border-color: black;
+
+  --cc-footer-border-color: black;
+  --cc-footer-bg: #000;
+}
+
+.cc--elegant-black #cc-main .cm,
+.cc--elegant-black #cc-main .pm {
+  border: 1px solid var(--cc-separator-border-color);
+}
+#cc-main .cm__footer {
+  background: black !important;
+  color: white !important;
+}
+.cm__title > div {
+  width: fit-content !important;
+  align-items: center !important;
+  gap: 8px !important;
+  display: flex !important;
+  justify-items: start !important;
+}
+.cm__title {
+  width: fit-content !important;
+  gap: 10px;
+
+  white-space: nowrap;
+}
+.ddd {
+  white-space: nowrap !important;
+}
+.pm__close-btn {
+  border-radius: 100px !important;
+}
+.pm__table-td {
+  color: rgb(183, 183, 183) !important;
+}
+.pm__table-td::before {
+  color: rgb(183, 183, 183) !important;
+}
+
+/* @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+} */
+
+:root {
+  --sh-class: #7aa2f7;
+  --sh-sign: #89ddff;
+  --sh-string: #9ece6a;
+  --sh-keyword: #bb9af7;
+  --sh-comment: #565f89;
+  --sh-jsxliterals: #7aa2f7;
+  --sh-property: #73daca;
+  --sh-entity: #e0af68;
+}
