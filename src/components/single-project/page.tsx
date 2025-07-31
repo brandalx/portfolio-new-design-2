@@ -91,10 +91,8 @@ const SingleProject = () => {
   const imagesPerPage = 8;
 
   const photos = images.map((img) => ({
-    src: `${img.secure_url}?f_auto,q_auto,w_720,h_720`,
+    src: img.secure_url, // Use raw URL without transformations
     alt: img.public_id,
-    width: 720,
-    height: 720,
   }));
 
   useEffect(() => {
@@ -228,7 +226,7 @@ const SingleProject = () => {
         <div className="mx-auto max-w-7xl-none px-4-none">
           <img
             loading="eager"
-            src={`${projectData.cover}?f_auto,q_auto,w_1095,h_1072`}
+            src={projectData.cover} // Use raw URL without transformations
             alt={projectData.name}
             className="w-full h-auto rounded-lg"
           />
@@ -361,10 +359,8 @@ const SingleProject = () => {
               className="cursor-pointer"
             >
               <img
-                src={`${img.secure_url}?f_auto,q_auto,w_633,h_679`}
+                src={img.secure_url} // Use raw URL without transformations
                 alt={img.public_id}
-                width={633}
-                height={679}
                 className="w-full h-auto rounded-lg"
                 sizes="(max-width: 992px) 100vw, 50vw"
                 loading="lazy"
