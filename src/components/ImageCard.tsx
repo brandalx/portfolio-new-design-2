@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FC, useEffect, useRef, useState } from "react";
 import AOSInit from "@/components/AOSInit";
 import { AspectRatio } from "./ui/aspect-ratio";
+import { Skeleton } from "./ui/skeleton";
 import { gsap } from "gsap";
 import unbounded from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,9 @@ const ImageCard: FC<ImageCardProps> = ({
   const words = ["View", "Explore", "Discover", "See More", "Check Out"];
   // State to hold the current random word
   const [currentWord, setCurrentWord] = useState("View");
+  // State to track image loading
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   // Remove spaces and lowercase
   const cleanTitle = title.replace(/\s+/g, "").toLowerCase();
@@ -72,7 +76,7 @@ const ImageCard: FC<ImageCardProps> = ({
     const image = imageRef.current;
     const viewText = viewTextRef.current;
 
-    if (!image || !viewText) return;
+    if (!image || !viewText || !imageLoaded) return;
 
     // Set initial state of view text
     gsap.set(viewText, { opacity: 0, scale: 0.5 });
@@ -132,7 +136,16 @@ const ImageCard: FC<ImageCardProps> = ({
       image.removeEventListener("mouseleave", handleMouseLeave);
       image.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [imageLoaded]);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true); // Still show content even if image fails
+  };
 
   return (
     <AspectRatio ratio={9 / 12}>
@@ -143,33 +156,65 @@ const ImageCard: FC<ImageCardProps> = ({
       >
         <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
           <AspectRatio ratio={9 / 16}>
+            {!imageLoaded && <Skeleton className="w-full h-full" />}
             <img
               loading="lazy"
               sizes="100vw"
-              className="w-full h-auto object-cover transition-transform duration-300 ease-out group-hover:scale-105 h-full object-cover"
+              className={cn(
+                "w-full h-auto object-cover transition-all duration-500 ease-out group-hover:scale-105 h-full object-cover",
+                imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0"
+              )}
               src={src}
               alt={makeTtitleAsTitle}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
             />
-          </AspectRatio>
-          <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
-          <div
-            ref={viewTextRef}
-            className={cn(
-              "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
-              unbounded.className
+            {imageError && imageLoaded && (
+              <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+                <div className="text-gray-500 dark:text-gray-400 text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                  <span className="text-sm">Failed to load</span>
+                </div>
+              </div>
             )}
-          >
-            {currentWord} <IconChevronRight />
-          </div>
+          </AspectRatio>
+
+          {imageLoaded && !imageError && (
+            <>
+              <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
+              <div
+                ref={viewTextRef}
+                className={cn(
+                  "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
+                  unbounded.className
+                )}
+              >
+                {currentWord} <IconChevronRight />
+              </div>
+            </>
+          )}
         </div>
 
         <div className="mt-4 flex flex-col flex-grow capitalize">
-          <span className="text-sm text-gray-500 glor-l">
-            {makesubcategoryAsName}
-          </span>
-          <h3 className={cn("text-2xl font-semibold ", unbounded.className)}>
-            {makeTtitleAsTitle}
-          </h3>
+          {!imageLoaded ? (
+            // Skeleton for text content
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-6 w-3/4" />
+            </div>
+          ) : (
+            // Actual content
+            <>
+              <span className="text-sm text-gray-500 glor-l">
+                {makesubcategoryAsName}
+              </span>
+              <h3
+                className={cn("text-2xl font-semibold ", unbounded.className)}
+              >
+                {makeTtitleAsTitle}
+              </h3>
+            </>
+          )}
         </div>
       </Link>
     </AspectRatio>

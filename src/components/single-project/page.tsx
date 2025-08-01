@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useRouter, useParams, usePathname } from "next/navigation";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -38,93 +38,126 @@ type Project = {
   images?: ProjectImage[];
 };
 
-const useScrollDown = (
-  callback: () => void,
-  isLoading: boolean,
-  hasMore: boolean
-) => {
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  const hasScrolled = useRef(false);
+// Individual image component with loading state - simplified for performance
+const MasonryImage = React.memo(
+  ({
+    img,
+    index,
+    onImageClick,
+  }: {
+    img: ProjectImage;
+    index: number;
+    onImageClick: (index: number) => void;
+  }) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
-      console.log(
-        "Observer triggered: isIntersecting=",
-        entry.isIntersecting,
-        "isLoading=",
-        isLoading,
-        "hasMore=",
-        hasMore,
-        "hasScrolled=",
-        hasScrolled.current
-      );
-      if (
-        entry.isIntersecting &&
-        !isLoading &&
-        hasMore &&
-        hasScrolled.current
-      ) {
-        console.log("Sentinel intersected, loading more images...");
-        callback();
-      }
-    },
-    [callback, isLoading, hasMore]
-  );
+    const handleImageLoad = () => {
+      setImageLoaded(true);
+    };
 
-  useEffect(() => {
-    // Detect scroll to enable observer
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        // Reduced threshold for faster enabling
-        hasScrolled.current = true;
-        console.log("User scrolled, enabling observer");
-        window.removeEventListener("scroll", handleScroll);
+    const handleImageError = () => {
+      setImageError(true);
+      setImageLoaded(true);
+    };
+
+    const handleClick = () => {
+      if (imageLoaded && !imageError) {
+        onImageClick(index);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    return (
+      <div className="cursor-pointer relative">
+        {!imageLoaded && <Skeleton className="w-full h-[300px] rounded-lg" />}
 
-    // Set up observer with delay
-    const timeoutId = setTimeout(() => {
-      observerRef.current = new IntersectionObserver(handleObserver, {
-        root: null,
-        rootMargin: "800px", // Reduced from 1600px for reliable triggering
-        threshold: 0,
-      });
+        <img
+          loading="lazy"
+          src={img.secure_url}
+          alt={img.public_id}
+          className={cn(
+            "w-full h-full object-cover rounded-lg transition-opacity duration-300",
+            imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0"
+          )}
+          sizes="(max-width: 768px) 100vw, 33vw"
+          width={400}
+          height={300}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          onClick={handleClick}
+        />
 
-      if (sentinelRef.current) {
-        observerRef.current.observe(sentinelRef.current);
-        // Check if sentinel is already in view
-        const rect = sentinelRef.current.getBoundingClientRect();
-        console.log(
-          "Sentinel position: top=",
-          rect.top,
-          "viewport height=",
-          window.innerHeight
-        );
-        if (rect.top <= window.innerHeight + 800 && !isLoading && hasMore) {
-          console.log("Sentinel in view on mount, triggering callback");
-          callback();
-        }
-      }
-    }, 500);
+        {imageError && imageLoaded && (
+          <div className="w-full h-[300px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+            <div className="text-gray-500 dark:text-gray-400 text-center">
+              <div className="w-12 h-12 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
+              <span className="text-sm">Failed to load image</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timeoutId);
-      if (sentinelRef.current && observerRef.current) {
-        observerRef.current.unobserve(sentinelRef.current);
-      }
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [handleObserver, isLoading, hasMore, callback]);
+MasonryImage.displayName = "MasonryImage";
 
-  return sentinelRef;
-};
+// Cover image component with loading state
+const CoverImage = React.memo(
+  ({
+    src,
+    alt,
+    className,
+  }: {
+    src: string;
+    alt: string;
+    className?: string;
+  }) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageError, setImageError] = useState(false);
+
+    const handleImageLoad = useCallback(() => {
+      setImageLoaded(true);
+    }, []);
+
+    const handleImageError = useCallback(() => {
+      setImageError(true);
+      setImageLoaded(true);
+    }, []);
+
+    return (
+      <div className="relative">
+        {!imageLoaded && (
+          <Skeleton className="w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-lg" />
+        )}
+
+        <img
+          loading="eager"
+          src={src}
+          alt={alt}
+          className={cn(
+            "w-full h-auto rounded-lg transition-opacity duration-300",
+            imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0",
+            className
+          )}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+        />
+
+        {imageError && imageLoaded && (
+          <div className="w-full h-[500px] md:h-[600px] lg:h-[700px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+            <div className="text-gray-500 dark:text-gray-400 text-center">
+              <div className="w-16 h-16 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
+              <span className="text-sm">Failed to load cover image</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+CoverImage.displayName = "CoverImage";
 
 const SingleProject = () => {
   const router = useRouter();
@@ -134,21 +167,47 @@ const SingleProject = () => {
   const [images, setImages] = useState<ProjectImage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const imagesPerPage = 4; // Reduced to ensure page is long enough
+  // Memoize photos array to prevent recreation on every render
+  const photos = useMemo(
+    () =>
+      images.map((img) => ({
+        src: img.secure_url,
+        alt: img.public_id,
+      })),
+    [images]
+  );
 
-  const photos = images.map((img) => ({
-    src: img.secure_url,
-    alt: img.public_id,
-  }));
+  // Memoize image click handler
+  const handleImageClick = useCallback((index: number) => {
+    setSelectedIndex(index + 1);
+    setLightboxOpen(true);
+  }, []);
+
+  // Memoize lightbox close handler
+  const handleLightboxClose = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  // Memoize masonry images to prevent re-rendering
+  const masonryImages = useMemo(
+    () =>
+      images.slice(1).map((img, index) => (
+        <MasonryImage
+          key={img.asset_id || img.public_id || uuidv4()} // Use stable key
+          img={img}
+          index={index}
+          onImageClick={handleImageClick}
+        />
+      )),
+    [images, handleImageClick]
+  );
 
   useEffect(() => {
     // Reset state on navigation
     setImages([]);
-    setCurrentPage(1);
     setError(null);
     setIsLoading(true);
 
@@ -179,7 +238,7 @@ const SingleProject = () => {
         }
 
         setProjectData(projectInfo);
-        setImages(projectInfo.images?.slice(0, imagesPerPage) || []);
+        setImages(projectInfo.images || []);
       } catch (err) {
         console.error("Error fetching project:", (err as Error).message);
         setError("Failed to load project data. Please try again later.");
@@ -190,22 +249,6 @@ const SingleProject = () => {
 
     fetchProject();
   }, [project, pathname, router]);
-
-  const sentinelRef = useScrollDown(
-    () => {
-      if (projectData && images.length < (projectData.images?.length || 0)) {
-        console.log(`Loading page ${currentPage + 1}...`);
-        const nextImages = projectData.images!.slice(
-          images.length,
-          images.length + imagesPerPage
-        );
-        setImages((prev) => [...prev, ...nextImages]);
-        setCurrentPage((prev) => prev + 1);
-      }
-    },
-    isLoading,
-    projectData ? images.length < (projectData.images?.length || 0) : false
-  );
 
   if (isLoading || error || !projectData) {
     return (
@@ -239,7 +282,7 @@ const SingleProject = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {[...Array(6)].map((_, index) => (
                 <Skeleton
                   key={index}
@@ -285,12 +328,7 @@ const SingleProject = () => {
 
         {projectData.cover && category !== "PHOTOGRAPHY" && (
           <div className="mx-auto max-w-7xl-none px-4-none">
-            <img
-              loading="eager"
-              src={projectData.cover}
-              alt={projectData.name}
-              className="w-full h-auto rounded-lg"
-            />
+            <CoverImage src={projectData.cover} alt={projectData.name} />
           </div>
         )}
 
@@ -412,6 +450,7 @@ const SingleProject = () => {
               </div>
             )}
           </div>
+
           <div className="mx-auto w-full">
             <Masonry
               breakpointCols={{
@@ -419,38 +458,17 @@ const SingleProject = () => {
                 768: 1,
                 1024: 2,
               }}
-              className="my-masonry-grid gap-6 mt-8"
+              className="my-masonry-grid gap-6"
               columnClassName="my-masonry-grid_column gap-6"
             >
-              {images.slice(1).map((img, index) => (
-                <div
-                  key={uuidv4()}
-                  onClick={() => {
-                    setSelectedIndex(index + 1);
-                    setLightboxOpen(true);
-                  }}
-                  className="cursor-pointer relative"
-                  // style={{ aspectRatio: "4 / 3", minHeight: "200px" }} // Example aspect ratio
-                >
-                  <img
-                    loading="lazy"
-                    src={img.secure_url}
-                    alt={img.public_id}
-                    className="w-full h-full object-cover rounded-lg"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    width={400} // Example width
-                    height={300} // Example height
-                  />
-                </div>
-              ))}
-            </Masonry>{" "}
+              {masonryImages}
+            </Masonry>
           </div>
-          <div ref={sentinelRef} className="h-1 mt-16" />
 
           <Lightbox
             plugins={[Zoom, Share]}
             open={lightboxOpen}
-            close={() => setLightboxOpen(false)}
+            close={handleLightboxClose}
             slides={photos}
             index={selectedIndex}
             zoom={{
@@ -461,12 +479,6 @@ const SingleProject = () => {
               doubleClickMaxStops: 2,
             }}
           />
-
-          {isLoading && (
-            <div className="text-center mt-8">
-              <Skeleton className="h-6 w-32 mx-auto" />
-            </div>
-          )}
         </div>
       </div>
     </MaxWidthWrapper>
