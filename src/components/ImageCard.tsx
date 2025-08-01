@@ -13,9 +13,11 @@ interface ImageCardProps {
   title: string;
   category: string;
   subcategory: string;
+  aspectRatio?: any;
 }
 
 const ImageCard: FC<ImageCardProps> = ({
+  aspectRatio = 3 / 4,
   src,
   title,
   category,
@@ -148,14 +150,14 @@ const ImageCard: FC<ImageCardProps> = ({
   };
 
   return (
-    <AspectRatio ratio={9 / 12}>
+    <AspectRatio ratio={aspectRatio}>
       <Link
         href={`/${category}/${makesubcategoryasUrl}/${makeTitleAsUrl}`}
         className="group willchange max-h-[700px] h-full flex flex-col"
         data-aos="fade-up"
       >
         <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
-          <AspectRatio ratio={9 / 16}>
+          <AspectRatio ratio={aspectRatio}>
             {!imageLoaded && <Skeleton className="w-full h-full" />}
             <img
               loading="lazy"

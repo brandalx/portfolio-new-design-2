@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import ImageCard from "@/components/ImageCard"; // Adjust the import path as needed
 import MaxWidthWrapper from "@/components/max-width-wrapper";
+import { BackButton } from "@/components/BackButton";
 
 type Project = {
   name: string;
@@ -63,6 +64,9 @@ export default function DesignPage() {
 
   return (
     <MaxWidthWrapper>
+      <div className="mt-2">
+        <BackButton />
+      </div>
       <section className="py-12 min-h-screen">
         <div className="mx-auto max-w-7xl-none px-4-none">
           <div className="text-center mb-8">
@@ -94,6 +98,7 @@ export default function DesignPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {filteredProjects.map((project, index) => (
               <ImageCard
+                aspectRatio={16 / 12}
                 key={index}
                 src={project.cover}
                 title={project.name}

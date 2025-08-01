@@ -13,6 +13,7 @@ import TextPressure from "../textPressure";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { v4 as uuidv4 } from "uuid";
 import Masonry from "react-masonry-css";
+import { BackButton } from "../BackButton";
 
 type ProjectImage = {
   secure_url: string;
@@ -301,6 +302,10 @@ const SingleProject = () => {
   return (
     <MaxWidthWrapper>
       <div>
+        <div className="mt-2">
+          {" "}
+          <BackButton />
+        </div>
         <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
           <p className="text-sm text-gray-500">{category}</p>
           <h1
@@ -311,7 +316,11 @@ const SingleProject = () => {
           >
             <TextPressure
               className="text-4xl w-fit md:text-5xl lg:text-[120px]"
-              text={projectData.title || projectData.name || "Untitled Project"}
+              text={
+                projectData.description ||
+                projectData.name ||
+                "Untitled Project"
+              }
               flex={true}
               alpha={false}
               stroke={false}
@@ -437,13 +446,13 @@ const SingleProject = () => {
                 </div>
               </div>
             )}
-            {projectData.description && (
+            {projectData.title && (
               <div className="flex-1 min-w-[200px]">
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold mb-4">Description</h2>
                     <p className="text-gray-700">
-                      {projectData.description || "No description available."}
+                      {projectData.title || "No description available."}
                     </p>
                   </div>
                 </div>

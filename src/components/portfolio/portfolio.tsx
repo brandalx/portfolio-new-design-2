@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import unbounded from "@/lib/fonts";
 import ImageCard from "../ImageCard";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { IconChevronRight } from "@tabler/icons-react";
 type Project = {
   name: string;
   cover: string;
@@ -69,6 +72,14 @@ export default function Portfolio({ className }: { className?: string }) {
       return project.category === category;
     return `${project.category}/${project.subcategory}` === subcategory;
   });
+  const designProjects = filteredProjects.filter(
+    (p) => p.category.toLowerCase() === "design"
+  );
+  const photoProjects = filteredProjects.filter(
+    (p) => p.category.toLowerCase() === "photography"
+  );
+
+  console.log();
 
   return (
     <section id="portfolio" className={`py-[120px] ${className}`}>
@@ -124,42 +135,64 @@ export default function Portfolio({ className }: { className?: string }) {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, index) => (
-            <Card
-              key={index}
-              id={index}
-              category={project.category}
-              subcategory={project.subcategory}
-              src={project.cover}
-              title={project.name}
-            />
-          ))}
-        </div>
+        {/* DESIGN PROJECTS */}
+        {designProjects.length > 0 && (
+          <div className="mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4">
+              Design
+              <Link href="/design">
+                <Button
+                  variant={"ghost"}
+                  className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                >
+                  See all design <IconChevronRight />
+                </Button>
+              </Link>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+              {designProjects.map((project, index) => (
+                <ImageCard
+                  key={index}
+                  category={project.category}
+                  subcategory={project.subcategory}
+                  src={project.cover}
+                  title={project.name}
+                  aspectRatio={16 / 12}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* PHOTOGRAPHY PROJECTS */}
+        {photoProjects.length > 0 && (
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4">
+              Photography
+              <Link href="/photography">
+                <Button
+                  variant={"ghost"}
+                  className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                >
+                  See all photos <IconChevronRight />
+                </Button>
+              </Link>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+              {photoProjects.map((project, index) => (
+                <ImageCard
+                  key={index}
+                  category={project.category}
+                  subcategory={project.subcategory}
+                  src={project.cover}
+                  title={project.name}
+                  aspectRatio={3 / 4}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 }
-
-const Card = ({
-  category,
-  subcategory,
-  title,
-  src,
-  id,
-}: {
-  category: string;
-  subcategory: string;
-  title: string;
-  src: string;
-  id: number;
-}) => {
-  return (
-    <ImageCard
-      src={src}
-      title={title}
-      category={category}
-      subcategory={subcategory}
-    />
-  );
-};
