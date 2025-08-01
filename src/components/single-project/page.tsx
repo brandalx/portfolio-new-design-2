@@ -342,7 +342,7 @@ const SingleProject = () => {
         )}
 
         <div className="mx-auto max-w-7xl-none px-4-none py-8">
-          <div className="flex flex-wrap gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {projectData.client && (
               <div className="flex-1 min-w-[200px]">
                 <div className="space-y-6">
@@ -451,7 +451,7 @@ const SingleProject = () => {
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold mb-4">Description</h2>
-                    <p className="text-gray-700">
+                    <p className="">
                       {projectData.title || "No description available."}
                     </p>
                   </div>
