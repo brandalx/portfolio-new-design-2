@@ -56,10 +56,10 @@ export default function ArchitectureProjectsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1  gap-6 md:gap-8">
             {projects.map((project, index) => (
               <ImageCard
-                aspectRatio={3 / 4}
+                aspectRatio={16 / 9}
                 key={index}
                 src={project.cover}
                 title={project.name}
