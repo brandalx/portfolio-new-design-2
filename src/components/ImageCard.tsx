@@ -15,6 +15,7 @@ interface ImageCardProps {
   category: string;
   subcategory: string;
   aspectRatio?: any;
+  date?: any;
 }
 
 const ImageCard: FC<ImageCardProps> = ({
@@ -23,6 +24,7 @@ const ImageCard: FC<ImageCardProps> = ({
   title,
   category,
   subcategory,
+  date,
 }) => {
   const isMobile = useMedia("(max-width: 768px)", false); // Your mobile media query hook
   // Array of words to randomly select from
@@ -152,78 +154,97 @@ const ImageCard: FC<ImageCardProps> = ({
   };
 
   return (
-    <AspectRatio ratio={aspectRatio}>
-      <Link
-        href={`/${category}/${makesubcategoryasUrl}/${makeTitleAsUrl}`}
-        className="group willchange h-full flex flex-col"
+    <div>
+      {" "}
+      <AOSInit />
+      <AspectRatio
+        data-aos-duration="1000"
         data-aos="fade-up"
+        ratio={aspectRatio}
       >
-        <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
-          <AspectRatio ratio={aspectRatio}>
-            {!imageLoaded && <Skeleton className="w-full h-full" />}
-            <img
-              loading="lazy"
-              sizes="100vw"
-              className={cn(
-                "w-full h-auto object-cover transition-all duration-500 ease-out group-hover:scale-105 h-full object-cover",
-                imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0"
-              )}
-              src={src}
-              alt={makeTtitleAsTitle}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-            />
-            {imageError && imageLoaded && (
-              <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
-                <div className="text-gray-500 dark:text-gray-400 text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
-                  <span className="text-sm">Failed to load</span>
+        <Link
+          href={`/${category}/${makesubcategoryasUrl}/${makeTitleAsUrl}`}
+          className="group willchange h-full flex flex-col"
+          data-aos="fade-up"
+        >
+          <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
+            <AspectRatio ratio={aspectRatio}>
+              {!imageLoaded && <Skeleton className="w-full h-full" />}
+              <img
+                loading="lazy"
+                sizes="100vw"
+                className={cn(
+                  "w-full h-auto object-cover transition-all duration-500 ease-out group-hover:scale-105 h-full object-cover",
+                  imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0"
+                )}
+                src={src}
+                alt={makeTtitleAsTitle}
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+              />
+              {imageError && imageLoaded && (
+                <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
+                  <div className="text-gray-500 dark:text-gray-400 text-center">
+                    <div className="w-12 h-12 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                    <span className="text-sm">Failed to load</span>
+                  </div>
                 </div>
-              </div>
-            )}
-          </AspectRatio>
+              )}
+            </AspectRatio>
 
-          {imageLoaded &&
-            !imageError &&
-            !isMobile && ( // Hide view text on mobile
+            {imageLoaded &&
+              !imageError &&
+              !isMobile && ( // Hide view text on mobile
+                <>
+                  <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
+                  <div
+                    ref={viewTextRef}
+                    className={cn(
+                      "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
+                      unbounded.className
+                    )}
+                  >
+                    {currentWord} <IconChevronRight />
+                  </div>
+                </>
+              )}
+          </div>
+
+          <div className="mt-4 flex flex-col flex-grow capitalize">
+            {!imageLoaded ? (
+              // Skeleton for text content
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-6 w-3/4" />
+              </div>
+            ) : (
+              // Actual content
               <>
-                <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
-                <div
-                  ref={viewTextRef}
-                  className={cn(
-                    "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
-                    unbounded.className
-                  )}
-                >
-                  {currentWord} <IconChevronRight />
+                <div className="flex flex-col-reverse md:flex-row  md:justify-between">
+                  <div>
+                    <span className="text-sm text-gray-300 glor-l">
+                      {makesubcategoryAsName}
+                    </span>
+                    <h3
+                      className={cn(
+                        "text-2xl font-semibold ",
+                        unbounded.className
+                      )}
+                    >
+                      {makeTtitleAsTitle}
+                    </h3>
+                  </div>{" "}
+                  <div>
+                    <span className="text-md text-gray-500 glor-l">{date}</span>
+                  </div>
                 </div>
               </>
             )}
-        </div>
-
-        <div className="mt-4 flex flex-col flex-grow capitalize">
-          {!imageLoaded ? (
-            // Skeleton for text content
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-6 w-3/4" />
-            </div>
-          ) : (
-            // Actual content
-            <>
-              <span className="text-sm text-gray-500 glor-l">
-                {makesubcategoryAsName}
-              </span>
-              <h3
-                className={cn("text-2xl font-semibold ", unbounded.className)}
-              >
-                {makeTtitleAsTitle}
-              </h3>
-            </>
-          )}
-        </div>
-      </Link>
-    </AspectRatio>
+          </div>
+        </Link>
+      </AspectRatio>
+    </div>
   );
 };
 

@@ -145,7 +145,7 @@ export default function Portfolio({ className }: { className?: string }) {
           {designProjects.length > 0 && (
             <div className="mb-16">
               <h2
-                className={`text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4`}
+                className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
               >
                 <span className={`${unbounded.className}`}>Design</span>
                 <Link href="/design">
@@ -161,6 +161,7 @@ export default function Portfolio({ className }: { className?: string }) {
                 {designProjects.map((project, index) => (
                   <ImageCard
                     key={index}
+                    date={project.date}
                     category={project.category}
                     subcategory={project.subcategory}
                     src={project.cover}
@@ -176,7 +177,7 @@ export default function Portfolio({ className }: { className?: string }) {
           {photoProjects.length > 0 && (
             <div>
               <h2
-                className={`text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4 `}
+                className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4 `}
               >
                 <span className={`${unbounded.className}`}> Photography</span>
                 <Link href="/photography">

@@ -51,28 +51,31 @@ export default function Home() {
         />
       </div>
 
-      {!isMobile ? (
-        <Heroscroll
-          components={[
-            {
-              component: (
-                <div className=" ">
-                  <HeroNew />
-                </div>
-              ),
-              backgroundClass: "",
-              scaleRange: [1, 0.8],
-              rotateRange: [0, -5],
-            },
-            {
-              component: <Portfolio />,
-              backgroundClass: "bg-background z-[2]",
-              scaleRange: [0.8, 1],
-              rotateRange: [5, 0],
-            },
-          ]}
-        />
-      ) : (
+      <div className="hidden md:block">
+        <MaxWidthWrapper>
+          <Heroscroll
+            components={[
+              {
+                component: (
+                  <div className=" ">
+                    <HeroNew />
+                  </div>
+                ),
+                backgroundClass: "",
+                scaleRange: [1, 0.8],
+                rotateRange: [0, -5],
+              },
+              {
+                component: <Portfolio />,
+                backgroundClass: "bg-background z-[2]",
+                scaleRange: [0.8, 1],
+                rotateRange: [5, 0],
+              },
+            ]}
+          />{" "}
+        </MaxWidthWrapper>
+      </div>
+      <div className="block md:hidden">
         <MaxWidthWrapper>
           <div>
             <div className=" ">
@@ -82,9 +85,9 @@ export default function Home() {
             <div className="z-[2]  bg-background">
               <Portfolio />
             </div>
-          </div>{" "}
+          </div>
         </MaxWidthWrapper>
-      )}
+      </div>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import Masonry from "react-masonry-css";
 import { BackButton } from "../BackButton";
 import { useMedia } from "react-use";
+import { IconExternalLink } from "@tabler/icons-react";
 
 type ProjectImage = {
   secure_url: string;
@@ -386,9 +387,139 @@ const SingleProject = () => {
             </h1>
           )}
         </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {projectData.client && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Client</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.client}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.date && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Date</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.date}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.software && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Software</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.software}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.type && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Type</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.type}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.title && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-sm text-gray-500">Description</h2>
+                  <p className={`text-lg font-semibold ${unbounded.className}`}>
+                    {projectData.title || "No description available."}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description2 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 1</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.description2}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description3 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 2</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.description3}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+          {projectData.description4 && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Detail 3</p>
+                  <h3
+                    className={`text-lg font-semibold ${unbounded.className}`}
+                  >
+                    {projectData.description4}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}{" "}
+          {projectData.link && (
+            <div className="flex-1 min-w-[200px]">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-gray-500">Link</p>
+                  <h3 className="text-lg font-semibold">
+                    <a
+                      href={projectData.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-lg text-blue-600 flex items-center  gap-x-2 hover:underline  font-semibold ${unbounded.className}`}
+                    >
+                      Model's Instagram <IconExternalLink />
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         {coverMedia.src && category !== "PHOTOGRAPHY" && (
-          <div className="mx-auto max-w-7xl-none px-4-none">
+          <div className="mx-auto max-w-7xl-none px-4-none mt-10">
             <CoverMedia
               src={coverMedia.src}
               alt={coverMedia.alt}
@@ -397,126 +528,8 @@ const SingleProject = () => {
           </div>
         )}
 
-        <div className="mx-auto max-w-7xl-none px-4-none py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            {projectData.client && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Client</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.client}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.date && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Date</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.date}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.software && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Software</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.software}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.type && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Type</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.type}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.link && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Link</p>
-                    <h3 className="text-lg font-semibold">
-                      <a
-                        href={projectData.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        {projectData.link}
-                      </a>
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.description2 && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Detail 1</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.description2}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.description3 && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Detail 2</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.description3}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.description4 && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Detail 3</p>
-                    <h3 className="text-lg font-semibold">
-                      {projectData.description4}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            )}
-            {projectData.title && (
-              <div className="flex-1 min-w-[200px]">
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold mb-4">Description</h2>
-                    <p className="">
-                      {projectData.title || "No description available."}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="mx-auto w-full">
+        <div className="mx-auto max-w-7xl-none px-4-none ">
+          <div className="mx-auto w-full mt-20">
             <Masonry
               breakpointCols={{
                 default: 2,

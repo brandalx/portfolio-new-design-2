@@ -97,6 +97,13 @@ export const NAVIGATION = [
     icon: <IconUser className="h-5 w-5" />,
   },
   {
+    special: false,
+    topbar: false,
+    title: "About",
+    href: "/about",
+    icon: <IconUser className="h-5 w-5" />,
+  },
+  {
     special: true,
     topbar: true,
     title: "Code",
