@@ -14,6 +14,7 @@ import ScrollToTopButton from "@/components/ScrollToTop";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Footer from "@/components/footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import { Pointer } from "@/components/cursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
