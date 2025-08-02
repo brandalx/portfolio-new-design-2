@@ -73,7 +73,7 @@ export default function DesignPage() {
             <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
               Design Projects
             </h1>
-            <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+            <p className="mt-2 dark:text-gray-200 text-gray-800   max-w-2xl mx-auto">
               Discover my design projects, crafted with creativity and precision
               to bring ideas to life.
             </p>

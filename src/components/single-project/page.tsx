@@ -104,53 +104,74 @@ const MasonryImage = React.memo(
 
 MasonryImage.displayName = "MasonryImage";
 
-// Cover image component with loading state
-const CoverImage = React.memo(
+// Cover media component (handles both image and video)
+const CoverMedia = React.memo(
   ({
     src,
     alt,
+    isVideo,
     className,
   }: {
     src: string;
     alt: string;
+    isVideo: boolean;
     className?: string;
   }) => {
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [imageError, setImageError] = useState(false);
+    const [mediaLoaded, setMediaLoaded] = useState(false);
+    const [mediaError, setMediaError] = useState(false);
 
-    const handleImageLoad = useCallback(() => {
-      setImageLoaded(true);
+    const handleMediaLoad = useCallback(() => {
+      setMediaLoaded(true);
     }, []);
 
-    const handleImageError = useCallback(() => {
-      setImageError(true);
-      setImageLoaded(true);
+    const handleMediaError = useCallback(() => {
+      setMediaError(true);
+      setMediaLoaded(true);
     }, []);
 
     return (
       <div className="relative">
-        {!imageLoaded && (
+        {!mediaLoaded && (
           <Skeleton className="w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-lg" />
         )}
 
-        <img
-          loading="eager"
-          src={src}
-          alt={alt}
-          className={cn(
-            "w-full h-auto rounded-lg transition-opacity duration-300",
-            imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0",
-            className
-          )}
-          onLoad={handleImageLoad}
-          onError={handleImageError}
-        />
+        {isVideo ? (
+          <video
+            autoPlay
+            loop
+            playsInline
+            controls
+            src={src}
+            className={cn(
+              "w-full h-auto rounded-lg transition-opacity duration-300",
+              mediaLoaded ? "opacity-100" : "opacity-0 absolute inset-0",
+              className
+            )}
+            onLoadedData={handleMediaLoad}
+            onError={handleMediaError}
+          />
+        ) : (
+          <img
+            loading="eager"
+            src={src}
+            alt={alt}
+            className={cn(
+              "w-full h-auto rounded-lg transition-opacity duration-300",
+              mediaLoaded ? "opacity-100" : "opacity-0 absolute inset-0",
+              className
+            )}
+            onLoad={handleMediaLoad}
+            onError={handleMediaError}
+          />
+        )}
 
-        {imageError && imageLoaded && (
+        {mediaError && mediaLoaded && (
           <div className="w-full h-[500px] md:h-[600px] lg:h-[700px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
             <div className="text-gray-500 dark:text-gray-400 text-center">
               <div className="w-16 h-16 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
-              <span className="text-sm">Failed to load cover image</span>
+              <span className="text-sm">
+                Failed to load {isVideo ? "video" : "image"}
+              </span>
             </div>
           </div>
         )}
@@ -159,7 +180,7 @@ const CoverImage = React.memo(
   }
 );
 
-CoverImage.displayName = "CoverImage";
+CoverMedia.displayName = "CoverMedia";
 
 const SingleProject = () => {
   const router = useRouter();
@@ -173,13 +194,15 @@ const SingleProject = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isMobile = useMedia("(max-width: 768px)", false);
 
-  // Memoize photos array to prevent recreation on every render
+  // Memoize photos array to prevent recreation on every render (only images for lightbox)
   const photos = useMemo(
     () =>
-      images.map((img) => ({
-        src: img.secure_url,
-        alt: img.public_id,
-      })),
+      images
+        .filter((img) => !img.secure_url.endsWith(".mp4"))
+        .map((img) => ({
+          src: img.secure_url,
+          alt: img.public_id,
+        })),
     [images]
   );
 
@@ -195,18 +218,33 @@ const SingleProject = () => {
   }, []);
 
   // Memoize masonry images to prevent re-rendering
-  const masonryImages = useMemo(
-    () =>
-      images.slice(1).map((img, index) => (
+  const masonryImages = useMemo(() => {
+    const filteredImages = images.filter(
+      (img) => !img.secure_url.endsWith(".mp4")
+    );
+    return filteredImages
+      .slice(1)
+      .map((img, index) => (
         <MasonryImage
-          key={img.asset_id || img.public_id || uuidv4()} // Use stable key
+          key={img.asset_id || img.public_id || uuidv4()}
           img={img}
           index={index}
           onImageClick={handleImageClick}
         />
-      )),
-    [images, handleImageClick]
-  );
+      ));
+  }, [images, handleImageClick]);
+
+  // Determine cover media (prioritize video)
+  const coverMedia = useMemo(() => {
+    const video = images.find((img) => img.secure_url.endsWith(".mp4"));
+    return video
+      ? { src: video.secure_url, alt: video.public_id, isVideo: true }
+      : {
+          src: projectData?.cover || "",
+          alt: projectData?.name || "",
+          isVideo: false,
+        };
+  }, [images, projectData]);
 
   useEffect(() => {
     // Reset state on navigation
@@ -286,7 +324,7 @@ const SingleProject = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {[...Array(6)].map((_, index) => (
+              {[...Array(66)].map((_, index) => (
                 <Skeleton
                   key={index}
                   className="w-full h-[300px] md:h-[400px] lg:h-[500px]"
@@ -305,7 +343,6 @@ const SingleProject = () => {
     <MaxWidthWrapper>
       <div>
         <div className="mt-2">
-          {" "}
           <BackButton />
         </div>
         <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
@@ -340,7 +377,7 @@ const SingleProject = () => {
             <h1
               className={cn(
                 unbounded.className,
-                "mt-2 lg:text-6xl  font-bold uppercase  mx-auto cursor-pointer text-4xl w-fit md:text-5xl lg:text-[120px]"
+                "mt-2 lg:text-6xl font-bold uppercase mx-auto cursor-pointer text-4xl w-fit md:text-5xl lg:text-[120px]"
               )}
             >
               {projectData.description ||
@@ -350,9 +387,13 @@ const SingleProject = () => {
           )}
         </div>
 
-        {projectData.cover && category !== "PHOTOGRAPHY" && (
+        {coverMedia.src && category !== "PHOTOGRAPHY" && (
           <div className="mx-auto max-w-7xl-none px-4-none">
-            <CoverImage src={projectData.cover} alt={projectData.name} />
+            <CoverMedia
+              src={coverMedia.src}
+              alt={coverMedia.alt}
+              isVideo={coverMedia.isVideo}
+            />
           </div>
         )}
 

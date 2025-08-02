@@ -50,7 +50,7 @@ export default function Design2DProjectsPage() {
                 2D Design Projects{" "}
               </span>
             </h1>
-            <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+            <p className="mt-2 dark:text-gray-200 text-gray-800  max-w-2xl mx-auto">
               Explore my 2D design projects, crafted with creativity and
               precision to bring ideas to life.
             </p>

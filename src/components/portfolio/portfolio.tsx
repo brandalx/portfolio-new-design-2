@@ -98,7 +98,7 @@ export default function Portfolio({ className }: { className?: string }) {
           >
             {!isMobile ? <TextScrollDemo /> : <span> WORKS & PROJECTS</span>}
           </h2>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-2 dark:text-gray-200 text-gray-800  max-w-2xl mx-auto">
             Check out some of my design projects, meticulously crafted with love
             and dedication, each one reflecting the passion and soul I poured
             into every detail.

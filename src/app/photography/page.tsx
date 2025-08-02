@@ -147,7 +147,7 @@ export default function PhotographyPage() {
                     Photography Projects
                   </span>
                 </h1>
-                <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+                <p className="mt-2 dark:text-gray-200 text-gray-800  max-w-2xl mx-auto">
                   Explore my photography projects, capturing the essence of
                   architecture and portraits with passion and precision.
                 </p>
