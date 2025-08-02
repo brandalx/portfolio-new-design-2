@@ -1,10 +1,13 @@
+"use client";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Portfolio from "../components/portfolio/portfolio";
 
 import { HeroNew } from "@/components/HeroNew";
 import Heroscroll from "@/components/heroscroll";
+import { useMedia } from "react-use";
 
 export default function Home() {
+  const isMobile = useMedia("(max-width: 768px)", false);
   return (
     <div>
       <div
@@ -48,33 +51,38 @@ export default function Home() {
         />
       </div>
       <MaxWidthWrapper>
-        {/* <div className=" ">
-          <HeroNew />
-        </div> */}
-        <div>{/* <WorkList /> */}</div>
-        {/* <div className="z-[2]  bg-background">
-          <Portfolio />
-        </div> */}
-        <Heroscroll
-          components={[
-            {
-              component: (
-                <div className=" ">
-                  <HeroNew />
-                </div>
-              ),
-              backgroundClass: "",
-              scaleRange: [1, 0.8],
-              rotateRange: [0, -5],
-            },
-            {
-              component: <Portfolio />,
-              backgroundClass: "bg-background z-[2]",
-              scaleRange: [0.8, 1],
-              rotateRange: [5, 0],
-            },
-          ]}
-        />
+        {!isMobile ? (
+          <Heroscroll
+            components={[
+              {
+                component: (
+                  <div className=" ">
+                    <HeroNew />
+                  </div>
+                ),
+                backgroundClass: "",
+                scaleRange: [1, 0.8],
+                rotateRange: [0, -5],
+              },
+              {
+                component: <Portfolio />,
+                backgroundClass: "bg-background z-[2]",
+                scaleRange: [0.8, 1],
+                rotateRange: [5, 0],
+              },
+            ]}
+          />
+        ) : (
+          <div>
+            <div className=" ">
+              <HeroNew />
+            </div>
+            <div>{/* <WorkList /> */}</div>
+            <div className="z-[2]  bg-background">
+              <Portfolio />
+            </div>
+          </div>
+        )}
       </MaxWidthWrapper>
     </div>
   );
