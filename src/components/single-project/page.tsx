@@ -14,6 +14,7 @@ import MaxWidthWrapper from "../max-width-wrapper";
 import { v4 as uuidv4 } from "uuid";
 import Masonry from "react-masonry-css";
 import { BackButton } from "../BackButton";
+import { useMedia } from "react-use";
 
 type ProjectImage = {
   secure_url: string;
@@ -170,6 +171,7 @@ const SingleProject = () => {
   const [error, setError] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const isMobile = useMedia("(max-width: 768px)", false);
 
   // Memoize photos array to prevent recreation on every render
   const photos = useMemo(
@@ -308,31 +310,44 @@ const SingleProject = () => {
         </div>
         <div className="mx-auto max-w-7xl-none px-4-none py-8 text-center">
           <p className="text-sm text-gray-500">{category}</p>
-          <h1
-            className={cn(
-              unbounded.className,
-              "mt-2 lg:text-6xl text-4xl font-bold uppercase w-fit mx-auto cursor-pointer"
-            )}
-          >
-            <TextPressure
-              className="text-4xl w-fit md:text-5xl lg:text-[120px]"
-              text={
-                projectData.description ||
+          {!isMobile ? (
+            <h1
+              className={cn(
+                unbounded.className,
+                "mt-2 lg:text-6xl text-4xl font-bold uppercase w-fit mx-auto cursor-pointer"
+              )}
+            >
+              <TextPressure
+                className="text-4xl w-fit md:text-5xl 2xl:text-[120px]"
+                text={
+                  projectData.description ||
+                  projectData.name ||
+                  "Untitled Project"
+                }
+                flex={true}
+                alpha={false}
+                stroke={false}
+                width={true}
+                weight={true}
+                fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
+                italic={true}
+                fontFamily="Unbounded"
+                strokeColor="#ff0000"
+                minFontSize={36}
+              />
+            </h1>
+          ) : (
+            <h1
+              className={cn(
+                unbounded.className,
+                "mt-2 lg:text-6xl  font-bold uppercase  mx-auto cursor-pointer text-4xl w-fit md:text-5xl lg:text-[120px]"
+              )}
+            >
+              {projectData.description ||
                 projectData.name ||
-                "Untitled Project"
-              }
-              flex={true}
-              alpha={false}
-              stroke={false}
-              width={true}
-              weight={true}
-              fontUrl="https://res.cloudinary.com/dzlatzgxe/raw/upload/v1753861493/Unbounded-VariableFont_wght_lzvbjo.ttf"
-              italic={true}
-              fontFamily="Unbounded"
-              strokeColor="#ff0000"
-              minFontSize={36}
-            />
-          </h1>
+                "Untitled Project"}
+            </h1>
+          )}
         </div>
 
         {projectData.cover && category !== "PHOTOGRAPHY" && (

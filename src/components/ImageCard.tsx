@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import unbounded from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
+import { useMedia } from "react-use"; // Assuming you're using react-use for useMedia
 
 interface ImageCardProps {
   src: string;
@@ -23,6 +24,7 @@ const ImageCard: FC<ImageCardProps> = ({
   category,
   subcategory,
 }) => {
+  const isMobile = useMedia("(max-width: 768px)", false); // Your mobile media query hook
   // Array of words to randomly select from
   const words = ["View", "Explore", "Discover", "See More", "Check Out"];
   // State to hold the current random word
@@ -78,7 +80,7 @@ const ImageCard: FC<ImageCardProps> = ({
     const image = imageRef.current;
     const viewText = viewTextRef.current;
 
-    if (!image || !viewText || !imageLoaded) return;
+    if (!image || !viewText || !imageLoaded || isMobile) return; // Skip GSAP if mobile
 
     // Set initial state of view text
     gsap.set(viewText, { opacity: 0, scale: 0.5 });
@@ -138,7 +140,7 @@ const ImageCard: FC<ImageCardProps> = ({
       image.removeEventListener("mouseleave", handleMouseLeave);
       image.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [imageLoaded]);
+  }, [imageLoaded, isMobile]); // Add isMobile to dependency array
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -153,7 +155,7 @@ const ImageCard: FC<ImageCardProps> = ({
     <AspectRatio ratio={aspectRatio}>
       <Link
         href={`/${category}/${makesubcategoryasUrl}/${makeTitleAsUrl}`}
-        className="group willchange max-h-[700px] h-full flex flex-col"
+        className="group willchange h-full flex flex-col"
         data-aos="fade-up"
       >
         <div className="overflow-hidden rounded-lg relative" ref={imageRef}>
@@ -181,20 +183,22 @@ const ImageCard: FC<ImageCardProps> = ({
             )}
           </AspectRatio>
 
-          {imageLoaded && !imageError && (
-            <>
-              <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
-              <div
-                ref={viewTextRef}
-                className={cn(
-                  "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
-                  unbounded.className
-                )}
-              >
-                {currentWord} <IconChevronRight />
-              </div>
-            </>
-          )}
+          {imageLoaded &&
+            !imageError &&
+            !isMobile && ( // Hide view text on mobile
+              <>
+                <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
+                <div
+                  ref={viewTextRef}
+                  className={cn(
+                    "rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase",
+                    unbounded.className
+                  )}
+                >
+                  {currentWord} <IconChevronRight />
+                </div>
+              </>
+            )}
         </div>
 
         <div className="mt-4 flex flex-col flex-grow capitalize">

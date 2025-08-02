@@ -1227,11 +1227,13 @@ const variantMap: Record<number, ImageTrailConstructor> = {
 interface ImageTrailProps {
   items?: string[];
   variant?: number;
+  customHeight?: any;
 }
 
 export default function ImageTrail({
   items = [],
   variant = 1,
+  customHeight = 16 / 9,
 }: ImageTrailProps): JSX.Element {
   const isMobile = useMedia("(max-width: 768px)", false);
 

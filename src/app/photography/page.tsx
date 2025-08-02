@@ -4,6 +4,7 @@ import ImageCard from "@/components/ImageCard";
 import ImageTrail from "@/components/imageTrail";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { BackButton } from "@/components/BackButton";
+import unbounded from "@/lib/fonts";
 
 type Project = {
   name: string;
@@ -104,44 +105,47 @@ export default function PhotographyPage() {
             <div className="relative   md:h-[300px]">
               <ImageTrail
                 items={[
-                  "/assets/cursor/18.webp",
-                  "/assets/cursor/27.webp",
-                  "/assets/cursor/9.webp",
-                  "/assets/cursor/5.webp",
-                  "/assets/cursor/11.webp",
-                  "/assets/cursor/15.webp",
-                  "/assets/cursor/1.webp",
-                  "/assets/cursor/22.webp",
-                  "/assets/cursor/3.webp",
-                  "/assets/cursor/29.webp",
-                  "/assets/cursor/14.webp",
-                  "/assets/cursor/13.webp",
-                  "/assets/cursor/30.webp",
-                  "/assets/cursor/6.webp",
-                  "/assets/cursor/17.webp",
-                  "/assets/cursor/23.webp",
-                  "/assets/cursor/19.webp",
-                  "/assets/cursor/2.webp",
-                  "/assets/cursor/21.webp",
-                  "/assets/cursor/25.webp",
-                  "/assets/cursor/26.webp",
-                  "/assets/cursor/20.webp",
-                  "/assets/cursor/10.webp",
-                  "/assets/cursor/12.webp",
-                  "/assets/cursor/24.webp",
-                  "/assets/cursor/16.webp",
-                  "/assets/cursor/7.webp",
-                  "/assets/cursor/28.webp",
-                  "/assets/cursor/4.webp",
-                  "/assets/cursor/8.webp",
+                  "/assets/cursor2/1.webp",
+                  "/assets/cursor2/2.webp",
+                  "/assets/cursor2/3.webp",
+                  "/assets/cursor2/4.webp",
+                  "/assets/cursor2/5.webp",
+                  "/assets/cursor2/6.webp",
+                  "/assets/cursor2/7.webp",
+                  "/assets/cursor2/8.webp",
+                  "/assets/cursor2/9.webp",
+                  "/assets/cursor2/10.webp",
+                  "/assets/cursor2/11.webp",
+                  "/assets/cursor2/12.webp",
+                  "/assets/cursor2/13.webp",
+                  "/assets/cursor2/14.webp",
+                  "/assets/cursor2/15.webp",
+                  "/assets/cursor2/16.webp",
+                  "/assets/cursor2/17.webp",
+                  "/assets/cursor2/18.webp",
+                  "/assets/cursor2/19.webp",
+                  "/assets/cursor2/20.webp",
+                  "/assets/cursor2/21.webp",
+                  "/assets/cursor2/22.webp",
+                  "/assets/cursor2/23.webp",
+                  "/assets/cursor2/24.webp",
+                  "/assets/cursor2/25.webp",
+                  "/assets/cursor2/26.webp",
+                  "/assets/cursor2/27.webp",
+                  "/assets/cursor2/28.webp",
+                  "/assets/cursor2/29.webp",
+                  "/assets/cursor2/30.webp",
                 ]}
                 variant={1}
               />
 
               {/* Hero Text */}
               <div className="mx-auto max-w-7xl px-4 text-center mb-8 relative z-[50]">
-                <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
-                  Photography Projects
+                <h1 className="mt-2 lg:text-6xl text-4xl font-bold  capitalize">
+                  <span className={`${unbounded.className}`}>
+                    {" "}
+                    Photography Projects
+                  </span>
                 </h1>
                 <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
                   Explore my photography projects, capturing the essence of

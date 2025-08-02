@@ -1,5 +1,4 @@
 "use client";
-import { usePathname } from "next/navigation"; // Import usePathname
 import { FOOTER_PAGES, NAVIGATION, OTHERS, SOCIALS } from "../../config/index";
 import { IconPhoneCall } from "@tabler/icons-react";
 import Link from "next/link";
@@ -9,15 +8,7 @@ import TextPressure from "./textPressure";
 import { useMedia } from "react-use";
 import unbounded from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-
-export default function Footer() {
-  const pathname = usePathname(); // Get current pathname
-
-  // Don't render footer on homepage
-  if (pathname === "/") {
-    return null;
-  }
-
+export default function Footer2() {
   const getYear = () => {
     return new Date().getFullYear();
   };

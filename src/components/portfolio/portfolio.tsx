@@ -6,6 +6,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { IconChevronRight } from "@tabler/icons-react";
+import { TextScrollDemo } from "../textscroll";
+import Footer2 from "../footer2";
+
 type Project = {
   name: string;
   cover: string;
@@ -88,10 +91,10 @@ export default function Portfolio({ className }: { className?: string }) {
           <h2
             className={cn(
               unbounded.className,
-              "lg:text-6xl text-4xl font-bold glor-b capitalize text-center uppercase"
+              "lg:text-6xl text-4xl font-bold glor-b capitalize text-center "
             )}
           >
-            Works & Projects
+            <TextScrollDemo />
           </h2>
           <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
             Check out some of my design projects, meticulously crafted with love
@@ -138,8 +141,10 @@ export default function Portfolio({ className }: { className?: string }) {
         {/* DESIGN PROJECTS */}
         {designProjects.length > 0 && (
           <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4">
-              Design
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4`}
+            >
+              <span className={`${unbounded.className}`}>Design</span>
               <Link href="/design">
                 <Button
                   variant={"ghost"}
@@ -167,8 +172,10 @@ export default function Portfolio({ className }: { className?: string }) {
         {/* PHOTOGRAPHY PROJECTS */}
         {photoProjects.length > 0 && (
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4">
-              Photography
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-4  flex items-center justify-between gap-x-4 `}
+            >
+              <span className={`${unbounded.className}`}> Photography</span>
               <Link href="/photography">
                 <Button
                   variant={"ghost"}
@@ -192,6 +199,9 @@ export default function Portfolio({ className }: { className?: string }) {
             </div>
           </div>
         )}
+      </div>
+      <div className="mt-20">
+        <Footer2 />
       </div>
     </section>
   );
