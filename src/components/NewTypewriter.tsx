@@ -7,15 +7,13 @@ const NewTypewriter = () => {
     <span className="text-transparent   text-3xl md:text-4xl xl:text-6xl  bg-clip-text bg-gradient-to-r customFont from-rose-600 to-pink-500 ">
       <Typewriter
         words={[
-          "Digital Illustrator",
-          "Digital Illustrator",
-          "Digital Illustrator",
-          "Digital Illustrator",
-          "Digital Illustrator",
-          "Digital Illustrator",
-          "Digital Illustrator",
-
-          "Digital Illustrator",
+          "Graphic Designer",
+          "Web Developer",
+          "Motion Designer",
+          "3D Artist",
+          "UX/UI Designer",
+          "Visual Storyteller",
+          "Multimedia Artist",
         ]}
         cursor
         loop
