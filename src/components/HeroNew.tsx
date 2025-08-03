@@ -8,7 +8,7 @@ import Available from "./available";
 export function HeroNew() {
   return (
     <div className="relative mt-20">
-      <div className="grid mt-5 grid-cols-1    md:grid-cols-2    min-h-[600px] md:h-[85vh] gap-y-10  mb-10   text-4xl md:text-5xl lg:text-7xl  ">
+      <div className="grid mt-5 grid-cols-1    md:grid-cols-2    min-h-[600px] md:h-[85vh] gap-y-10  mb-10   text-3xl font-extrabold md:text-4xl xl:text-6x  ">
         <div className="md:flex md:items-center md:justify-center ">
           <div>
             <div className="z-[9999]">
@@ -22,10 +22,13 @@ export function HeroNew() {
               )}
             >
               Hi I&apos;m Brandon,
-              <br /> <div className="z-[999]"></div>
-              <NewTypewriter />
-              <br />
-              <p className="  ">creating stunning visuals.</p>
+              <div className="z-[999]"></div>
+              <div className="xs:h-[80px]  sm:h-[50px]  flex  items-center min-h-[80px] md:min-h-[100]   xl:min-h-[140px]">
+                <NewTypewriter />
+              </div>
+              <p className=" text-text-3xll md:text-4xl xl:text-6xl ">
+                creating stunning visuals.
+              </p>
             </div>
           </div>
         </div>
