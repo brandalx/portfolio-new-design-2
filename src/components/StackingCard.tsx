@@ -19,7 +19,7 @@ const projects = [
     title: "3D Design",
     description:
       "A collection of immersive 3D designs, featuring intricate models and visualizations that blend creativity with technical precision for engaging digital experiences.",
-    src: "/design3d",
+    src: "/design/design3d",
     link: "/assets/cursor/21.webp",
     color: "#8f89ff",
   },
@@ -27,7 +27,7 @@ const projects = [
     title: "2D Design",
     description:
       "A portfolio of vibrant 2D designs, showcasing bold graphics, illustrations, and layouts that capture visual storytelling with clarity and artistic flair.",
-    src: "/design2d",
+    src: "/design/design2d",
     link: "/assets/cursor/4.webp",
     color: "#13006c",
   },
@@ -128,22 +128,26 @@ export const Card: React.FC<CardProps> = ({
             scale,
             top: `calc(-1vh + ${i * 5}px)`,
           }}
-          className={` flex-col relative -top-[25%] h-[450px] w-[100%] md:w-[80%] flex mx-auto justify-center  rounded-md p-4 origin-top backdrop-blur-md   `}
+          className={`  relative -top-[25%] h-[450px] w-[100%] md:w-[80%]  mx-auto   rounded-md p-4 origin-top backdrop-blur-md dark:text-white text-black flex flex-col md:flex-row  `}
         >
-          <h2 className={unbounded.className + " text-4xl  font-semibold"}>
-            {title}
-          </h2>
-          <div className={`flex h-full mt-5 gap-10`}>
-            <div className={`w-[40%] relative top-[10%]`}>
-              <p className="text-sm">{description}</p>
-              <span className="flex items-center gap-2 pt-2">
-                Read more <IconChevronRight />
-              </span>
-            </div>
-
-            <div
-              className={`relative w-[60%] h-full rounded-lg overflow-hidden `}
+          <div className="w-full">
+            <h2
+              className={
+                unbounded.className +
+                " dark:text-white text-black text-4xl  font-bold"
+              }
             >
+              {title}
+            </h2>
+            <div className={`flex h-fit my-10 mt-5 dark:text-white text-black`}>
+              <div className={`relative top-[10%]`}>
+                <p className="text-sm ">{description}</p>
+                <span className="flex items-center gap-2 pt-2 ">
+                  Read more <IconChevronRight />
+                </span>
+              </div>
+            </div>
+            <div className={`relative  h-full rounded-lg overflow-hidden `}>
               <motion.div
                 className={`w-full h-full`}
                 style={{ scale: imageScale }}
