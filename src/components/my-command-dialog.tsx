@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "./ui/button";
 import CookieConsentTrigger from "./cookieTrigger";
-import { IconCookie } from "@tabler/icons-react";
+import { IconCode, IconCookie } from "@tabler/icons-react";
 
 export function MyCommandDialog() {
   const [open, setOpen] = React.useState(false);
@@ -56,6 +56,14 @@ export function MyCommandDialog() {
               <Link className="mr-2 h-4 w-4" />
               <span>Copy link</span>
             </CommandItem>
+            <CommandItem
+              onSelect={() =>
+                window.open("https://brandnolandev.com", "_ blank")
+              }
+            >
+              <IconCode className="mr-2 h-4 w-4" />
+              <span>Developer Portfolio</span>
+            </CommandItem>
             {/* <CommandItem
               onSelect={() =>
                 window.open(
@@ -88,6 +96,7 @@ export function MyCommandDialog() {
               <Github className="mr-2 h-4 w-4" />
               <span>Github</span>
             </CommandItem>
+
             {/* <CommandItem
               onSelect={() => window.open("https://drie.cz", "_ blank")}
             >

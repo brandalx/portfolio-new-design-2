@@ -63,61 +63,57 @@ export default function Footer() {
         )}
 
         <div className="w-full py-6">
-          <div className="grid grid-cols-3 glor-l text-sm w-full">
-            <div className="flex flex-col gap-4 w-fit">
-              {NAVIGATION.map((page) => (
-                <Link
-                  key={page.href}
-                  href={page.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {page.title}
-                </Link>
-              ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4 glor-l text-sm w-full gap-4">
+            {NAVIGATION.map((page) => (
               <Link
-                href="https://old.brandnolandev.com/"
-                target="_blank"
+                key={page.href}
+                href={page.href}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Legacy
+                {page.title}
               </Link>
+            ))}
+            <Link
+              href="https://old.brandnolandev.com/"
+              target="_blank"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Legacy
+            </Link>
+            <Link
+              href="https://newusandor.wixsite.com/design"
+              target="_blank"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Design
+            </Link>
+            <Link
+              target="_blank"
+              href="https://old.brandnolandev.com/"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Site Map
+            </Link>
+
+            {SOCIALS.map((social) => (
               <Link
-                href="https://newusandor.wixsite.com/design"
-                target="_blank"
+                key={social.href}
+                href={social.href}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Design
+                {social.title}
               </Link>
+            ))}
+
+            {OTHERS.map((social) => (
               <Link
-                target="_blank"
-                href="https://old.brandnolandev.com/"
+                key={social.href}
+                href={social.href}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Site Map
+                {social.title}
               </Link>
-            </div>
-            <div className="flex flex-col gap-4 w-fit">
-              {SOCIALS.map((social) => (
-                <Link
-                  key={social.href}
-                  href={social.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {social.title}
-                </Link>
-              ))}
-            </div>
-            <div className="flex flex-col gap-4 w-fit">
-              {OTHERS.map((social) => (
-                <Link
-                  key={social.href}
-                  href={social.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {social.title}
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
 
           <div className="">
