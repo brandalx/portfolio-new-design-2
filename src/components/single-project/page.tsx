@@ -509,9 +509,12 @@ const SingleProject = () => {
                       href={projectData.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`text-lg text-blue-600 flex items-center  gap-x-2 hover:underline  font-semibold ${unbounded.className}`}
+                      className={`text-lg text-blue-600 flex items-center gap-x-2 hover:underline font-semibold ${unbounded.className}`}
                     >
-                      Model's Instagram <IconExternalLink />
+                      {projectData.link.includes("brandnolandev.com")
+                        ? "See full project information"
+                        : "Model's Instagram"}{" "}
+                      <IconExternalLink />
                     </a>
                   </h3>
                 </div>
