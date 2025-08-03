@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { FOOTER_PAGES, NAVIGATION, OTHERS, SOCIALS } from "../../config/index";
-import { IconPhoneCall } from "@tabler/icons-react";
+import { IconChevronRight, IconPhoneCall } from "@tabler/icons-react";
 import Link from "next/link";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { Separator } from "./ui/separator";
@@ -61,6 +61,21 @@ export default function Footer() {
             </Link>
           </div>
         )}
+
+        <div>
+          <div className="  pt-2 ps-2  mb-4  mb-4 text-center mx-auto flex justify-center ">
+            <Link target="_blank" href={"https://brandnolandev.com"}>
+              <p
+                className={
+                  unbounded.className +
+                  " text-sm underline  text-center mx-auto text-white   hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-x-2"
+                }
+              >
+                See dev portfolio <IconChevronRight />
+              </p>
+            </Link>
+          </div>
+        </div>
 
         <div className="w-full py-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 glor-l text-sm w-full gap-4">
