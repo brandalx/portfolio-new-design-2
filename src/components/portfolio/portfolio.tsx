@@ -151,7 +151,7 @@ export default function Portfolio({ className }: { className?: string }) {
               <h2
                 className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
               >
-                <span className={`${unbounded.className}`}>Design</span>
+                <div className={`${unbounded.className}`}>Design</div>
                 <Link href="/design">
                   <Button
                     variant={"ghost"}
