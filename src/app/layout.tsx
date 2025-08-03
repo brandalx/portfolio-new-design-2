@@ -113,8 +113,7 @@ export default function RootLayout({
         <div className=" wrapper">
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
             disableTransitionOnChange
           >
             <MaxWidthWrapper>
