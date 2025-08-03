@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     "collaboration",
   ],
   openGraph: {
-    title: "Contact | Brandon Nolan Portfolio",
+    title: "Contact | Brandon Nolan Design Portfolio",
     description:
       "Connect with Brandon Nolan, a Canadian Full Stack Developer, for project collaborations or hiring inquiries. Use the contact form, email (brandon.nolan.wisap@gmail.com), or call +1 (437) 439-3888. Available for work!",
-    url: "https://www.brandnolandev.com/contact",
+    url: "https://design.brandnolandev.com/contacts",
     type: "website",
 
     locale: "en_CA",

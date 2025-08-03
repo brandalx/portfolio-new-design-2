@@ -27,14 +27,20 @@ import navbarimg from "../../public/assets/myavatar.webp";
 import ModeToggle from "./Switcher";
 import { TextEffect } from "./text-effect";
 import { NAVIGATION } from "../../config";
+import unbounded from "@/lib/fonts";
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
     <div>
-      <header className="page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-[200] navbarmain willchange">
-        <nav className="hidden flex-col md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b glor-l">
+      <header
+        className={
+          unbounded.className +
+          " page-header bg-opacity-0  top-0 flex h-16 items-center gap-4 mx-auto w-full z-[200] navbarmain willchange"
+        }
+      >
+        <nav className="hidden flex-col md:flex md:flex-row md:items-center md:justify-between w-full h-full border-b ">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Image
               alt="Image"
@@ -68,11 +74,14 @@ export default function Navbar() {
                   as="p"
                   preset="fade"
                   per="char"
-                  className="text-muted-foreground glor-l text-xs"
+                  className={
+                    unbounded.className +
+                    "text-muted-foreground text-xs font-light"
+                  }
                   delay={0.3}
                 >
                   Designer, photographer & developer, based in Canada
-                </TextEffect>{" "}
+                </TextEffect>
               </div>
             </div>
           </Link>
@@ -178,7 +187,11 @@ export default function Navbar() {
           </div>
           <SheetContent className="z-[160]" side="right">
             <SheetTitle></SheetTitle>
-            <nav className="grid gap-3 text-lg glor-b font-medium">
+            <nav
+              className={
+                unbounded.className + " grid gap-3 text-lg font-medium"
+              }
+            >
               {NAVIGATION.map((item) => (
                 <SheetClose asChild key={item.href}>
                   <Link

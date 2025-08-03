@@ -130,7 +130,7 @@ function ModeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="rounded-full"
+      className="rounded-full cursor-pointer"
       aria-label={
         resolvedTheme === "dark"
           ? "Switch to light theme"

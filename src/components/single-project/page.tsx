@@ -357,7 +357,7 @@ const SingleProject = () => {
               )}
             >
               <TextPressure
-                className="text-4xl w-fit md:text-5xl 2xl:text-[120px]"
+                className="text-4xl w-fit md:text-5xl 2xl:text-[100px]"
                 text={
                   projectData.description ||
                   projectData.name ||
@@ -450,7 +450,7 @@ const SingleProject = () => {
               <div className="space-y-6">
                 <div>
                   <h2 className="text-sm text-gray-500">Description</h2>
-                  <p className={`text-lg font-semibold ${unbounded.className}`}>
+                  <p className={`text-lg font-semibold `}>
                     {projectData.title || "No description available."}
                   </p>
                 </div>

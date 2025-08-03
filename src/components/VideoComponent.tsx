@@ -13,7 +13,7 @@ const VideoComponent = () => (
         controls={false}
       >
         <source
-          src="https://videos.pexels.com/video-files/7710243/7710243-uhd_2560_1440_30fps.mp4"
+          src="/assets/video/7710243-uhd_2560_1440_30fps.mp4"
           type="video/mp4"
         />
       </video>
@@ -28,7 +28,7 @@ const VideoComponent = () => (
         controls={false}
       >
         <source
-          src="https://videos.pexels.com/video-files/18069803/18069803-uhd_1440_2560_24fps.mp4"
+          src="/assets/video/18069803-uhd_1440_2560_24fps.mp4"
           type="video/mp4"
         />
       </video>
@@ -43,7 +43,7 @@ const VideoComponent = () => (
         controls={false}
       >
         <source
-          src="https://videos.pexels.com/video-files/18069166/18069166-uhd_2560_1440_24fps.mp4"
+          src="/assets/video/18069166-uhd_2560_1440_24fps.mp4"
           type="video/mp4"
         />
       </video>
@@ -58,7 +58,7 @@ const VideoComponent = () => (
         controls={false}
       >
         <source
-          src="https://videos.pexels.com/video-files/18069701/18069701-uhd_2560_1440_24fps.mp4"
+          src="/assets/video/18069701-uhd_2560_1440_24fps.mp4"
           type="video/mp4"
         />
       </video>
@@ -73,7 +73,7 @@ const VideoComponent = () => (
         controls={false}
       >
         <source
-          src="https://videos.pexels.com/video-files/18069232/18069232-uhd_2560_1440_24fps.mp4"
+          src="/assets/video/18069232-uhd_2560_1440_24fps.mp4"
           type="video/mp4"
         />
       </video>

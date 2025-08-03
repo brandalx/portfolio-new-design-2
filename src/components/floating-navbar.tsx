@@ -204,7 +204,7 @@ export const FloatingNav = ({
             )}
             style={{ transformOrigin: "center", opacity: 0, scale: 0.8 }}
           >
-            Up we go
+            Scroll Up
           </div>
         </div>
       </motion.div>

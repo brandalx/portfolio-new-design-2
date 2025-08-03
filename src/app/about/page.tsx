@@ -4,6 +4,7 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import SocialIcons from "@/components/SocialIcons";
 import { CardSwipe } from "@/components/swiper";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { IconChevronRight } from "@tabler/icons-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     title: "About | Brandon Nolan Portfolio",
     description:
       "Learn about Brandon Nolan, a Canadian Full Stack Engineer and Graphic Designer. Discover my expertise in Next.js, React, and Node.js, my work on the DRIE project, and my passion for drone piloting and soccer. Available for hire.",
-    url: "https://www.brandnolandev.com/about",
+    url: "https://design.brandnolandev.com/about",
     type: "website",
 
     locale: "en_CA",
@@ -123,47 +124,41 @@ export default function AboutPage() {
             <div>
               <h2 className="text-4xl font-bold glor-b">About</h2>
               <p className="text-muted-foreground mt-1 mb-4 glor-l">
-                Some information about me.
+                A glimpse into my creative world.
               </p>
             </div>
-
             <div>
               <p>
-                {" "}
-                Hi, I'm Brandon — a Full Stack Engineer and Graphic Designer
-                passionate about building modern, performant web applications
-                that combine function and form. What started as a creative
-                curiosity evolved into a full-time commitment to crafting
-                user-centric digital experiences across the stack.
+                Hi, I'm Brandon — a Graphic Designer and 3D Artist based in
+                Canada, with a passion for crafting immersive UI/UX designs,
+                dynamic motion graphics, and innovative 3D visuals. While I'm
+                also a skilled full stack developer, my heart lies in creating
+                visually stunning and user-centric digital experiences that
+                captivate and engage.
               </p>
               <br />
               <p>
-                {" "}
-                Driven by the desire to solve real-world problems through clean
-                design and efficient code, I specialize in developing scalable
-                solutions using technologies like Next.js, React, Node.js, and a
-                wide range of cloud and DevOps tools. My focus is always on
-                usability, maintainability, and business value.
+                My work blends creativity with functionality, specializing in
+                tools like Figma, Adobe Creative Suite, Blender, and Cinema 4D
+                to design intuitive interfaces, compelling motion graphics, and
+                photorealistic 3D renders. I focus on delivering seamless user
+                experiences that balance aesthetic appeal with practical
+                usability, always keeping the end user in mind.
               </p>
+
               <br />
               <p>
-                One of the most rewarding projects I've contributed to is DRIE,
-                a collaborative platform built with friends that combines web
-                development with tools for modern digital engagement. It's the
-                kind of work that fuels my drive — creating practical solutions
-                with creative freedom.
+                Beyond the screen, I'm passionate about drone cinematography,
+                capturing breathtaking visuals that inspire my design work.
+                Whether it's designing a sleek app interface or animating a
+                dynamic motion sequence, I believe every project should tell a
+                story and evoke emotion.
               </p>
-              <br />
               <p>
-                I believe every digital product deserves to look great, feel
-                intuitive, and run smoothly. Beyond the screen, I also have a
-                passion for drone piloting and aerial photography, capturing
-                visuals from unique perspectives to complement my design work
-                and storytelling.
+                When I'm not designing or coding, you'll find me on the soccer
+                field, experimenting with new visual effects, or relaxing with
+                my cats while binge-watching Friends.
               </p>
-              When I'm not building apps or flying a drone, you'll probably find
-              me on a soccer field or rewatching Friends and playing with my
-              cats.
             </div>
           </div>
           <div>
@@ -187,6 +182,18 @@ export default function AboutPage() {
                   <p className="glor-l mt-2 text-center hover:underline transition-all">
                     {" "}
                     Let's Connect
+                  </p>
+                </Link>
+              </div>
+            </div>
+            <hr className="w-[40%] text-center mx-auto" />
+            <div className="w-full flex justify-center ">
+              {" "}
+              <div>
+                <Link href={"/https://brandnolandev.com"}>
+                  <p className="glor-b  text-center hover:underline transition-all flex items-center gap-x-2 justify-center text-blue-600">
+                    {" "}
+                    Dev portfolio {">"}
                   </p>
                 </Link>
               </div>

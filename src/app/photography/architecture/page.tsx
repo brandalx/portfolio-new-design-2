@@ -71,7 +71,7 @@ export default function ArchitectureProjectsPage() {
             ))}
           </div>
         </div>
-      </section>{" "}
+      </section>
     </MaxWidthWrapper>
   );
 }

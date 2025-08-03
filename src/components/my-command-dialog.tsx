@@ -41,11 +41,11 @@ export function MyCommandDialog() {
       <Button
         variant="ghost"
         className="rounded-full"
-        aria-label="Open command dialog"
+        aria-label="Open command dialog cursor-pointer"
         size="icon"
         onClick={() => setOpen((open) => !open)}
       >
-        <Command className="h-[1.2rem] w-[1.2rem]" />
+        <Command className="h-[1.2rem] cursor-pointer w-[1.2rem]" />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Start typing to search..." />

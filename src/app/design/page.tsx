@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import ImageCard from "@/components/ImageCard"; // Adjust the import path as needed
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { BackButton } from "@/components/BackButton";
+import unbounded from "@/lib/fonts";
 
 type Project = {
   name: string;
@@ -70,7 +71,12 @@ export default function DesignPage() {
       <section className="py-12 min-h-screen">
         <div className="mx-auto max-w-7xl-none px-4-none">
           <div className="text-center mb-8">
-            <h1 className="mt-2 lg:text-6xl text-4xl font-bold glor-b capitalize">
+            <h1
+              className={
+                unbounded.className +
+                " mt-2 lg:text-6xl text-4xl font-bold capitalize"
+              }
+            >
               Design Projects
             </h1>
             <p className="mt-2 dark:text-gray-200 text-gray-800   max-w-2xl mx-auto">
