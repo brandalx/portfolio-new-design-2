@@ -209,7 +209,7 @@ export default function Portfolio({ className }: { className?: string }) {
         )}
       </div>
 
-      <div className="mt-20">
+      <div className="mt-20 mb-20">
         <div>
           <h2 className={`text-3xl md:text-4xl font-bold mb-4    gap-x-4 `}>
             <span className={`${unbounded.className}`}> Featured</span>
@@ -217,7 +217,7 @@ export default function Portfolio({ className }: { className?: string }) {
         </div>
         <StackingCards />
       </div>
-      <div className="mt-20">
+      <div className="mt-20 pt-20">
         <Footer2 />
       </div>
     </section>
