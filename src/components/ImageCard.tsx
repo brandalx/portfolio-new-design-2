@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC, useEffect, useRef, useState } from "react";
-import AOSInit from "@/components/AOSInit";
+// import AOSInit from "@/components/AOSInit";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { Skeleton } from "./ui/skeleton";
 import { gsap } from "gsap";
@@ -155,11 +155,10 @@ const ImageCard: FC<ImageCardProps> = ({
 
   return (
     <div>
-      {" "}
-      <AOSInit />
+      {/* <AOSInit /> */}
       <AspectRatio
-        data-aos-duration="1000"
-        data-aos="fade-up"
+        // data-aos-duration="1000"
+        // data-aos="fade-up"
         ratio={aspectRatio}
       >
         <Link
