@@ -18,8 +18,10 @@ export default function ArchitectureProjectsPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        const cacheBust = new Date().getTime();
         const res = await fetch(
-          process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json"
+          `${process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json"}?v=${cacheBust}`,
+          { cache: "no-cache" }
         );
         if (!res.ok) throw new Error("Failed to fetch projects");
         const data = await res.json();

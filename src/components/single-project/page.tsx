@@ -248,7 +248,6 @@ const SingleProject = () => {
   }, [images, projectData]);
 
   useEffect(() => {
-    // Reset state on navigation
     setImages([]);
     setError(null);
     setIsLoading(true);
@@ -261,9 +260,11 @@ const SingleProject = () => {
       }
 
       try {
+        // Append a timestamp as a query parameter
+        const cacheBust = new Date().getTime();
         const res = await fetch(
-          process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json",
-          { cache: "no-store" }
+          `${process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json"}?v=${cacheBust}`,
+          { cache: "no-cache" }
         );
         if (!res.ok)
           throw new Error(`Failed to fetch cached projects: ${res.status}`);
