@@ -130,10 +130,10 @@ export function generateProjectMetadata(
   config: MetadataConfig,
   projectSlug: string
 ): Metadata {
-  const projectTitle = project.title || project.description || project.name;
+  const projectTitle = project.description || project.title || project.name;
   const projectDescription =
-    project.description ||
     project.title ||
+    project.description ||
     `${project.name} - ${config.categoryDisplay} by Brandon Nolan`;
 
   const keywords = [
