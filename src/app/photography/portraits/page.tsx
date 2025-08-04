@@ -71,7 +71,7 @@ export default function PortraitsProjectsPage() {
             ))}
           </div>
         </div>
-      </section>{" "}
+      </section>
     </MaxWidthWrapper>
   );
 }

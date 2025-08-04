@@ -66,40 +66,38 @@ export default function Footer2() {
           </div>
         </div>
 
-        <div className=" w-full py-6 ">
-          <div className="grid grid-cols-3 glor-l text-sm w-full">
-            <div className="flex flex-col gap-4 w-fit ">
-              {NAVIGATION.map((page) => (
-                <Link
-                  key={page.href}
-                  href={page.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {page.title}
-                </Link>
-              ))}{" "}
+        <div className="w-full py-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 glor-l text-sm w-full gap-4">
+            {NAVIGATION.map((page) => (
               <Link
-                href={"       https://old.brandnolandev.com/"}
-                target="_blank"
+                key={page.href}
+                href={page.href}
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                Legacy
+                {page.title}
               </Link>
-              <Link
-                href={"https://newusandor.wixsite.com/design"}
-                target="_blank"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Design
-              </Link>
-              <Link
-                target="_blank"
-                href={"       https://old.brandnolandev.com/"}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Site Map
-              </Link>
-            </div>
+            ))}{" "}
+            <Link
+              href={"       https://old.brandnolandev.com/"}
+              target="_blank"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Legacy
+            </Link>
+            <Link
+              href={"https://newusandor.wixsite.com/design"}
+              target="_blank"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Design
+            </Link>
+            <Link
+              target="_blank"
+              href={"       https://old.brandnolandev.com/"}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Site Map
+            </Link>
             <div className="flex flex-col gap-4 w-fit">
               {SOCIALS.map((social) => (
                 <Link

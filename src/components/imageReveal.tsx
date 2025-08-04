@@ -1,35 +1,55 @@
 "use client";
 
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import unbounded from "@/lib/fonts";
 import { MoveUpRight } from "lucide-react";
+import Link from "next/link";
 import React, { useState, useRef, useCallback, useEffect } from "react";
 
 interface ImageData {
   id: number;
   src: string;
   alt: string;
+  link: string;
 }
 
 const images: ImageData[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1682806816936-c3ac11f65112?q=80&w=1274&auto=format&fit=crop",
-    alt: "Image Mousetrail",
+    src: "/assets/cursor/21.webp",
+    link: "/design/design3d",
+    alt: "3D Design",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1681063762354-d542c03bbfc5?q=80&w=1274&auto=format&fit=crop",
-    alt: "Spotlight Cards",
+    src: "/assets/cursor/4.webp",
+    link: "/design/design2d",
+    alt: "2D Design",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1679640034489-a6db1f096b70?q=80&w=1274&auto=format&fit=crop",
-    alt: "Sparkles Effects",
+    src: "/assets/cursor/40.webp",
+    link: "/photography/architecture",
+    alt: "Architecture",
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1679482451632-b2e126da7142?q=80&w=1274&auto=format&fit=crop",
-    alt: "Horizontal Scroll",
+    src: "/assets/cursor2/5.webp",
+    link: "/photography/portraits",
+    alt: "Portraits",
+  },
+  {
+    id: 5,
+    src: "/assets/image.jpg",
+    link: "/About",
+    alt: "About",
+  },
+
+  {
+    id: 7,
+    src: "/assets/devport.png",
+    link: "https://brandnolandev.com/",
+    alt: "Dev Portfolio",
   },
 ];
 
@@ -101,13 +121,14 @@ const ImageReveal2: React.FC = () => {
 
   return (
     <div
-      className="relative w-full min-h-fit dark:bg-gradient-to-b from-black from-10% to-gray-950 to-100% bg-gray-100 rounded-md border"
+      className="relative w-full min-h-fit dark:bg-gradient-to-b from-black from-10% to-gray-950 to-100% bg-gray-100  "
       onMouseLeave={handleMouseLeave}
     >
       {images.map((image) => (
-        <div
+        <Link
+          href={image.link}
           key={image.id}
-          className={`p-4 cursor-pointer relative sm:flex items-center justify-between`}
+          className={`p-4 cursor-pointer relative sm:flex items-center justify-between capitalize ${unbounded.className}`}
           onMouseEnter={() => handleImageHover(image)}
         >
           {!isDesktop && (
@@ -118,7 +139,7 @@ const ImageReveal2: React.FC = () => {
             />
           )}
           <h2
-            className={`newFont dark:text-gray-300 uppercase md:text-5xl sm:text-2xl text-xl font-semibold sm:py-6 py-2 leading-[100%] relative ${
+            className={` dark:text-gray-300 uppercase md:text-5xl sm:text-2xl text-xl  sm:py-6 py-2 leading-[100%] relative mt-1 ${
               activeImage?.id === image?.id
                 ? "mix-blend-difference z-20 text-gray-300"
                 : "text-gray-700"
@@ -140,7 +161,7 @@ const ImageReveal2: React.FC = () => {
               activeImage?.id === image?.id ? "w-full" : "w-0"
             }`}
           />
-        </div>
+        </Link>
       ))}
       {isDesktop && activeImage && (
         <img

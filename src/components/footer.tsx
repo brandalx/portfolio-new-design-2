@@ -9,6 +9,11 @@ import TextPressure from "./textPressure";
 import { useMedia } from "react-use";
 import unbounded from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const ImageReveal2 = dynamic(() => import("@/components/imageReveal"), {
+  ssr: false,
+});
 
 export default function Footer() {
   const pathname = usePathname(); // Get current pathname
@@ -24,8 +29,17 @@ export default function Footer() {
   }
 
   return (
-    <MaxWidthWrapper className=" mt-20">
+    <MaxWidthWrapper className=" mt-5">
       <footer className="page-footer bg-transparent mx-auto w-full z-500">
+        <hr className="my-10" />
+        <div className="my-20">
+          <div>
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4    gap-x-4 `}>
+              <span className={`${unbounded.className}`}> Featured</span>
+            </h2>
+          </div>
+          <ImageReveal2 />
+        </div>
         <Separator className="w-full" />
 
         {!isMobile ? (

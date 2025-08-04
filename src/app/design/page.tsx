@@ -4,6 +4,7 @@ import ImageCard from "@/components/ImageCard"; // Adjust the import path as nee
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { BackButton } from "@/components/BackButton";
 import unbounded from "@/lib/fonts";
+import dynamic from "next/dynamic";
 
 type Project = {
   name: string;
@@ -86,12 +87,12 @@ export default function DesignPage() {
           </div>
 
           <div>
-            <ul className="flex flex-wrap justify-start gap-4 mb-8 text-sm capitalize">
+            <ul className="flex flex-wrap justify-start gap-4 mb-8 text-sm ">
               {categories.map((item, id) => (
                 <li
                   key={id}
                   onClick={() => handleCategoryClick(item)}
-                  className={`cursor-pointer px-4 py-2  dark:bg-white/5 dark:hover:bg-white/10 bg-gray-100 text-black glor-l rounded-full hover:bg-gray-200 hover:text-black  dark:text-white hover:border-black transition-all   ${
+                  className={`cursor-pointer px-4 py-2  dark:bg-white/5 dark:hover:bg-white/10 bg-gray-100 text-black  rounded-full hover:bg-gray-200 hover:text-black  dark:text-white hover:border-black transition-all   ${unbounded.className} ${
                     item === category ? "font-semibold underline" : ""
                   }`}
                 >
@@ -114,7 +115,7 @@ export default function DesignPage() {
             ))}
           </div>
         </div>
-      </section>{" "}
+      </section>
     </MaxWidthWrapper>
   );
 }
