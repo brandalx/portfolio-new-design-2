@@ -1,7 +1,45 @@
-// app/design/design3d/[project]/page.tsx
-
+import { Metadata } from "next";
 import SingleProject from "@/components/single-project/page";
+import { getProjectData, generateProjectMetadata } from "@/lib/metadata-utils";
 
-export default function ProjectPage() {
+type Props = {
+  params: { project: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { project } = params;
+  const decodedProjectName = decodeURIComponent(project);
+  const projectData = await getProjectData(
+    decodedProjectName,
+    "photography",
+    "architecture"
+  );
+
+  if (!projectData) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    };
+  }
+
+  return generateProjectMetadata(
+    projectData,
+    {
+      category: "photography",
+      subcategory: "architecture",
+      categoryDisplay: "Architecture Photography",
+      baseUrl: "https://design.brandnolandev.com",
+      keywords: [
+        "architecture photography",
+        "architectural photographer",
+        "building photography",
+        "photographer Canada",
+      ],
+    },
+    project
+  );
+}
+
+export default function ProjectPage({ params }: Props) {
   return <SingleProject />;
 }
