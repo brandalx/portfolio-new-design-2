@@ -1,4 +1,3 @@
-// lib/metadata-utils.ts
 import { Metadata } from "next";
 
 export type Project = {
@@ -24,29 +23,96 @@ export async function getProjectData(
   subcategory: string
 ): Promise<Project | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/cache/projects.json`, {
-      // Don't use Next.js cache due to size limit, but allow HTTP caching
+    // Use the Vercel Blob URL directly
+    const blobUrl =
+      process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json";
+
+    console.log("Fetching from:", blobUrl);
+    console.log("Looking for project:", { projectName, category, subcategory });
+
+    const res = await fetch(blobUrl, {
       cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        "User-Agent": "Next.js Server",
+      },
+      // Add timeout and retry logic
+      signal: AbortSignal.timeout(30000), // 30 second timeout
     });
 
     if (!res.ok) {
-      console.error("Failed to fetch projects:", res.status);
+      console.error("Failed to fetch projects from blob:", {
+        status: res.status,
+        statusText: res.statusText,
+        url: blobUrl,
+      });
       return null;
     }
 
     const projects: Project[] = await res.json();
+    console.log("Total projects loaded:", projects.length);
 
-    return (
-      projects.find(
-        (p) =>
-          p.name === projectName &&
-          p.category === category &&
-          p.subcategory === subcategory
-      ) || null
+    // Log available projects for debugging
+    const availableProjects = projects
+      .filter((p) => p.category === category && p.subcategory === subcategory)
+      .map((p) => p.name);
+    console.log(
+      `Available projects in ${category}/${subcategory}:`,
+      availableProjects
     );
+
+    const project = projects.find(
+      (p) =>
+        p.name === projectName &&
+        p.category === category &&
+        p.subcategory === subcategory
+    );
+
+    console.log("Project found:", project ? "Yes" : "No");
+    if (project) {
+      console.log("Found project details:", {
+        name: project.name,
+        category: project.category,
+        subcategory: project.subcategory,
+      });
+    }
+
+    return project || null;
   } catch (error) {
-    console.error("Error fetching project data:", error);
+    console.error("Error fetching project data from blob:", error);
+
+    // If the error is a timeout or network error, try once more
+    if (
+      error instanceof Error &&
+      (error.name === "AbortError" || error.message.includes("fetch"))
+    ) {
+      console.log("Retrying fetch...");
+      try {
+        const blobUrl =
+          process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL || "/cache/projects.json";
+        const res = await fetch(blobUrl, {
+          cache: "no-store",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (res.ok) {
+          const projects: Project[] = await res.json();
+          return (
+            projects.find(
+              (p) =>
+                p.name === projectName &&
+                p.category === category &&
+                p.subcategory === subcategory
+            ) || null
+          );
+        }
+      } catch (retryError) {
+        console.error("Retry also failed:", retryError);
+      }
+    }
+
     return null;
   }
 }
