@@ -9,23 +9,69 @@ module.exports = {
     const paths = [];
 
     try {
-      // Read projects from cache file (same as your Portfolio component)
-      const fs = require("fs");
-      const path = require("path");
-      const projectsCachePath = path.join(
-        process.cwd(),
-        "public/cache/projects.json"
-      );
+      // Fetch projects from cache URL (same as your Portfolio component)
+      const baseUrl = config.siteUrl;
+      const projectsUrl =
+        process.env.NEXT_PUBLIC_PROJECTS_CACHE_URL ||
+        `${baseUrl}/cache/projects.json`;
+
+      console.log(`Fetching projects from: ${projectsUrl}`);
 
       let allProjects = [];
 
-      if (fs.existsSync(projectsCachePath)) {
-        console.log("Reading projects from cache file...");
-        allProjects = JSON.parse(fs.readFileSync(projectsCachePath, "utf8"));
+      try {
+        // Add cache busting and no-cache headers like in your Portfolio component
+        const cacheBust = new Date().getTime();
+        const response = await fetch(`${projectsUrl}?v=${cacheBust}`, {
+          cache: "no-cache",
+          headers: {
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch projects: ${response.status} ${response.statusText}`
+          );
+        }
+
+        allProjects = await response.json();
         console.log(`Found ${allProjects.length} total projects in cache`);
-      } else {
-        console.warn("Projects cache file not found at:", projectsCachePath);
-        return paths; // Return empty array if no cache file
+      } catch (fetchError) {
+        console.warn("Failed to fetch projects from URL:", fetchError.message);
+
+        // Fallback: try to read from local file system (development only)
+        if (process.env.NODE_ENV === "development") {
+          try {
+            const fs = require("fs");
+            const path = require("path");
+            const projectsCachePath = path.join(
+              process.cwd(),
+              "public/cache/projects.json"
+            );
+
+            if (fs.existsSync(projectsCachePath)) {
+              console.log(
+                "Fallback: Reading projects from local cache file..."
+              );
+              allProjects = JSON.parse(
+                fs.readFileSync(projectsCachePath, "utf8")
+              );
+              console.log(
+                `Found ${allProjects.length} total projects in local cache`
+              );
+            }
+          } catch (fsError) {
+            console.warn("Fallback file read also failed:", fsError.message);
+          }
+        }
+
+        if (allProjects.length === 0) {
+          console.warn("No projects found, returning empty paths");
+          return paths;
+        }
       }
 
       // Generate paths for all projects
