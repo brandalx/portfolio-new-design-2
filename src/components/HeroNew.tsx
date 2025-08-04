@@ -42,11 +42,11 @@ export function HeroNew() {
       <ImageTrail
         items={[
           "/assets/cursor/18.webp",
-          "/assets/cursor/27.webp",
+
           "/assets/cursor/9.webp",
           "/assets/cursor/5.webp",
           "/assets/cursor/11.webp",
-          "/assets/cursor/15.webp",
+
           "/assets/cursor/1.webp",
           "/assets/cursor/22.webp",
           "/assets/cursor/3.webp",
