@@ -26,7 +26,8 @@ export async function getProjectData(
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const res = await fetch(`${baseUrl}/cache/projects.json`, {
-      next: { revalidate: 3600 },
+      // Don't use Next.js cache due to size limit, but allow HTTP caching
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -81,6 +82,7 @@ export function generateProjectMetadata(
   if (project.client) keywords.push(project.client);
 
   return {
+    metadataBase: new URL(config.baseUrl),
     title: `${projectTitle} | Brandon Nolan - ${config.categoryDisplay}`,
     description: projectDescription,
     keywords,

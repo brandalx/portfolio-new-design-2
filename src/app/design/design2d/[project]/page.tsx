@@ -3,11 +3,11 @@ import SingleProject from "@/components/single-project/page";
 import { getProjectData, generateProjectMetadata } from "@/lib/metadata-utils";
 
 type Props = {
-  params: { project: string };
+  params: Promise<{ project: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { project } = params;
+  const { project } = await params;
   const decodedProjectName = decodeURIComponent(project);
   const projectData = await getProjectData(
     decodedProjectName,
@@ -39,6 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   );
 }
 
-export default function ProjectPage({ params }: Props) {
+export default function ProjectPage() {
   return <SingleProject />;
 }
