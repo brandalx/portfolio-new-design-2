@@ -24,8 +24,8 @@ export default function Footer() {
   }
 
   return (
-    <MaxWidthWrapper>
-      <footer className="page-footer bg-transparent mx-auto w-full z-50">
+    <MaxWidthWrapper className=" mt-20">
+      <footer className="page-footer bg-transparent mx-auto w-full z-500">
         <Separator className="w-full" />
 
         {!isMobile ? (
@@ -63,7 +63,7 @@ export default function Footer() {
         )}
 
         <div>
-          <div className="  pt-2 ps-2  mb-4  mb-4 text-center mx-auto flex justify-center ">
+          <div className="  pt-2 ps-2  mb-4   text-center mx-auto flex justify-center ">
             <Link target="_blank" href={"https://brandnolandev.com"}>
               <p
                 className={
