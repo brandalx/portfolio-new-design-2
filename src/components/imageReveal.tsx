@@ -41,7 +41,7 @@ const images: ImageData[] = [
   {
     id: 5,
     src: "/assets/image.jpg",
-    link: "/About",
+    link: "/about",
     alt: "About",
   },
 
