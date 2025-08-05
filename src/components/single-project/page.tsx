@@ -16,6 +16,7 @@ import Masonry from "react-masonry-css";
 import { BackButton } from "../BackButton";
 import { useMedia } from "react-use";
 import { IconExternalLink } from "@tabler/icons-react";
+import FeaturedProjects from "../featuredItem";
 
 type ProjectImage = {
   secure_url: string;
@@ -560,6 +561,11 @@ const SingleProject = () => {
               doubleClickDelay: 300,
               doubleClickMaxStops: 2,
             }}
+          />
+          <FeaturedProjects
+            currentCategory={projectData.category}
+            currentProject={projectData.name}
+            maxItems={4}
           />
         </div>
       </div>
