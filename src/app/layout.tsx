@@ -15,6 +15,7 @@ import MaxWidthWrapper from "@/components/max-width-wrapper";
 import Footer from "@/components/footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Pointer } from "@/components/cursor";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,6 +99,24 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
+      {" "}
+      <head>
+        {/* Mouseflow script */}
+        <Script
+          id="mouseflow-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `  window._mfq = window._mfq || [];
+        (function() {
+          var mf = document.createElement("script");
+          mf.type = "text/javascript"; mf.defer = true;
+          mf.src = "//cdn.mouseflow.com/projects/0cdf1c46-70fc-4635-a439-e1c9385b01aa.js";
+          document.getElementsByTagName("head")[0].appendChild(mf);
+        })();
+            `,
+          }}
+        />
+      </head>
       <SpeedInsights />
       <Analytics />
       <body
