@@ -190,7 +190,7 @@ export default function AboutPage() {
             <div className="w-full flex justify-center ">
               {" "}
               <div>
-                <Link href={"/https://brandnolandev.com"}>
+                <Link href={"https://brandnolandev.com"}>
                   <p className="glor-b  text-center hover:underline transition-all flex items-center gap-x-2 justify-center text-blue-600">
                     {" "}
                     Dev portfolio {">"}
