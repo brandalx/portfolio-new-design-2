@@ -47,16 +47,17 @@ export function MyCommandDialog() {
       >
         <Command className="h-[1.2rem] cursor-pointer w-[1.2rem]" />
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen} className="z-[160]">
         <CommandInput placeholder="Start typing to search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="General">
-            <CommandItem onSelect={handleCopyLink}>
+            <CommandItem className="cursor-pointer" onSelect={handleCopyLink}>
               <Link className="mr-2 h-4 w-4" />
               <span>Copy link</span>
             </CommandItem>
             <CommandItem
+              className="cursor-pointer"
               onSelect={() =>
                 window.open("https://brandnolandev.com", "_ blank")
               }
@@ -89,6 +90,7 @@ export function MyCommandDialog() {
           <CommandSeparator />
           <CommandGroup heading="Social">
             <CommandItem
+              className="cursor-pointer"
               onSelect={() =>
                 window.open("https://github.com/brandalx", "_ blank")
               }
@@ -104,9 +106,10 @@ export function MyCommandDialog() {
               <span>DRIE</span>
             </CommandItem> */}
             <CommandItem
+              className="cursor-pointer"
               onSelect={() =>
                 window.open(
-                  "https://www.linkedin.com/in/miroslav-stejskal/",
+                  "https://www.linkedin.com/in/brandonolan/",
                   "_ blank"
                 )
               }
