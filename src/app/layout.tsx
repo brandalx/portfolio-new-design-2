@@ -110,7 +110,7 @@ export default function RootLayout({
         (function() {
           var mf = document.createElement("script");
           mf.type = "text/javascript"; mf.defer = true;
-          mf.src = "//cdn.mouseflow.com/projects/0cdf1c46-70fc-4635-a439-e1c9385b01aa.js";
+          mf.src = "//cdn.mouseflow.com/projects/20c2a113-f995-4133-bf98-2160ec0291ab.js";
           document.getElementsByTagName("head")[0].appendChild(mf);
         })();
             `,
