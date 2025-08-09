@@ -16,6 +16,7 @@ import Footer from "@/components/footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Pointer } from "@/components/cursor";
 import Script from "next/script";
+import FeedbackModule from "@/components/feedBack2";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -140,6 +141,9 @@ export default function RootLayout({
             <div className="page-body">
               <CookieConsenInitilizer />
               {children}{" "}
+            </div>
+            <div className="mx-auto">
+              <FeedbackModule />
             </div>
             <Footer /> <Toaster position="bottom-right" />
           </ThemeProvider>
