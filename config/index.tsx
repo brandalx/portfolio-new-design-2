@@ -608,7 +608,7 @@ export const SOCIALS = [
   },
   {
     title: "Linkedin",
-    href: "https://www.linkedin.com/in/brandnolan/",
+    href: "https://www.linkedin.com/in/brandonolan/",
   },
 ];
 
