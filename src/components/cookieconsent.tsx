@@ -211,7 +211,7 @@ export default function CookieConsenInitilizer() {
                 {
                   title: "More information",
                   description:
-                    'For any queries in relation to my policy on cookies and your choices, please <a href="/contact" style="text-decoration:underline !important;">contact us</a>',
+                    'For any queries in relation to my policy on cookies and your choices, please <a href="/contacts" style="text-decoration:underline !important;">contact me</a>',
                 },
               ],
             },
