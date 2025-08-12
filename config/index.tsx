@@ -113,7 +113,7 @@ export const NAVIGATION = [
 
   {
     special: true,
-    topbar: false,
+    topbar: true,
     title: "Blog",
     href: "https://brandnolandev.com/blog",
     icon: <IconTextCaption className="h-5 w-5" />,
