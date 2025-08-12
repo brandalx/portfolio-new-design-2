@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "./ui/button";
 import CookieConsentTrigger from "./cookieTrigger";
-import { IconCode, IconCookie } from "@tabler/icons-react";
+import { IconCode, IconCookie, IconTextCaption } from "@tabler/icons-react";
 
 export function MyCommandDialog() {
   const [open, setOpen] = React.useState(false);
@@ -64,6 +64,15 @@ export function MyCommandDialog() {
             >
               <IconCode className="mr-2 h-4 w-4" />
               <span>Developer Portfolio</span>
+            </CommandItem>
+            <CommandItem
+              className="cursor-pointer"
+              onSelect={() =>
+                window.open("https://brandnolandev.com/blog", "_ blank")
+              }
+            >
+              <IconTextCaption className="mr-2 h-4 w-4 text-accent-foreground/60" />
+              <span>Blog</span>
             </CommandItem>
             {/* <CommandItem
               onSelect={() =>

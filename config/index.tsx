@@ -110,6 +110,14 @@ export const NAVIGATION = [
     href: "https://brandnolandev.com",
     icon: <IconCode className="h-5 w-5" />,
   },
+
+  {
+    special: true,
+    topbar: false,
+    title: "Blog",
+    href: "https://brandnolandev.com/blog",
+    icon: <IconTextCaption className="h-5 w-5" />,
+  },
   {
     special: false,
     topbar: true,
