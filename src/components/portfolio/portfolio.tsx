@@ -173,7 +173,7 @@ export default function Portfolio({ className }: { className?: string }) {
                   <div className={`${unbounded.className}`}>
                     2D Design & Animation
                   </div>
-                  <Link href="/design">
+                  <Link href="/design/design2d">
                     <Button
                       variant={"ghost"}
                       className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
@@ -225,7 +225,15 @@ export default function Portfolio({ className }: { className?: string }) {
                   >
                     <div className={`${unbounded.className}`}>
                       Interactive 3D Models
-                    </div>
+                    </div>{" "}
+                    <Link href="/design/design3d">
+                      <Button
+                        variant={"ghost"}
+                        className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                      >
+                        See all 3D design <IconChevronRight />
+                      </Button>
+                    </Link>
                   </h2>
                   <p className="mb-6 text-gray-600 dark:text-gray-300 text-sm">
                     Yes, you can interact with these! Drag, zoom, and explore in
@@ -251,7 +259,7 @@ export default function Portfolio({ className }: { className?: string }) {
                   <div className={`${unbounded.className}`}>
                     3D Design & Animation
                   </div>
-                  <Link href="/design">
+                  <Link href="/design/design3d">
                     <Button
                       variant={"ghost"}
                       className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
