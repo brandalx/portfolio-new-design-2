@@ -226,14 +226,6 @@ export default function Portfolio({ className }: { className?: string }) {
                     <div className={`${unbounded.className}`}>
                       Interactive 3D Models
                     </div>
-                    <Link href="/design">
-                      <Button
-                        variant={"ghost"}
-                        className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
-                      >
-                        Explore all models <IconChevronRight />
-                      </Button>
-                    </Link>
                   </h2>
                   <p className="mb-6 text-gray-600 dark:text-gray-300 text-sm">
                     Yes, you can interact with these! Drag, zoom, and explore in
