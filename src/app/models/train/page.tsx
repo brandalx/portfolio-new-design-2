@@ -1,7 +1,7 @@
 import NavBarModels from "@/components/floatingModels";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Train 3JS Fiber React Drei | Brandon Nolan",
+  title: "Train 3JS | Brandon Nolan",
   description:
     "Discover Brandon Nolan's Three.js project featuring a virtual train built with React Three Fiber and Drei. Scroll through multiple train cars, explore detailed seat arrangements, and experience smooth animations with realistic lighting and interactive camera controls. Based in Canada, available for hire.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "hire developer",
   ],
   openGraph: {
-    title: "Train 3JS Fiber React Drei | Brandon Nolan",
+    title: "Train 3JS | Brandon Nolan",
     description:
       "Explore Brandon Nolan's immersive Three.js project featuring a virtual train built with React Three Fiber and Drei. Scroll through train cars with detailed seats, smooth animations, and interactive controls. Based in Canada, available for hire.",
     url: "https://www.brandnolandev.com/3d-stuff/train",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/assets/opengraph-image.jpg",
-        alt: "Train 3JS Fiber React Drei by Brandon Nolan",
+        alt: "Train 3JS by Brandon Nolan",
         width: 1200,
         height: 630,
       },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Train 3JS Fiber React Drei | Brandon Nolan",
+    title: "Train 3JS | Brandon Nolan",
     description:
       "Check out my Three.js virtual train project built with React Three Fiber and Drei. Features smooth animations, detailed train cars, and interactive seat exploration. Available for hire!",
     site: "@brandalx",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/assets/opengraph-image.jpg",
-        alt: "Train 3JS Fiber React Drei by Brandon Nolan",
+        alt: "Train 3JS by Brandon Nolan",
         width: 1200,
         height: 630,
       },

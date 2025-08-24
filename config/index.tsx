@@ -94,7 +94,7 @@ export const MODELS = [
     featured: true,
   },
   {
-    title: "Train 3JS Fiber React Drei",
+    title: "Train 3JS",
     description:
       "An engaging Three.js project built with React Three Fiber and Drei, featuring a virtual train where users can scroll through multiple train cars and explore detailed seat arrangements. This project showcases smooth animations, realistic lighting, and interactive camera controls, providing an immersive 3D experience of a dynamic train environment.",
     href: "/models/train",
