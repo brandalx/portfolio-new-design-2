@@ -148,7 +148,9 @@ export function ImageCard2({ model }) {
               </span>
             ))}
             {model.tags.length > 3 && (
-              <span className="text-xs ">+{model.tags.length - 3}</span>
+              <span className="text-xs px-2 py-1 ">
+                +{model.tags.length - 3}
+              </span>
             )}
           </div>
         </div>
