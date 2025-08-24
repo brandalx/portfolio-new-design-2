@@ -76,7 +76,7 @@ const Page = () => {
         <p className="text-muted-foreground mt-1 mb-4">
           Here are some of my Three JS Projects.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {MODELS.map((project) => (
             <Card className="flex flex-col h-full group" key={project.title}>
               <div className="p-4">
@@ -102,7 +102,9 @@ const Page = () => {
                     </Link>
                   </div>
                 </CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardDescription className="line-clamp-3">
+                  {project.description}
+                </CardDescription>
               </CardHeader>
               <CardFooter className="*:mr-2 *:mb-2 flex flex-wrap mt-auto">
                 {project.tags.map((tag) => (
