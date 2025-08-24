@@ -112,6 +112,25 @@ export const MODELS = [
     featured: true,
   },
   {
+    title: "Monitors 3JS",
+    description:
+      "A visually captivating Three.js project built with React Three Fiber and Drei, featuring an interactive 3D scene with multiple computer monitors and a stylized cat model observing them. One monitor is interactive, allowing user engagement, enhanced by dynamic camera movements, realistic reflections, and post-processing effects like bloom and depth of field. The project showcases advanced WebGL techniques, including instanced rendering, reflective materials, and smooth animations for an immersive and engaging experience.",
+    href: "/models/monitors",
+    image: "/assets/monitors.webp",
+    tags: [
+      "Three.js",
+      "React Three Fiber",
+      "Drei",
+      "JavaScript",
+      "WebGL",
+      "3D Animation",
+      "Interactive Design",
+      "Postprocessing",
+      "Reflections",
+    ],
+    featured: true,
+  },
+  {
     title: "Severance Macrodata Refinement Office",
     description:
       "An immersive Three.js project inspired by the 'Severance' TV show, featuring an authentic recreation of the macrodata refinement office. Built with React Three Fiber and GSAP, this model combines intricate 3D modeling with dynamic animations to create a retro-futuristic environment. Users can engage in an interactive microdata refinement game within the office, complete with realistic lighting, texture mapping, and seamless user interactions. This project captures the eerie, nostalgic aesthetic of the show while showcasing advanced WebGL techniques.",
