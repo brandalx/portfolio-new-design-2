@@ -12,7 +12,12 @@ import {
   IconTextCaption,
   IconUser,
 } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
 export function FloatingNavDemo() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/models/")) {
+    return null;
+  }
   const navItems = [
     {
       name: "Photography",

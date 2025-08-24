@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import unbounded from "@/lib/fonts";
 import ImageCard from "../ImageCard";
+import { ImageCard2 } from "../ImageCard2"; // Import the enhanced card
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -11,6 +12,7 @@ import Footer2 from "../footer2";
 import { useMedia } from "react-use";
 import MaxWidthWrapper from "../max-width-wrapper";
 import StackingCards from "../StackingCard";
+import { MODELS } from "../../../config";
 
 type Project = {
   name: string;
@@ -36,6 +38,7 @@ export default function Portfolio({ className }: { className?: string }) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [subcategories, setSubcategories] = useState<string[]>([]);
+  const [interactiveModels, setInteractiveModels] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -56,11 +59,16 @@ export default function Portfolio({ className }: { className?: string }) {
           uniqueSubcategories.add(`${project.category}/${project.subcategory}`);
         });
 
+        // Set interactive models from MODELS config
+        setInteractiveModels(MODELS);
+
         setProjects(allProjects);
         setCategories(["All", ...Array.from(uniqueCategories)]);
         setSubcategories(["All", ...Array.from(uniqueSubcategories)]);
       } catch (error) {
         console.error("Error fetching projects:", error);
+        // Fallback: still set interactive models even if fetch fails
+        setInteractiveModels(MODELS);
       }
     };
 
@@ -82,6 +90,7 @@ export default function Portfolio({ className }: { className?: string }) {
       return project.category === category;
     return `${project.category}/${project.subcategory}` === subcategory;
   });
+
   const designProjects = filteredProjects.filter(
     (p) => p.category.toLowerCase() === "design"
   );
@@ -90,6 +99,10 @@ export default function Portfolio({ className }: { className?: string }) {
   );
 
   const isMobile = useMedia("(max-width: 768px)", false);
+
+  // Show interactive models when "All" is selected or when no specific category filters are applied
+  const shouldShowInteractiveModels =
+    category === "All" && subcategory === "All";
 
   return (
     <section id="portfolio" className={`py-[120px] ${className}`}>
@@ -145,41 +158,194 @@ export default function Portfolio({ className }: { className?: string }) {
           )}
         </div>
 
-        {/* DESIGN PROJECTS */}
+        {/* DESIGN PROJECTS - Separated by subcategory */}
         {designProjects.length > 0 && (
-          <div className="mb-16">
-            <h2
-              className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
-            >
-              <div className={`${unbounded.className}`}>Design</div>
-              <Link href="/design">
-                <Button
-                  variant={"ghost"}
-                  className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+          <>
+            {/* 2D DESIGN SECTION - First */}
+            {designProjects.filter(
+              (p) =>
+                p.subcategory === "design2d" || p.subcategory === "2ddesign"
+            ).length > 0 && (
+              <div className="mb-16">
+                <h2
+                  className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
                 >
-                  See all design <IconChevronRight />
-                </Button>
-              </Link>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-              {designProjects.map((project, index) => (
-                <ImageCard
-                  key={index}
-                  date={project.date}
-                  category={project.category}
-                  subcategory={project.subcategory}
-                  src={project.cover}
-                  title={project.name}
-                  aspectRatio={16 / 12}
-                />
-              ))}
-            </div>
-          </div>
+                  <div className={`${unbounded.className}`}>
+                    2D Design & Animation
+                  </div>
+                  <Link href="/design">
+                    <Button
+                      variant={"ghost"}
+                      className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                    >
+                      See all 2D design <IconChevronRight />
+                    </Button>
+                  </Link>
+                </h2>
+                <p className="mb-6 text-gray-600 dark:text-gray-300 text-sm">
+                  Creative 2D graphics, illustrations, and motion design.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+                  {designProjects
+                    .filter(
+                      (p) =>
+                        p.subcategory === "design2d" ||
+                        p.subcategory === "2ddesign"
+                    )
+                    .map((project, index) => (
+                      <ImageCard
+                        key={index}
+                        date={project.date}
+                        category={project.category}
+                        subcategory={project.subcategory}
+                        src={project.cover}
+                        title={project.name}
+                        aspectRatio={16 / 12}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* INTERACTIVE 3D MODELS - Second, alongside 3D design */}
+            {(shouldShowInteractiveModels ||
+              (category === "design" &&
+                subcategory !== "design/design2d" &&
+                subcategory !== "design/2ddesign") ||
+              designProjects.filter(
+                (p) =>
+                  p.subcategory === "design3d" || p.subcategory === "3ddesign"
+              ).length > 0) &&
+              interactiveModels.length > 0 &&
+              subcategory !== "design/design2d" &&
+              subcategory !== "design/2ddesign" && (
+                <div className="mb-16">
+                  <h2
+                    className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
+                  >
+                    <div className={`${unbounded.className}`}>
+                      Interactive 3D Models
+                    </div>
+                    <Link href="/design">
+                      <Button
+                        variant={"ghost"}
+                        className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                      >
+                        Explore all models <IconChevronRight />
+                      </Button>
+                    </Link>
+                  </h2>
+                  <p className="mb-6 text-gray-600 dark:text-gray-300 text-sm">
+                    Yes, you can interact with these! Drag, zoom, and explore in
+                    real-time.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {interactiveModels.slice(0, 6).map((model, index) => (
+                      <ImageCard2 key={model.title || index} model={model} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            {/* 3D DESIGN SECTION - Third, after interactive models */}
+            {designProjects.filter(
+              (p) =>
+                p.subcategory === "design3d" || p.subcategory === "3ddesign"
+            ).length > 0 && (
+              <div className="mb-16">
+                <h2
+                  className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
+                >
+                  <div className={`${unbounded.className}`}>
+                    3D Design & Animation
+                  </div>
+                  <Link href="/design">
+                    <Button
+                      variant={"ghost"}
+                      className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                    >
+                      See all 3D design <IconChevronRight />
+                    </Button>
+                  </Link>
+                </h2>
+                <p className="mb-6 text-gray-600 dark:text-gray-300 text-sm">
+                  Immersive 3D designs, models, and animated experiences.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+                  {designProjects
+                    .filter(
+                      (p) =>
+                        p.subcategory === "design3d" ||
+                        p.subcategory === "3ddesign"
+                    )
+                    .map((project, index) => (
+                      <ImageCard
+                        key={index}
+                        date={project.date}
+                        category={project.category}
+                        subcategory={project.subcategory}
+                        src={project.cover}
+                        title={project.name}
+                        aspectRatio={16 / 12}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* OTHER DESIGN PROJECTS - For any other design subcategories */}
+            {designProjects.filter(
+              (p) =>
+                p.subcategory !== "design2d" &&
+                p.subcategory !== "2ddesign" &&
+                p.subcategory !== "design3d" &&
+                p.subcategory !== "3ddesign"
+            ).length > 0 && (
+              <div className="mb-16">
+                <h2
+                  className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4`}
+                >
+                  <div className={`${unbounded.className}`}>
+                    Other Design Projects
+                  </div>
+                  <Link href="/design">
+                    <Button
+                      variant={"ghost"}
+                      className="  border cursor-pointer   text-white transition-all  bg-black rounded-full "
+                    >
+                      See all design <IconChevronRight />
+                    </Button>
+                  </Link>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+                  {designProjects
+                    .filter(
+                      (p) =>
+                        p.subcategory !== "design2d" &&
+                        p.subcategory !== "2ddesign" &&
+                        p.subcategory !== "design3d" &&
+                        p.subcategory !== "3ddesign"
+                    )
+                    .map((project, index) => (
+                      <ImageCard
+                        key={index}
+                        date={project.date}
+                        category={project.category}
+                        subcategory={project.subcategory}
+                        src={project.cover}
+                        title={project.name}
+                        aspectRatio={16 / 12}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
 
         {/* PHOTOGRAPHY PROJECTS */}
         {photoProjects.length > 0 && (
-          <div>
+          <div className="mb-16">
             <h2
               className={`text-3xl md:text-4xl font-bold mb-4  md:flex items-center justify-between gap-x-4 `}
             >
@@ -205,6 +371,15 @@ export default function Portfolio({ className }: { className?: string }) {
                 />
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Show message if no projects found */}
+        {!shouldShowInteractiveModels && filteredProjects.length === 0 && (
+          <div className="text-center py-12 mb-16">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              No projects found in this category.
+            </p>
           </div>
         )}
       </div>

@@ -4,6 +4,8 @@ import ImageCard from "@/components/ImageCard"; // Adjust the import path as nee
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { BackButton } from "@/components/BackButton";
 import unbounded from "@/lib/fonts";
+import { MODELS } from "../../../../config";
+import { ImageCard2 } from "@/components/ImageCard2";
 
 type Project = {
   name: string;
@@ -55,6 +57,29 @@ export default function Design2DProjectsPage() {
               Explore my 3D design projects, crafted with creativity and
               precision to bring ideas to life.
             </p>
+          </div>
+
+          <div>
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-1  md:flex items-center justify-between gap-x-4`}
+            >
+              <div className={`${unbounded.className}`}>Interactive 3D</div>
+            </h2>
+            <p>Yes, you can touch it</p>
+            <div className="grid mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {MODELS.map((project, index) => (
+                <ImageCard2 key={project.title} model={project} />
+              ))}
+            </div>
+          </div>
+          <div className="my-10">
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-1  md:flex items-center justify-between gap-x-4`}
+            >
+              <div className={`${unbounded.className}`}>
+                3D Design and Animation
+              </div>
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

@@ -21,7 +21,116 @@ type Project = {
   tags: string[];
   featured?: boolean;
 };
-
+export const MODELS = [
+  {
+    title: "Office 3JS Model",
+    description:
+      "A complex Three.js project that merges two distinct projects: a retro 80s-style 3D office environment and an interactive operating system. The office features intricate animation baking and detailed 3D modeling, creating a nostalgic, portfolio-within-a-portfolio experience. Built with advanced Three.js techniques, it showcases dynamic lighting, texture mapping, and custom animations for an immersive retro aesthetic.",
+    href: "/models/office",
+    image: "/assets/office.webp",
+    tags: [
+      "Three.js",
+      "JavaScript",
+      "WebGL",
+      "3D Animation",
+      "GLTF",
+      "Retro Design",
+      "Shader Programming",
+    ],
+    featured: true,
+  },
+  {
+    title: "Cozy Room 3JS Model",
+    description:
+      "A modern Three.js project depicting a cozy room with a clickable computer monitor that launches a Windows 7-inspired operating system. The OS includes interactive games, showcasing advanced UI integration within a 3D environment. Built with Three.js, it features realistic lighting, modern design elements, and seamless user interactions for an engaging experience.",
+    href: "/models/cozy-room",
+    image: "/assets/cozy-room.webp",
+    tags: [
+      "Three.js",
+      "JavaScript",
+      "WebGL",
+      "3D Modeling",
+      "UI/UX",
+      "Interactive Design",
+      "Game Development",
+    ],
+    featured: true,
+  },
+  {
+    title: "BBC Micro 3JS Emulator",
+    description:
+      "A Three.js-powered, in-browser emulator and 3D showcase of the classic BBC Micro 8-bit computer. The project combines a photoreal 3D model of the Micro and its keyboard with an integrated emulator core (WASM/JS) running directly on the webpage. Features include a shader-based CRT effect with scanlines and phosphor bloom, accurate audio via WebAudio, keyboard & gamepad input mapping, tape/disk UI controls, save/load states, and a curated library of 100+ built-in classic games and demos. Ideal for retro computing fans, interactive exhibits, and playable nostalgia.",
+    href: "/models/bbcmicro",
+    image: "/assets/bbcmicro.webp",
+    tags: [
+      "Three.js",
+      "JavaScript",
+      "WebGL",
+      "Emulator",
+      "WASM",
+      "Retro Computing",
+      "BBC Micro",
+      "8-bit",
+      "Game Collection",
+      "CRT Shader",
+    ],
+    featured: true,
+  },
+  {
+    title: "Experimental Room 3JS",
+    description:
+      "An innovative Three.js project featuring a dynamic room environment with a fisheye camera perspective. This model showcases numerous animated items driven by keyframes, creating a visually striking and interactive 3D scene. Built with advanced Three.js techniques, it includes custom animations, dynamic lighting, and experimental camera effects for a unique and immersive experience.",
+    href: "/models/experimental-room",
+    image: "/assets/experemental-room.webp",
+    tags: [
+      "Three.js",
+      "JavaScript",
+      "WebGL",
+      "Fisheye Camera",
+      "3D Animation",
+      "Keyframes",
+      "Experimental Design",
+    ],
+    featured: true,
+  },
+  {
+    title: "Train 3JS Fiber React Drei",
+    description:
+      "An engaging Three.js project built with React Three Fiber and Drei, featuring a virtual train where users can scroll through multiple train cars and explore detailed seat arrangements. This project showcases smooth animations, realistic lighting, and interactive camera controls, providing an immersive 3D experience of a dynamic train environment.",
+    href: "/models/train",
+    image: "/assets/train.webp",
+    tags: [
+      "Three.js",
+      "React Three Fiber",
+      "Drei",
+      "JavaScript",
+      "WebGL",
+      "3D Animation",
+      "Interactive Design",
+      "Train Simulation",
+    ],
+    featured: true,
+  },
+  {
+    title: "Severance Macrodata Refinement Office",
+    description:
+      "An immersive Three.js project inspired by the 'Severance' TV show, featuring an authentic recreation of the macrodata refinement office. Built with React Three Fiber and GSAP, this model combines intricate 3D modeling with dynamic animations to create a retro-futuristic environment. Users can engage in an interactive microdata refinement game within the office, complete with realistic lighting, texture mapping, and seamless user interactions. This project captures the eerie, nostalgic aesthetic of the show while showcasing advanced WebGL techniques.",
+    href: "/models/severance",
+    image: "/assets/severance.jpg",
+    tags: [
+      "Three.js",
+      "React Three Fiber",
+      "GSAP",
+      "JavaScript",
+      "WebGL",
+      "3D Animation",
+      "Interactive Game",
+      "Severance",
+      "Retro-Futuristic",
+    ],
+    featured: true,
+  },
+];
 export const NAVIGATION = [
   {
     special: false,

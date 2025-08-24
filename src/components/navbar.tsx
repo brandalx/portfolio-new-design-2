@@ -31,7 +31,9 @@ import unbounded from "@/lib/fonts";
 
 export default function Navbar() {
   const pathname = usePathname();
-
+  if (pathname?.startsWith("/models/")) {
+    return null;
+  }
   return (
     <div>
       <header

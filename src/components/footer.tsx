@@ -17,6 +17,7 @@ const ImageReveal2 = dynamic(() => import("@/components/imageReveal"), {
 
 export default function Footer() {
   const pathname = usePathname(); // Get current pathname
+
   const isMobile = useMedia("(max-width: 768px)", false); // Move hook to top
 
   const getYear = () => {
@@ -25,6 +26,9 @@ export default function Footer() {
 
   // Don't render footer on homepage
   if (pathname === "/") {
+    return null;
+  }
+  if (pathname?.startsWith("/models/")) {
     return null;
   }
 

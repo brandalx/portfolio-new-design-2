@@ -35,6 +35,11 @@ export default function FeedbackModule() {
     setIsExpanded(false);
   }, [pathname]);
 
+  // Move conditional check after all Hooks
+  if (pathname?.startsWith("/models/") || !isVisible || pathname === "/") {
+    return null;
+  }
+
   if (!isVisible || pathname === "/") return null;
 
   const baseUrl = "design.brandnolandev.com";
