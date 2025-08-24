@@ -95,7 +95,7 @@ export function ImageCard2({ model }) {
   return (
     <div className="group rounded-2xl overflow-hidden dark:shadow-md  bg-white/5 border border-gray-100 dark:border-gray-900  transition-all text-black dark:text-white">
       <Link href={model.href}>
-        <div className="relative w-full h-48" ref={imageRef}>
+        <div className="relative w-full h-[250px]" ref={imageRef}>
           <Image
             src={model.image}
             alt={model.title}
@@ -135,7 +135,9 @@ export function ImageCard2({ model }) {
           <h3 className={unbounded.className + " text-lg font-semibold "}>
             {model.title}
           </h3>
-          <p className="text-sm  line-clamp-3">{model.description}</p>
+          <p className="text-sm dark:text-gray-400 text-gray-600  line-clamp-3">
+            {model.description}
+          </p>
           <div className="flex flex-wrap gap-2 mt-2">
             {model.tags.slice(0, 3).map((tag) => (
               <span
