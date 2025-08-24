@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useMedia } from "react-use";
+import unbounded from "@/lib/fonts";
 
 export function ImageCard2({ model }) {
   const isMobile = useMedia("(max-width: 768px)", false);
@@ -92,7 +93,7 @@ export function ImageCard2({ model }) {
   };
 
   return (
-    <div className="group rounded-2xl overflow-hidden shadow-md bg-white/5 border border-white/10 hover:shadow-lg transition-all">
+    <div className="group rounded-2xl overflow-hidden dark:shadow-md  bg-white/5 border border-gray-100 dark:border-gray-900  transition-all text-black dark:text-white">
       <Link href={model.href}>
         <div className="relative w-full h-48" ref={imageRef}>
           <Image
@@ -109,7 +110,7 @@ export function ImageCard2({ model }) {
               <div className="absolute inset-0 bg-black/10 transition-opacity duration-300 ease-out group-hover:opacity-0"></div>
               <div
                 ref={viewTextRef}
-                className="rounded-full absolute top-0 left-0 bg-black/20 text-white hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase glor-b"
+                className="rounded-full absolute top-0 left-0 bg-black/20  hidden display:block footer-up-button font-semibold px-4 py-2 text-lg pointer-events-none navbarmain md:flex items-center gap-x-2 willchange uppercase glor-b"
                 style={{ willChange: "transform, opacity" }}
               >
                 {currentWord}
@@ -131,23 +132,21 @@ export function ImageCard2({ model }) {
           )}
         </div>
         <div className="p-4 space-y-2">
-          <h3 className="text-lg font-semibold text-white">{model.title}</h3>
-          <p className="text-sm text-gray-300 line-clamp-3">
-            {model.description}
-          </p>
+          <h3 className={unbounded.className + " text-lg font-semibold "}>
+            {model.title}
+          </h3>
+          <p className="text-sm  line-clamp-3">{model.description}</p>
           <div className="flex flex-wrap gap-2 mt-2">
             {model.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="text-xs px-2 py-1 rounded-md bg-white/10 text-gray-200"
+                className="text-xs px-2 py-1 rounded-md bg-white/10 "
               >
                 {tag}
               </span>
             ))}
             {model.tags.length > 3 && (
-              <span className="text-xs text-gray-400">
-                +{model.tags.length - 3}
-              </span>
+              <span className="text-xs ">+{model.tags.length - 3}</span>
             )}
           </div>
         </div>
