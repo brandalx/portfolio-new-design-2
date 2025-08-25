@@ -402,7 +402,7 @@ export default function ModelViewer() {
 
   const planeIframeMap: { [key: string]: string } = {
     SCREEN1: "https://bbcmicro.brandnolandev.com?disc1=bs-badappl.dsd&autoboot",
-    SCREEN2: "https://design.brandnolandev.com",
+    SCREEN2: "https://retro-os.brandnolandev.com",
 
     SCREEN3: "https://office.brandnolandev.com",
   };
