@@ -131,6 +131,30 @@ export const MODELS = [
     featured: true,
   },
   {
+    title: "Alien Romulus 3JS",
+    description:
+      "A chilling Three.js experience set aboard the Renaissance Station from Alien Romulus. This React Three Fiber project immerses you in a sci-fi horror environment where you can explore the station, watch the official trailer inside the 3D scene, and even face-hug yourself. Inspired by the Alien franchise, it uses advanced shaders, custom LUTs for cinematic color grading, post-processing effects (bloom, depth of field, motion blur), and physically accurate reflections and lighting. Built with open-sourced models and atmospheric music, it delivers a suspenseful, film-like 3D experience blending interactivity with cinematic visuals.",
+    href: "models/alien-romulus",
+    image: "/assets/alien-romulus.webp",
+    tags: [
+      "Three.js",
+      "React Three Fiber",
+      "Drei",
+      "JavaScript",
+      "WebGL",
+      "3D Environment",
+      "Interactive Design",
+      "Alien Franchise",
+      "Sci-Fi Horror",
+      "Advanced Shaders",
+      "Postprocessing",
+      "Custom LUTs",
+      "Cinematic Lighting",
+      "Reflections",
+    ],
+    featured: true,
+  },
+  {
     title: "Severance Macrodata Refinement Office",
     description:
       "An immersive Three.js project inspired by the 'Severance' TV show, featuring an authentic recreation of the macrodata refinement office. Built with React Three Fiber and GSAP, this model combines intricate 3D modeling with dynamic animations to create a retro-futuristic environment. Users can engage in an interactive microdata refinement game within the office, complete with realistic lighting, texture mapping, and seamless user interactions. This project captures the eerie, nostalgic aesthetic of the show while showcasing advanced WebGL techniques.",
